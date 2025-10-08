@@ -1,0 +1,248 @@
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+
+:root {
+    --PRIMARY-COLOR: #673b20 ;
+    --LIGHT-PRIMARY: #673b20d9 ;
+    --SECONDARY-COLOR: #d09730;
+    --WHITE: white;
+    --DARK-BG: #333;
+    --DARK-COLOR: gray;
+    --BORDER-COLOR: rgba(128, 128, 128, 0.209);
+    --NAVBAR-COLOR: gray;
+}
+
+ body {
+    min-height: 100vh;
+    font-family: system-ui;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+    "hd hd hd"
+    "sb mn mn"
+    "ft ft ft";
+    /* background-color: var(--DARK-BG);
+    color: var(--DARK-COLOR); */
+ }
+
+ .dark_mode {
+    background-color: var(--DARK-BG);
+    color: var(--DARK-COLOR);
+ }
+
+ .toggle_display {
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+ }
+
+ #light_mode {
+    display: none;
+ }
+
+ li {
+    cursor: pointer;
+ }
+
+ header {
+    grid-area: hd;
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid var(--BORDER-COLOR);
+ }
+
+ header ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    list-style-type: none;
+    gap: 20px;
+    font-weight: 490;
+ }
+
+ .home {
+    color: var(--SECONDARY-COLOR);
+ }
+
+ header img {
+    width: 50px;
+    height: auto;
+ }
+ 
+nav {
+    grid-area: sb;
+    border: 1px solid var(--BORDER-COLOR);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+nav li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: var(--NAVBAR-COLOR);
+    padding: 5px;
+}
+
+#selected_page {
+    background-color: rgb(240, 238, 238);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+ main {
+    grid-area: mn;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+ }
+
+main h1 {
+    color: var(--PRIMARY-COLOR)
+}
+
+.sales_breakdown {
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--BORDER-COLOR);
+    border-radius: 8px;
+}
+
+.sales_header {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: var(--PRIMARY-COLOR);
+    color: var(--SECONDARY-COLOR)
+}
+
+.sales_table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+.table_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--PRIMARY-COLOR);
+    padding: 10px;
+    font-weight: 500;
+}
+ 
+.table_row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--BORDER-COLOR);
+    padding: 10px;
+    font-family:'system-ui';
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.total_revenue {
+    width: 80%;
+    border-left: 4px solid green;
+    padding-left: 10px;
+}
+
+.total_revenue_number{
+    font-size: 2rem;
+    color: green;
+    font-weight: 600;
+}
+
+ footer {
+    grid-area: ft;
+    border: 1px solid var(--BORDER-COLOR);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+ }
+
+ footer ul {
+    display: flex;
+    list-style-type: square;
+    gap:20px;
+ }
+
+ footer li:nth-child(2) {
+    margin-left: 1rem;
+ }
+
+@media (max-width: 500px) {
+
+    body {
+        min-height: 100vh;
+        font-family: system-ui;
+        font-size: 16px;
+        display: grid;
+        grid-template-columns: 1fr 7fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas: 
+        "hd hd hd"
+        "mn mn mn"
+        "ft ft ft";
+    }
+
+    header ul {
+        width: 100%;
+        font-weight: 500;
+    }
+
+    nav {
+        display: none;
+    }
+
+    main h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .sales_breakdown {
+        width: 100%;
+    }
+
+    .total_revenue {
+        margin-top: 3rem;
+    }
+}
