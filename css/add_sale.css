@@ -1,13 +1,23 @@
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap');
+
  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
  }
+/* UTILITY */
+button {
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.9);
+}
 
 :root {
     --PRIMARY-COLOR: #673b20 ;
     --LIGHT-PRIMARY: #673b20d9 ;
-    --SECONDARY-COLOR: #d09730;
+    --SECONDARY-COLOR: #f7ae25;
     --WHITE: white;
     --DARK-BG: #252525;
     --DARK-COLOR: gray;
@@ -17,7 +27,7 @@
 
  body {
     min-height: 100vh;
-    font-family: system-ui;
+    font-family:  "SF Arabic", "Noto Sans Arabic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 16px;
     display: grid;
     grid-template-columns: 1fr 7fr;
@@ -68,7 +78,7 @@
     font-weight: 490;
  }
 
- .home {
+ .add-sale {
     color: var(--SECONDARY-COLOR);
  }
 
@@ -111,76 +121,99 @@ nav li {
     grid-area: mn;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
+    gap: 20px;
  }
 
 main h1 {
     color: var(--PRIMARY-COLOR)
 }
 
-.sales_breakdown {
-    width: 80%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: 1px solid var(--BORDER-COLOR);
-    border-radius: 8px;
+.newsale_container{
+    width: 400px;
+    height: fit-content;
+    border: 2px solid var(--PRIMARY-COLOR);
+    border-radius: 10px;
+    padding: 20px;
 }
 
-.sales_header {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
+.newsale_container h2 {
+    margin-bottom: .7rem;
+}
+
+.newsale_container .caption {
+    color: var(--NAVBAR-COLOR);
+    margin-bottom: 2rem;
+}
+
+.select_item {
     font-weight: 500;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    background-color: var(--PRIMARY-COLOR);
-    color: var(--SECONDARY-COLOR)
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
 }
 
-.sales_table {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
-}
-
-.table_header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--PRIMARY-COLOR);
-    padding: 10px;
-    font-weight: 500;
-}
- 
-.table_row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--BORDER-COLOR);
-    padding: 10px;
-    font-family:'system-ui';
-    font-weight: 700;
+/* #menuItems {
+    width: 300px;
+    margin-block: 1rem;
+    margin-bottom: 2rem;
+    height: 50px;
+    padding: 5px;
+    border-radius: 5px;
     letter-spacing: 1px;
+    font-size: 1.2rem;
+    cursor: pointer;
+} */
+
+
+.choices__list {
+    font-size: 1.1rem;
 }
 
-.total_revenue {
-    width: 80%;
-    border-left: 4px solid green;
-    padding-left: 10px;
-}
-
-.total_revenue_number{
-    font-size: 2rem;
-    color: green;
+.quantity {
     font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.btns_container {
+    margin-block: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.decrement_btn, .increment_btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    background-color: white;
+    border: 2px solid var(--BORDER-COLOR);
+    border-radius: 50%;
+    color: black;
+}
+
+.quantity_input {
+    width: 80px;
+    height: 50px;
+    padding: 5px;
+    margin-inline: 1rem;
+    border-radius: 5px;
+    border: 2px solid var(--BORDER-COLOR);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.add_btn {
+    width: 300px;
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--PRIMARY-COLOR);
+    color: var(--SECONDARY-COLOR);
+    font-size: 1.5rem; 
 }
 
  footer {
@@ -235,14 +268,15 @@ main h1 {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: 20px;
+        gap: 50px;
+        padding-top: 4rem;
     }
 
-    .sales_breakdown {
-        width: 100%;
+    .newsale_container {
+        width: 90%;
     }
 
-    .total_revenue {
-        margin-top: 3rem;
+    .add_btn {
+        width: 90%;
     }
 }

@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AZ Sales tracker</title>
     <link rel="icon" href="images/logo_outline_svg.svg" />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/add_sale.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <script src="js/add_sale.js" defer></script>
   </head>
   <body>
     <header>
@@ -18,8 +23,10 @@
             height="50"
           />
         </li>
-        <li class="home">Home</li>
-        <li onclick="window.location.href='add_sale.html'">Add Sale</li>
+        <li onclick="window.location.href='index.html'" class="home">Home</li>
+        <li onclick="window.location.href='index.html'" class="add-sale">
+          Add Sale
+        </li>
         <li onclick="window.location.href='summary.html'">Summary</li>
       </ul>
       <svg
@@ -52,7 +59,7 @@
 
     <nav class="side_bar">
       <ul>
-        <li id="selected_page">
+        <li onclick="window.location.href='index.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -66,7 +73,7 @@
           </svg>
           Home
         </li>
-        <li onclick="window.location.href='add_sale.html'">
+        <li id="selected_page">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -134,48 +141,33 @@
 
     <main>
       <!-- Content -->
-      <h1>Wednesday, October 8, 2025</h1>
+      <h1>Friday , October 10, 2025</h1>
 
-      <div class="sales_breakdown">
-        <div class="sales_header">Today's Sales Breakdown</div>
-        <div class="sales_table">
-          <div class="table_header">
-            <p>ITEM NAME</p>
-            <p>QUANTITY</p>
-            <p>REVENUE</p>
-          </div>
-          <div class="table_row">
-            <p>Tiga Dege</p>
-            <p>5</p>
-            <p>105 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>Bisamp</p>
-            <p>15</p>
-            <p>75 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>Sandwitch</p>
-            <p>7</p>
-            <p>70 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>Fakoy</p>
-            <p>9</p>
-            <p>315 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>The</p>
-            <p>12</p>
-            <p>60 MAD</p>
-          </div>
+      <div class="newsale_container">
+        <h2>Record New Sale</h2>
+        <p class="caption">Select an item and quantity to add a new sale.</p>
+        <p class="select_item">Select Menu Item</p>
+        <select name="menu" id="menuItems">
+          <option value="bisap">Bisap</option>
+          <option value="tigadege">TigaDege</option>
+          <option value="the">The</option>
+          <option value="cafe">Cafe</option>
+          <option value="sandwitch">Sandwitch</option>
+        </select>
+
+        <p class="quantity">Quantity</p>
+        <div class="btns_container">
+          <button id="decrement_btn" class="decrement_btn">-</button>
+          <input
+            id="quantity_input"
+            class="quantity_input"
+            type="number"
+            value="1"
+          />
+          <button id="increment_btn" class="increment_btn">+</button>
         </div>
-      </div>
 
-      <div class="total_revenue">
-        <p style="font-size: 1.2rem; font-weight: 500">Total Daily Revenue</p>
-        <p class="total_revenue_number">625 MAD</p>
-        <p style="color: gray">Revenue generated today.</p>
+        <button class="add_btn">Add Sale</button>
       </div>
     </main>
 
@@ -186,21 +178,6 @@
       </ul>
     </footer>
   </body>
-  <script>
-    document.getElementById("dark_mode").onclick = () => {
-      document.getElementById("dark_mode").style.display = "none";
-      document.getElementById("light_mode").style.display = "block";
-      document.body.classList.add("dark_mode");
-      document.getElementById("selected_page").style.backgroundColor =
-        "rgb(76, 75, 75)";
-    };
 
-    document.getElementById("light_mode").onclick = () => {
-      document.getElementById("light_mode").style.display = "none";
-      document.getElementById("dark_mode").style.display = "block";
-      document.body.classList.remove("dark_mode");
-      document.getElementById("selected_page").style.backgroundColor =
-        "rgb(240, 238, 238)";
-    };
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 </html>

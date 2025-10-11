@@ -3,11 +3,19 @@
     padding: 0;
     box-sizing: border-box;
  }
+/* UTILITY */
+button {
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.9);
+}
 
 :root {
     --PRIMARY-COLOR: #673b20 ;
     --LIGHT-PRIMARY: #673b20d9 ;
-    --SECONDARY-COLOR: #d09730;
+    --SECONDARY-COLOR: #f7ae25;
     --WHITE: white;
     --DARK-BG: #252525;
     --DARK-COLOR: gray;
@@ -68,7 +76,7 @@
     font-weight: 490;
  }
 
- .home {
+ .summary {
     color: var(--SECONDARY-COLOR);
  }
 
@@ -111,77 +119,16 @@ nav li {
     grid-area: mn;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
+    gap: 20px;
  }
 
-main h1 {
+main h1,main h2 {
     color: var(--PRIMARY-COLOR)
 }
 
-.sales_breakdown {
-    width: 80%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: 1px solid var(--BORDER-COLOR);
-    border-radius: 8px;
-}
-
-.sales_header {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    font-weight: 500;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    background-color: var(--PRIMARY-COLOR);
-    color: var(--SECONDARY-COLOR)
-}
-
-.sales_table {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
-}
-
-.table_header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--PRIMARY-COLOR);
-    padding: 10px;
-    font-weight: 500;
-}
- 
-.table_row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--BORDER-COLOR);
-    padding: 10px;
-    font-family:'system-ui';
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.total_revenue {
-    width: 80%;
-    border-left: 4px solid green;
-    padding-left: 10px;
-}
-
-.total_revenue_number{
-    font-size: 2rem;
-    color: green;
-    font-weight: 600;
-}
 
  footer {
     grid-area: ft;
@@ -235,14 +182,15 @@ main h1 {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: 20px;
+        gap: 50px;
+        padding-top: 4rem;
     }
 
-    .sales_breakdown {
-        width: 100%;
+    .newsale_container {
+        width: 90%;
     }
 
-    .total_revenue {
-        margin-top: 3rem;
+    .add_btn {
+        width: 90%;
     }
 }

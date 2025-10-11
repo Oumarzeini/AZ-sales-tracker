@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AZ Sales tracker</title>
     <link rel="icon" href="images/logo_outline_svg.svg" />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/summary.css" />
   </head>
   <body>
     <header>
@@ -18,9 +18,9 @@
             height="50"
           />
         </li>
-        <li class="home">Home</li>
+        <li onclick="window.location.href='index.html'" class="home">Home</li>
         <li onclick="window.location.href='add_sale.html'">Add Sale</li>
-        <li onclick="window.location.href='summary.html'">Summary</li>
+        <li class="summary">Summary</li>
       </ul>
       <svg
         id="dark_mode"
@@ -52,7 +52,7 @@
 
     <nav class="side_bar">
       <ul>
-        <li id="selected_page">
+        <li onclick="window.location.href='index.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -92,7 +92,7 @@
           </svg>
           Add Sale
         </li>
-        <li onclick="window.location.href='summary.html'">
+        <li id="selected_page">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -136,47 +136,7 @@
       <!-- Content -->
       <h1>Wednesday, October 8, 2025</h1>
 
-      <div class="sales_breakdown">
-        <div class="sales_header">Today's Sales Breakdown</div>
-        <div class="sales_table">
-          <div class="table_header">
-            <p>ITEM NAME</p>
-            <p>QUANTITY</p>
-            <p>REVENUE</p>
-          </div>
-          <div class="table_row">
-            <p>Tiga Dege</p>
-            <p>5</p>
-            <p>105 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>Bisamp</p>
-            <p>15</p>
-            <p>75 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>Sandwitch</p>
-            <p>7</p>
-            <p>70 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>Fakoy</p>
-            <p>9</p>
-            <p>315 MAD</p>
-          </div>
-          <div class="table_row">
-            <p>The</p>
-            <p>12</p>
-            <p>60 MAD</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="total_revenue">
-        <p style="font-size: 1.2rem; font-weight: 500">Total Daily Revenue</p>
-        <p class="total_revenue_number">625 MAD</p>
-        <p style="color: gray">Revenue generated today.</p>
-      </div>
+      <h2>Summary Details</h2>
     </main>
 
     <footer>
