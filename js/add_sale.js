@@ -1,12 +1,22 @@
 import { supabase } from "./config.js";
+
+// GLOBAL VARIABLES
 const addSaleBtn = document.getElementById("addSaleBtn");
 const selectMenu = document.getElementById("menuItems");
 const incrementBtn = document.getElementById("increment_btn");
 const decrementBtn = document.getElementById("decrement_btn");
 let quantityInput = document.getElementById("quantity_input");
+const newItemBtn = document.getElementById("newItem");
+const cancelBtn = document.getElementById("cancelBtn");
+const overlay = document.getElementById("overlay");
+const newItemBox = document.getElementById("newItemBox");
+const body = document.body;
+const newItemForm = document.getElementById("newItemForm");
 let currentBusinessDayId = null;
+
+// SVG'S
 const successSvg = `<svg
-        height=""
+        height="25"
         width="25"
         viewBox="0 0 512 512"
         xmlns="http://www.w3.org/2000/svg"
@@ -32,9 +42,11 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 	<path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
 </svg>`;
 
+// DATE DISPLAY
 const date = new Date().toDateString();
 document.getElementById("dateDisplay").textContent = date;
 
+// QUANTITY INPUT HANDLING
 decrementBtn.onclick = () => {
   if (quantityInput.value >= 2) {
     quantityInput.value--;
@@ -46,6 +58,8 @@ decrementBtn.onclick = () => {
 incrementBtn.onclick = () => {
   quantityInput.value++;
 };
+
+// DISPLAY HANDLING
 
 document.getElementById("dark_mode").onclick = () => {
   document.getElementById("dark_mode").style.display = "none";
@@ -63,6 +77,7 @@ document.getElementById("light_mode").onclick = () => {
     "rgb(240, 238, 238)";
 };
 
+// DOM AND DATA FUNCTIONS
 const choices = new Choices(selectMenu, {
   placeholder: true,
   placeholderValue: "Select an item",
@@ -280,6 +295,80 @@ const showNotif = (text, icon) => {
   }, 3300);
 };
 
+newItemBtn.onclick = async () => {
+  overlay.style.display = "block";
+  newItemBox.style.display = "flex";
+  body.style.overflow = "hidden";
+};
+
+cancelBtn.onclick = () => {
+  overlay.style.display = "none";
+  newItemBox.style.display = "none";
+  body.style.overflow = "auto";
+};
+
+newItemForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const itemName = document
+    .getElementById("itemName")
+    .value.trim()
+    .toLowerCase();
+  const itemPrice = document.getElementById("itemPrice").value.trim();
+
+  if (
+    !itemName ||
+    !itemPrice ||
+    document.getElementById("itemPrice").value < 1
+  ) {
+    showNotif(
+      "Please add item name and a price that's not lower than 1",
+      infoSvg
+    );
+    document.getElementById("itemName").value = "";
+    document.getElementById("itemPrice").value = "";
+    return;
+  }
+
+  await insertNewItem(itemName, itemPrice);
+  overlay.style.display = "none";
+  newItemBox.style.display = "none";
+  body.style.overflow = "auto";
+
+  document.getElementById("itemName").value = "";
+  document.getElementById("itemPrice").value = "";
+});
+
+const insertNewItem = async (item, price) => {
+  const { data: sale, error } = await supabase
+    .from("items")
+    .insert([{ name: item, price: price }]);
+  if (error) {
+    if (error.message.includes("duplicate key")) {
+      showNotif("Can't add existing items", failedSvg);
+      return;
+    }
+    console.log("Error inserting manually ", error.message);
+    showNotif("An Error occured! , Please try again.", failedSvg);
+    return;
+  } else {
+    showNotif("Item added Successfully!", successSvg);
+  }
+};
+
+const subscribeToItemsUpdate = () => {
+  const channel = supabase
+    .channel("items_updates")
+    .on(
+      "postgres_changes",
+      { event: "INSERT", schema: "public", table: "items" },
+      (payload) => {
+        fetchItems();
+      }
+    )
+    .subscribe();
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   await checkOrCreateBusinessDay();
+  subscribeToItemsUpdate();
 });

@@ -20,8 +20,8 @@ button:active {
     --SECONDARY-COLOR: #d09730;
     --LIGHT-SECONDARY: #f7ae25 ;
     --WHITE: white;
-    --DARK-BG: #252525;
-    --DARK-COLOR: gray;
+    --DARK-BG: #251f35;
+    --DARK-COLOR: #b8b2c3;
     --BORDER-COLOR: rgba(128, 128, 128, 0.209);
     --NAVBAR-COLOR: gray;
 }
@@ -39,6 +39,15 @@ button:active {
     "ft ft ft";
     /* background-color: var(--DARK-BG);
     color: var(--DARK-COLOR); */
+ }
+
+ .overlay {
+    background-color: rgba(0, 0, 0, 0.291);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
  }
 
  .dark_mode {
@@ -120,17 +129,107 @@ nav li {
 
  main {
     grid-area: mn;
-    padding: 20px;
+   
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
+    position: relative;
+    margin: 0;
  }
 
 main h1 {
     color: var(--PRIMARY-COLOR)
 }
+
+.new_item {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: var(--PRIMARY-COLOR);
+    color: var(--LIGHT-SECONDARY);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+.new_item_box {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    background-color: var(--WHITE);
+    width: fit-content;
+    height: auto;
+    border: 1px solid var(--BORDER-COLOR);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+
+.new_item_box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input_label_div {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+
+   /* LABELS */
+   & label {
+      font-weight: 500;
+      color: var(--PRIMARY-COLOR);
+   }
+
+   /* INPUTS */
+   & input {
+    width: 300px;
+      padding: 10px;
+      border-radius: 6px;
+      outline: none;
+      border: 2px solid var(--BORDER-COLOR);
+      font-size: 1rem;
+   }
+
+   & input:focus {
+      outline: 1px solid var(--PRIMARY-COLOR);
+   }
+}
+
+.btns_div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+
+    & button {
+        padding: 5px 8px;
+        letter-spacing: 1px;
+        font-size: 1rem;
+        border-radius: 5px;
+    }
+}
+
+.cancel_btn {
+    color: black;
+    border: 1px solid var(--BORDER-COLOR);
+    background-color: transparent;
+}
+
+.submit_btn {
+    border: none;
+    background-color: var(--PRIMARY-COLOR);
+    color: var(--LIGHT-SECONDARY);
+}
+
 
 .newsale_container{
     width: 400px;
@@ -252,6 +351,7 @@ main h1 {
    max-height: 30px; 
    transition: all 0.3s linear;
    border-left: 5px solid var(--LIGHT-SECONDARY);
+   z-index: 100;
 }
 
 .show_notif {
@@ -281,7 +381,7 @@ main h1 {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 500px) and (max-width: 800px) {
 
     body {
         min-height: 100vh;
@@ -329,18 +429,41 @@ main h1 {
     .notif_container {
         top: 10%;
     }
+
+    .new_item {
+        font-size: 1rem;
+        padding: 5px 8px;
+    }
+
+    .new_item_box {
+        top: 30%;
+        left: 15%;
+        width:300px;
+    }
+
+    .input_label_div {
+        gap: 10px;
+        & input {
+            width: 200px;
+        }
+    }
 }
 
 @media (min-width: 700px)  and (max-width: 770px) {
     .newsale_container {
-        height: 550px;
+        margin-top: 3rem;
     }
 
     .quantity {
         margin-top: 4rem;
     }
 
+    .new_item_box {
+        left: 30%;
+    }
+
     .add_btn {
         margin-top: 3rem;
+        margin-bottom: 1rem;
     }
 }

@@ -10,8 +10,8 @@
     --SECONDARY-COLOR: #d09730;
     --LIGHT-SECONDARY: #f7ae25 ;
     --WHITE: white;
-    --DARK-BG: #252525;
-    --DARK-COLOR: gray;
+   --DARK-BG: #251f35;
+    --DARK-COLOR: #b8b2c3;
     --BORDER-COLOR: rgba(128, 128, 128, 0.209);
     --NAVBAR-COLOR: gray;
 }
@@ -133,6 +133,15 @@ main h1 {
     border-radius: 8px;
 }
 
+.sales_breakdown::-webkit-scrollbar {
+    width: 2px;
+}
+
+.sales_breakdown::-webkit-scrollbar-thumb {
+    background-color: var(--SECONDARY-COLOR);
+    border-radius: 15px;
+}
+
 .sales_header {
     width: 100%;
     padding: 10px;
@@ -171,9 +180,8 @@ main h1 {
  
 .table_row {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
     border-top: 1px solid var(--BORDER-COLOR);
     padding: 10px;
     font-family:'system-ui';

@@ -6,7 +6,7 @@
     <title>AZ Sales tracker</title>
     <link rel="icon" href="images/logo_outline_svg.svg" />
     <link rel="stylesheet" href="css/summary.css" />
-    <script src="js/summary.js" defer></script>
+    <script type="module" src="js/summary.js" defer></script>
   </head>
   <body>
     <header>
@@ -145,7 +145,76 @@
       <!-- Content -->
       <h1 id="dateDisplay"></h1>
 
-      <h2>Summary Details</h2>
+      <div class="container">
+        <div class="box">
+          <p class="title most_sold">
+            Most sold
+            <svg
+              height="30"
+              width="30"
+              viewBox="0 0 2048 2048"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2048 384v640h-128V603l-768 768l-384-384l-675 674l-90-90l765-766l384 384l677-677h-421V384h640z"
+                fill="currentColor"
+              />
+            </svg>
+          </p>
+          <p id="mostSold">Loading...</p>
+        </div>
+        <div class="box">
+          <p class="title less_sold">
+            Least sold
+            <svg
+              height="30"
+              width="30"
+              viewBox="0 0 2048 2048"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1920 1024h128v640h-640v-128h421l-677-677l-384 384L3 477l90-90l675 674l384-384l768 768v-421z"
+                fill="currentColor"
+              />
+            </svg>
+          </p>
+          <p id="leastSold">Loading...</p>
+        </div>
+        <div class="box">
+          <p class="title total_revenue">
+            Total revenue
+            <svg
+              height="30"
+              width="30"
+              viewBox="0 0 64 64"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M61.9 44.8c-1.1-3.4-4.7-5.3-8.1-4.4l-12.1 2.9c-.3-2.9-2.6-5.3-5.8-5.8H23.1c-1-1.5-2.6-2.5-4.6-2.5H8c-3.4 0-6.3 2.8-6.3 6.3v12.4C1.7 57.1 4.5 60 8 60h10.5c1.5 0 3-.6 4-1.7c.2-.2.3-.4.5-.6c2.9 1.4 6 2.2 9.1 2.2c1.9 0 3.8-.3 5.6-.8L53 54.5l4.3-1.3c1.7-.5 3.2-1.6 4.1-3.2c.9-1.5 1.1-3.4.5-5.2M19.3 54.9c-.2.2-.5.3-.8.3H8c-1 0-1.8-.8-1.8-1.8V41.1c0-1 .8-1.8 1.8-1.8h10.7c.5 0 .9.4.9.9v14c0 .4-.2.6-.3.7m38.2-7c-.3.5-.7.9-1.3 1l-4.4 1.3l-15.2 4.3c-3.9 1.1-8 .7-11.6-1.1l-.9-.5v-11h11.5c1.1.2 1.8 1 1.8 1.9v.5l-3.4.8c-1.2.3-2 1.5-1.7 2.7s1.5 2 2.7 1.7l20-4.8c1.1-.3 2.3.3 2.7 1.4c.1.6.1 1.3-.2 1.8M47.3 21.5h5.1c1.5 0 2.8 1.3 2.8 2.8s-1.3 2.8-2.8 2.8h-7.7c-1.2 0-2.3 1-2.3 2.3s1 2.3 2.3 2.3h2.8v.3c0 1.2 1 2.3 2.3 2.3s2.3-1 2.3-2.3v-.3h.3c4 0 7.3-3.3 7.3-7.3s-3.3-7.3-7.3-7.3h-5.1c-1.5 0-2.8-1.3-2.8-2.8s1.3-2.8 2.8-2.8h7.6c1.2 0 2.3-1 2.3-2.3s-1-2.3-2.3-2.3h-2.8v-.4c0-1.2-1-2.3-2.3-2.3s-2.3 1-2.3 2.3v.3h-.3c-4 0-7.3 3.3-7.3 7.3c.1 4.1 3.4 7.4 7.4 7.4"
+                fill="currentColor"
+              />
+            </svg>
+          </p>
+          <p id="totalRevenue">Loading...</p>
+        </div>
+        <div class="box">
+          <p class="title net_profit">
+            Net profit
+            <svg
+              height="30"
+              width="30"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18.78 19.5v79.656c44.684 5.582 81.517 24.966 116.657 47.156l-24.75 20.063L212.47 218.28L184.53 106.5l-25.905 21c-20.225-40.01-42.778-77.73-72.75-108H18.78zm277.376 0c-15.624 28.765-29.207 58.126-41.78 88.156l-30.19-6.406l25.94 112.25l67.06-92.5l-29.592-6.28c33.29-34.747 67.597-67.793 108.062-95.22h-99.5zm197.5 93.844c-37.988 2.482-72.04 19.677-105.03 40.906l-12.47-32.53l-80.062 82.843l114.094 5.937l-13.25-34.563c32.24-.934 64.478 1.827 96.718 21.375v-83.968zm-194.03 128.03c-5.28.12-10.21 2.416-16.938 9.595l-6.563 6.968l-6.813-6.72c-7.387-7.28-13.216-9.29-19.125-9.03c-5.908.26-12.855 3.367-20.625 9.656l-6.218 5.03l-5.906-5.374c-8.9-8.052-16.485-10.438-23.75-10.063c-5.288.274-10.775 2.266-16.25 5.75l40.968 73.688c15.454 9.452 47.033 13.007 68.75 2.063l39.594-73.344c-7.51-3.062-14.26-6.202-20.094-7.406c-2.112-.437-4.072-.756-5.97-.813a20.81 20.81 0 0 0-1.06 0zm-89.97 96.19c-18.035 12.742-32.516 34.718-38.125 66.905c-5.435 31.196 3.128 52.265 18.282 66.624c15.155 14.36 37.902 21.737 61 21.437c23.1-.3 46.136-8.31 61.625-22.936c15.49-14.627 24.25-35.426 19.282-65.188c-5.137-30.757-18.4-52.148-35.19-65.094c-28.482 15.056-64.094 11.856-86.874-1.75z"
+                fill="currentColor"
+              />
+            </svg>
+          </p>
+          <p id="netProfit">Not tracked yet.</p>
+        </div>
+      </div>
     </main>
 
     <footer>
@@ -154,6 +223,14 @@
         <li>About</li>
       </ul>
     </footer>
+
+    <div id="notifContainer" class="notif_container">
+      <div id="svgContainer" class="svg_container"></div>
+
+      <p id="notifText" class="notif_text"></p>
+
+      <div id="progress_bar" class="progress"></div>
+    </div>
   </body>
   <script>
     document.getElementById("dark_mode").onclick = () => {

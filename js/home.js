@@ -108,7 +108,7 @@ const fetchSalesSummary = async () => {
   salesSummary.forEach((sale) => {
     const rowDiv = document.createElement("div");
     rowDiv.classList.add("table_row");
-    rowDiv.innerHTML = `<p>${sale.name}</p> <p>${sale.quantity}</p> <p>${sale.revenue}</p>`;
+    rowDiv.innerHTML = `<p>${sale.name}</p> <p>${sale.quantity}</p> <p style="text-align: right;">${sale.revenue}</p>`;
 
     salesTable.append(rowDiv);
   });

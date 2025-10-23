@@ -155,6 +155,8 @@
       <!-- Content -->
       <h1 id="dateDisplay"></h1>
 
+      <button class="new_item" id="newItem">New Item</button>
+
       <div class="newsale_container">
         <h2>Record New Sale</h2>
         <p class="caption">Select an item and quantity to add a new sale.</p>
@@ -191,6 +193,27 @@
       <p id="notifText" class="notif_text"></p>
 
       <div id="progress_bar" class="progress"></div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div id="newItemBox" class="new_item_box">
+      <form id="newItemForm">
+        <div class="input_label_div">
+          <label for="itemName">Item name</label>
+          <input type="text" id="itemName" placeholder="ex: rice" required />
+        </div>
+
+        <div class="input_label_div">
+          <label for="itemPrice">Item price</label>
+          <input type="number" id="itemPrice" placeholder="ex: 30" required />
+        </div>
+
+        <div class="btns_div">
+          <button id="cancelBtn" class="cancel_btn">Cancel</button>
+          <button class="submit_btn" type="submit">Submit</button>
+        </div>
+      </form>
     </div>
   </body>
 
