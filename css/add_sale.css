@@ -17,7 +17,8 @@ button:active {
 :root {
     --PRIMARY-COLOR: #673b20 ;
     --LIGHT-PRIMARY: #673b20d9 ;
-    --SECONDARY-COLOR: #f7ae25;
+    --SECONDARY-COLOR: #d09730;
+    --LIGHT-SECONDARY: #f7ae25 ;
     --WHITE: white;
     --DARK-BG: #252525;
     --DARK-COLOR: gray;
@@ -235,6 +236,51 @@ main h1 {
     margin-left: 1rem;
  }
 
+ .notif_container {
+   position: fixed;
+   bottom: 5%;
+   right: -100%;
+   background-color: var(--PRIMARY-COLOR);
+   color: var(--LIGHT-SECONDARY);
+   display: flex;
+   align-items: center;
+   padding: 20px;
+   padding-bottom: 25px;
+   border-radius: 8px;
+   gap: 20px;
+   width: fit-content;
+   max-height: 30px; 
+   transition: all 0.3s linear;
+   border-left: 5px solid var(--LIGHT-SECONDARY);
+}
+
+.show_notif {
+   display: inline-flex;
+   right: 5%;
+   transition: right 0.3s linear ;
+}
+
+.svg_container {
+    display: grid;
+    place-content: center;
+}
+
+.progress {
+   width: 0;
+   height: 4px;
+   background-color: var(--SECONDARY-COLOR);
+   position: absolute;
+   bottom: 0;
+   left: 10px ;
+   border-radius: 10px;
+}
+
+.move {
+   width: 93%;
+   transition: width 3s linear;
+}
+
+
 @media (max-width: 500px) {
 
     body {
@@ -278,5 +324,23 @@ main h1 {
 
     .add_btn {
         width: 90%;
+    }
+
+    .notif_container {
+        top: 10%;
+    }
+}
+
+@media (min-width: 700px)  and (max-width: 770px) {
+    .newsale_container {
+        height: 550px;
+    }
+
+    .quantity {
+        margin-top: 4rem;
+    }
+
+    .add_btn {
+        margin-top: 3rem;
     }
 }

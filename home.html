@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AZ Sales tracker</title>
     <link rel="icon" href="images/logo_outline_svg.svg" />
-    <link rel="stylesheet" href="css/add_sale.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
-    />
-    <script type="module" src="js/add_sale.js" defer></script>
+    <link rel="stylesheet" href="css/home.css" />
+    <script type="module" src="js/home.js" defer></script>
   </head>
   <body>
     <header>
@@ -23,18 +19,8 @@
             height="50"
           />
         </li>
-        <li
-          role="button"
-          onclick="window.location.href='home.html'"
-          class="home"
-        >
-          Home
-        </li>
-        <li
-          role="button"
-          onclick="window.location.href='add_sale.html'"
-          class="add-sale"
-        >
+        <li role="button" class="home">Home</li>
+        <li role="button" onclick="window.location.href='add_sale.html'">
           Add Sale
         </li>
         <li role="button" onclick="window.location.href='summary.html'">
@@ -71,7 +57,7 @@
 
     <nav class="side_bar">
       <ul>
-        <li role="button" onclick="window.location.href='home.html'">
+        <li role="button" id="selected_page">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -85,7 +71,7 @@
           </svg>
           Home
         </li>
-        <li role="button" id="selected_page">
+        <li role="button" onclick="window.location.href='add_sale.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -155,26 +141,20 @@
       <!-- Content -->
       <h1 id="dateDisplay"></h1>
 
-      <div class="newsale_container">
-        <h2>Record New Sale</h2>
-        <p class="caption">Select an item and quantity to add a new sale.</p>
-        <p class="select_item">Select Menu Item</p>
-
-        <select name="menu" id="menuItems"></select>
-
-        <p class="quantity">Quantity</p>
-        <div class="btns_container">
-          <button id="decrement_btn" class="decrement_btn">-</button>
-          <input
-            id="quantity_input"
-            class="quantity_input"
-            type="number"
-            value="1"
-          />
-          <button id="increment_btn" class="increment_btn">+</button>
+      <div class="sales_breakdown">
+        <div class="sales_header">Today's Sales Breakdown</div>
+        <div class="table_header">
+          <p>ITEM NAME</p>
+          <p>QUANTITY</p>
+          <p>REVENUE</p>
         </div>
+        <div id="salesTable" class="sales_table"></div>
+      </div>
 
-        <button id="addSaleBtn" class="add_btn">Add Sale</button>
+      <div class="total_revenue">
+        <p style="font-size: 1.2rem; font-weight: 500">Total Daily Revenue</p>
+        <p id="totalRevenueDisplay" class="total_revenue_number">0 MAD</p>
+        <p style="color: gray">Revenue generated today.</p>
       </div>
     </main>
 
@@ -193,6 +173,4 @@
       <div id="progress_bar" class="progress"></div>
     </div>
   </body>
-
-  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 </html>

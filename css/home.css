@@ -3,20 +3,12 @@
     padding: 0;
     box-sizing: border-box;
  }
-/* UTILITY */
-button {
-    cursor: pointer;
-}
-
-button:active {
-    transform: scale(0.9);
-}
 
 :root {
     --PRIMARY-COLOR: #673b20 ;
     --LIGHT-PRIMARY: #673b20d9 ;
-    --SECONDARY-COLOR:  #d09730;
-    --LIGHT-SECONDARY: #f7ae25;
+    --SECONDARY-COLOR: #d09730;
+    --LIGHT-SECONDARY: #f7ae25 ;
     --WHITE: white;
     --DARK-BG: #252525;
     --DARK-COLOR: gray;
@@ -74,10 +66,10 @@ button:active {
     align-items: center;
     list-style-type: none;
     gap: 20px;
-    font-weight: 500;
+    font-weight: 490;
  }
 
- .summary {
+ .home {
     color: var(--SECONDARY-COLOR);
  }
 
@@ -120,16 +112,87 @@ nav li {
     grid-area: mn;
     padding: 20px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
  }
 
-main h1,main h2 {
+main h1 {
     color: var(--PRIMARY-COLOR)
 }
 
+.sales_breakdown {
+    width: 80%;
+    max-height: 380px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--BORDER-COLOR);
+    border-radius: 8px;
+}
+
+.sales_header {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: var(--PRIMARY-COLOR);
+    color: var(--SECONDARY-COLOR)
+}
+
+.sales_table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+.table_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--PRIMARY-COLOR);
+    padding-inline: 15px;
+    font-weight: 500;
+}
+
+.noItemsFeedback {
+    color: var(--PRIMARY-COLOR);
+    margin-block: 3rem;
+    text-align: center;
+    font-weight: 500;
+}
+ 
+.table_row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--BORDER-COLOR);
+    padding: 10px;
+    font-family:'system-ui';
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.total_revenue {
+    width: 80%;
+    border-left: 4px solid green;
+    padding-left: 10px;
+    margin-top: auto;
+}
+
+.total_revenue_number{
+    font-size: 2rem;
+    color: green;
+    font-weight: 600;
+}
 
  footer {
     grid-area: ft;
@@ -140,15 +203,60 @@ main h1,main h2 {
     padding: 10px;
  }
 
- footer ul {
+footer ul {
     display: flex;
-    list-style-type: square;
+    list-style-type: square ;
     gap:20px;
  }
 
  footer li:nth-child(2) {
     margin-left: 1rem;
  }
+
+ .notif_container {
+   position: fixed;
+   bottom: 5%;
+   right: -100%;
+   background-color: var(--PRIMARY-COLOR);
+   color: var(--LIGHT-SECONDARY);
+   display: flex;
+   align-items: center;
+   padding: 20px;
+   padding-bottom: 25px;
+   border-radius: 8px;
+   gap: 20px;
+   width: fit-content;
+   max-height: 30px; 
+   transition: all 0.3s linear;
+   border-left: 5px solid var(--LIGHT-SECONDARY);
+}
+
+.show_notif {
+   display: inline-flex;
+   right: 5%;
+   transition: right 0.3s linear ;
+}
+
+.svg_container {
+    display: grid;
+    place-content: center;
+}
+
+.progress {
+   width: 0;
+   height: 4px;
+   background-color: var(--SECONDARY-COLOR);
+   position: absolute;
+   bottom: 0;
+   left: 10px ;
+   border-radius: 10px;
+}
+
+.move {
+   width: 93%;
+   transition: width 3s linear;
+}
+
 
 @media (max-width: 500px) {
 
@@ -183,15 +291,30 @@ main h1,main h2 {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: 50px;
-        padding-top: 4rem;
+        gap: 20px;
     }
 
-    .newsale_container {
+    .sales_breakdown {
+        width: 100%;
+        max-height: 400px;
+    }
+
+    .total_revenue {
+        margin-top: 3rem;
+    }
+
+    .notif_container {
+        top: 10%;
+    }
+}
+
+@media (min-width: 700px)  and (max-width: 770px) {
+    .sales_breakdown {
         width: 90%;
     }
 
-    .add_btn {
+    .total_revenue {
+        margin-top: 5rem;
         width: 90%;
     }
 }

@@ -6,11 +6,12 @@
     <title>AZ Sales tracker</title>
     <link rel="icon" href="images/logo_outline_svg.svg" />
     <link rel="stylesheet" href="css/summary.css" />
+    <script src="js/summary.js" defer></script>
   </head>
   <body>
     <header>
       <ul>
-        <li>
+        <li role="button">
           <img
             src="images/logo_outline.png"
             alt="logo image"
@@ -18,9 +19,17 @@
             height="50"
           />
         </li>
-        <li onclick="window.location.href='index.html'" class="home">Home</li>
-        <li onclick="window.location.href='add_sale.html'">Add Sale</li>
-        <li class="summary">Summary</li>
+        <li
+          role="button"
+          onclick="window.location.href='home.html'"
+          class="home"
+        >
+          Home
+        </li>
+        <li role="button" onclick="window.location.href='add_sale.html'">
+          Add Sale
+        </li>
+        <li role="button" class="summary">Summary</li>
       </ul>
       <svg
         id="dark_mode"
@@ -52,7 +61,7 @@
 
     <nav class="side_bar">
       <ul>
-        <li onclick="window.location.href='index.html'">
+        <li role="button" onclick="window.location.href='home.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -66,7 +75,7 @@
           </svg>
           Home
         </li>
-        <li onclick="window.location.href='add_sale.html'">
+        <li role="button" onclick="window.location.href='add_sale.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -92,7 +101,7 @@
           </svg>
           Add Sale
         </li>
-        <li id="selected_page">
+        <li role="button" id="selected_page">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -134,7 +143,7 @@
 
     <main>
       <!-- Content -->
-      <h1>Wednesday, October 8, 2025</h1>
+      <h1 id="dateDisplay"></h1>
 
       <h2>Summary Details</h2>
     </main>
