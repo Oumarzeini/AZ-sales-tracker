@@ -88,10 +88,10 @@ const fetchSummary = async () => {
 
   document.getElementById(
     "mostSold"
-  ).textContent = ` ${mostSold.name} : ${mostSold.quantity}`;
+  ).textContent = ` ${mostSold.name.toUpperCase()} : ${mostSold.quantity}`;
   document.getElementById(
     "leastSold"
-  ).textContent = ` ${leastSold.name} : ${leastSold.quantity}`;
+  ).textContent = ` ${leastSold.name.toUpperCase()} : ${leastSold.quantity}`;
   document.getElementById("totalRevenue").textContent = ` ${totalRevenue} MAD`;
 };
 
