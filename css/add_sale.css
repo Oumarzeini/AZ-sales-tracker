@@ -171,6 +171,26 @@ main h1 {
     display: none;
 }
 
+.dark_box {
+    background-color: var(--DARK-BG);
+    color: var(--DARK-COLOR);
+    & form input {
+        background-color: var(--DARK-BG);
+    color: var(--DARK-COLOR);
+    border: 1px solid var(--DARK-COLOR);
+    }
+
+    & form button {
+        background-color: var(--DARK-BG);
+    color: var(--DARK-COLOR);
+    border: 1px solid var(--DARK-COLOR);
+    }
+
+    & form label {
+        color: var(--DARK-COLOR);
+    }
+}
+
 .new_item_box form {
     display: flex;
     flex-direction: column;
@@ -269,6 +289,7 @@ main h1 {
 
 .choices__list {
     font-size: 1.1rem;
+
 }
 
 .quantity {
@@ -379,6 +400,12 @@ main h1 {
    width: 93%;
    transition: width 3s linear;
 }
+
+ .dark_mode {
+    background-color: var(--DARK-BG) !important;
+    color: var(--DARK-COLOR) !important;
+ }
+
 
 
 @media (max-width: 500px) and (max-width: 800px) {

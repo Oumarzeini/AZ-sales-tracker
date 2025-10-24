@@ -28,24 +28,40 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 
 let activeDayId = null;
 
-const handleDisplay = () => {
+const addDarkMode = () => {
+  document.getElementById("dark_mode").style.display = "none";
+  document.getElementById("light_mode").style.display = "block";
+  document.body.classList.add("dark_mode");
+  document.getElementById("selected_page").style.backgroundColor =
+    "rgb(76, 75, 75)";
+};
+
+const addLightMode = () => {
+  document.getElementById("light_mode").style.display = "none";
+  document.getElementById("dark_mode").style.display = "block";
+  document.body.classList.remove("dark_mode");
+  document.getElementById("selected_page").style.backgroundColor =
+    "rgb(240, 238, 238)";
+};
+
+if (localStorage.getItem("theme") === "dark") {
+  addDarkMode();
+} else {
+  addLightMode();
+}
+
+const toggleDisplay = () => {
   document.getElementById("dark_mode").onclick = () => {
-    document.getElementById("dark_mode").style.display = "none";
-    document.getElementById("light_mode").style.display = "block";
-    document.body.classList.add("dark_mode");
-    document.getElementById("selected_page").style.backgroundColor =
-      "rgb(76, 75, 75)";
+    localStorage.setItem("theme", "dark");
+    window.location.reload();
   };
   document.getElementById("light_mode").onclick = () => {
-    document.getElementById("light_mode").style.display = "none";
-    document.getElementById("dark_mode").style.display = "block";
-    document.body.classList.remove("dark_mode");
-    document.getElementById("selected_page").style.backgroundColor =
-      "rgb(240, 238, 238)";
+    localStorage.setItem("theme", "light");
+    window.location.reload();
   };
 };
 
-handleDisplay();
+toggleDisplay();
 
 const date = new Date().toDateString();
 document.getElementById("dateDisplay").textContent = date;

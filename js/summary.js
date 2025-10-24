@@ -27,6 +27,41 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 	<path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
 </svg>`;
 
+const addDarkMode = () => {
+  document.getElementById("dark_mode").style.display = "none";
+  document.getElementById("light_mode").style.display = "block";
+  document.body.classList.add("dark_mode");
+  document.getElementById("selected_page").style.backgroundColor =
+    "rgb(76, 75, 75)";
+};
+
+const addLightMode = () => {
+  document.getElementById("light_mode").style.display = "none";
+  document.getElementById("dark_mode").style.display = "block";
+  document.body.classList.remove("dark_mode");
+  document.getElementById("selected_page").style.backgroundColor =
+    "rgb(240, 238, 238)";
+};
+
+if (localStorage.getItem("theme") === "dark") {
+  addDarkMode();
+} else {
+  addLightMode();
+}
+
+const toggleDisplay = () => {
+  document.getElementById("dark_mode").onclick = () => {
+    localStorage.setItem("theme", "dark");
+    window.location.reload();
+  };
+  document.getElementById("light_mode").onclick = () => {
+    localStorage.setItem("theme", "light");
+    window.location.reload();
+  };
+};
+
+toggleDisplay();
+
 const date = new Date().toDateString();
 document.getElementById("dateDisplay").textContent = date;
 
@@ -50,9 +85,17 @@ const fetchSummary = async () => {
     .select("quantity, items(name, price)")
     .eq("business_day_id", activeDayId);
 
-  if (salesError || !sales || sales.length === 0) {
+  if (salesError || !sales) {
     console.info("Error fetching sales:", salesError);
     showNotif("Error fetching sales, Please refresh the page.", failedSvg);
+    document.getElementById("mostSold").textContent = ` No sales tracked`;
+    document.getElementById("leastSold").textContent = `  No sales tracked`;
+    document.getElementById("totalRevenue").textContent = `  No sales tracked`;
+    return;
+  }
+
+  if (sales.length === 0) {
+    console.log("No sales to track.");
     document.getElementById("mostSold").textContent = ` No sales tracked`;
     document.getElementById("leastSold").textContent = `  No sales tracked`;
     document.getElementById("totalRevenue").textContent = `  No sales tracked`;

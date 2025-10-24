@@ -232,21 +232,4 @@
       <div id="progress_bar" class="progress"></div>
     </div>
   </body>
-  <script>
-    document.getElementById("dark_mode").onclick = () => {
-      document.getElementById("dark_mode").style.display = "none";
-      document.getElementById("light_mode").style.display = "block";
-      document.body.classList.add("dark_mode");
-      document.getElementById("selected_page").style.backgroundColor =
-        "rgb(76, 75, 75)";
-    };
-
-    document.getElementById("light_mode").onclick = () => {
-      document.getElementById("light_mode").style.display = "none";
-      document.getElementById("dark_mode").style.display = "block";
-      document.body.classList.remove("dark_mode");
-      document.getElementById("selected_page").style.backgroundColor =
-        "rgb(240, 238, 238)";
-    };
-  </script>
 </html>

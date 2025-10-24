@@ -61,21 +61,44 @@ incrementBtn.onclick = () => {
 
 // DISPLAY HANDLING
 
-document.getElementById("dark_mode").onclick = () => {
+const addDarkMode = () => {
   document.getElementById("dark_mode").style.display = "none";
   document.getElementById("light_mode").style.display = "block";
   document.body.classList.add("dark_mode");
   document.getElementById("selected_page").style.backgroundColor =
     "rgb(76, 75, 75)";
+  const newItemBox = document.getElementById("newItemBox");
+  newItemBox.classList.add("dark_box");
 };
 
-document.getElementById("light_mode").onclick = () => {
+const addLightMode = () => {
   document.getElementById("light_mode").style.display = "none";
   document.getElementById("dark_mode").style.display = "block";
   document.body.classList.remove("dark_mode");
   document.getElementById("selected_page").style.backgroundColor =
     "rgb(240, 238, 238)";
+  const newItemBox = document.getElementById("newItemBox");
+  newItemBox.classList.remove("dark_box");
 };
+
+if (localStorage.getItem("theme") === "dark") {
+  addDarkMode();
+} else {
+  addLightMode();
+}
+
+const toggleDisplay = () => {
+  document.getElementById("dark_mode").onclick = () => {
+    localStorage.setItem("theme", "dark");
+    window.location.reload();
+  };
+  document.getElementById("light_mode").onclick = () => {
+    localStorage.setItem("theme", "light");
+    window.location.reload();
+  };
+};
+
+toggleDisplay();
 
 // DOM AND DATA FUNCTIONS
 const choices = new Choices(selectMenu, {
