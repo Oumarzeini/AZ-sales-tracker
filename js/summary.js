@@ -171,7 +171,15 @@ const subscribeToSalesUpdate = () => {
     .subscribe();
 };
 
+const checkAuth = async () => {
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) {
+    window.location.href = "index.html";
+  }
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
+  await checkAuth();
   await fetchSummary();
   subscribeToSalesUpdate();
 });

@@ -295,7 +295,15 @@ const closeDay = async (activeDayId) => {
   }
 };
 
+const checkAuth = async () => {
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) {
+    window.location.href = "index.html";
+  }
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
+  await checkAuth();
   await checkOrCreateBusinessDay();
   await fetchSalesSummary();
   subscribeToSalesUpdate();

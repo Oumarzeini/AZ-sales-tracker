@@ -85,7 +85,7 @@ button:active {
     align-items: center;
     list-style-type: none;
     gap: 20px;
-    font-weight: 490;
+    font-weight: 500;
  }
 
  .add-sale {
@@ -154,6 +154,11 @@ main h1 {
     border-radius: 8px;
     border: none;
     outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
 }
 
 .new_item_box {
@@ -335,6 +340,10 @@ main h1 {
     background-color: var(--PRIMARY-COLOR);
     color: var(--SECONDARY-COLOR);
     font-size: 1.5rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:  10px;
 }
 
  footer {
