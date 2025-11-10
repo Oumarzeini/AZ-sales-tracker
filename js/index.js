@@ -1,4 +1,16 @@
 import { supabase } from "./config.js";
+
+// --- Modified to use Netlify Functions backend ---
+// helper to call backend functions; requires the user's access token stored in session
+async function apiFetch(path, options = {}) {
+  const token = (await supabase.auth.getSession()).data?.session?.access_token;
+  const headers = (options.headers || {});
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  headers['Content-Type'] = 'application/json';
+  const res = await fetch(path, { ...options, headers });
+  return res.json();
+}
+
 const signingForm = document.getElementById("signingForm");
 const header = document.getElementById("header");
 const switchOption = document.getElementById("switchOption");
