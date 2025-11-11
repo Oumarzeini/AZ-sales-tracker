@@ -1,17 +1,5 @@
 import { supabase } from "./config.js";
 
-// --- Modified to use Netlify Functions backend ---
-// helper to call backend functions; requires the user's access token stored in session
-async function apiFetch(path, options = {}) {
-  const token = (await supabase.auth.getSession()).data?.session?.access_token;
-  const headers = (options.headers || {});
-  if (token) headers['Authorization'] = 'Bearer ' + token;
-  headers['Content-Type'] = 'application/json';
-  const res = await fetch(path, { ...options, headers });
-  return res.json();
-}
-
-
 // GLOBAL VARIABLES
 const addSaleBtn = document.getElementById("addSaleBtn");
 const selectMenu = document.getElementById("menuItems");
@@ -122,7 +110,9 @@ const choices = new Choices(selectMenu, {
 });
 
 const fetchItems = async () => {
-  const { data: items, error } = await apiFetch('/.netlify/functions/fetchItems');
+  const { data: items, error } = await supabase
+    .from("items")
+    .select("id, name");
   if (error) {
     console.log(error);
     showNotif("Error fetching data, please refresh the page.", failedSvg);
@@ -276,14 +266,25 @@ const addSale = async () => {
     return;
   }
 
-  const { data: item, error: itemErr } = await apiFetch('/.netlify/functions/fetchItems');
+  const { data: item, error: itemErr } = await supabase
+    .from("items")
+    .select("price")
+    .eq("id", itemId)
+    .single();
 
   if (itemErr) {
     showNotif("An error occured, Please refresh the page.", failedSvg);
   }
   const total = item.price * quantity;
 
-  const { data, error } = await apiFetch('/.netlify/functions/addSale', { method: 'POST', body: JSON.stringify({ item_id, quantity, business_day_id: activeDayId }) });
+  const { data, error } = await supabase.from("sales").insert([
+    {
+      item_id: itemId,
+      quantity,
+      total,
+      business_day_id: currentBusinessDayId,
+    },
+  ]);
 
   if (error) {
     console.log(error.message);
@@ -361,7 +362,9 @@ newItemForm.addEventListener("submit", async (e) => {
 });
 
 const insertNewItem = async (item, price) => {
-  const { data: sale, error } = await apiFetch('/.netlify/functions/addItem', { method: 'POST', body: JSON.stringify({ name, price }) });
+  const { data: sale, error } = await supabase
+    .from("items")
+    .insert([{ name: item, price: price }]);
   if (error) {
     if (error.message.includes("duplicate key")) {
       showNotif("Can't add existing items", failedSvg);

@@ -1,17 +1,5 @@
 import { supabase } from "./config.js";
 
-// --- Modified to use Netlify Functions backend ---
-// helper to call backend functions; requires the user's access token stored in session
-async function apiFetch(path, options = {}) {
-  const token = (await supabase.auth.getSession()).data?.session?.access_token;
-  const headers = (options.headers || {});
-  if (token) headers['Authorization'] = 'Bearer ' + token;
-  headers['Content-Type'] = 'application/json';
-  const res = await fetch(path, { ...options, headers });
-  return res.json();
-}
-
-
 const successSvg = `<svg
         height=""
         width="25"
@@ -78,7 +66,11 @@ const date = new Date().toDateString();
 document.getElementById("dateDisplay").textContent = date;
 
 const fetchSummary = async () => {
-  const { data: day, error: dayError } = await apiFetch('/.netlify/functions/getActiveDay');
+  const { data: day, error: dayError } = await supabase
+    .from("business_days")
+    .select("id")
+    .eq("is_active", true)
+    .single();
 
   if (dayError || !day) {
     console.error("No active day found:", dayError);
@@ -88,7 +80,10 @@ const fetchSummary = async () => {
 
   const activeDayId = day.id;
 
-  const { data: sales, error: salesError } = await apiFetch(`/.netlify/functions/fetchSales?business_day_id=${activeDayId}`);
+  const { data: sales, error: salesError } = await supabase
+    .from("sales")
+    .select("quantity, items(name, price)")
+    .eq("business_day_id", activeDayId);
 
   if (salesError || !sales) {
     console.info("Error fetching sales:", salesError);
