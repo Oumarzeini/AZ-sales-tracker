@@ -1,4 +1,16 @@
 import { supabase } from "./config.js";
+
+// --- Modified to use Netlify Functions backend ---
+// helper to call backend functions; requires the user's access token stored in session
+async function apiFetch(path, options = {}) {
+  const token = (await supabase.auth.getSession()).data?.session?.access_token;
+  const headers = (options.headers || {});
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  headers['Content-Type'] = 'application/json';
+  const res = await fetch(path, { ...options, headers });
+  return res.json();
+}
+
 const successSvg = `<svg
         height=""
         width="25"
@@ -110,11 +122,7 @@ document.getElementById("dateDisplay").textContent = date;
 
 // SUMMARY FETCH FROM DB FUNCTION
 const fetchSalesSummary = async () => {
-  const { data, error } = await supabase
-    .from("business_days")
-    .select("id")
-    .eq("is_active", true)
-    .single();
+  const { data, error } = await apiFetch('/.netlify/functions/getActiveDay');
 
   if (error) {
     try {
@@ -128,10 +136,7 @@ const fetchSalesSummary = async () => {
 
   activeDayId = data.id;
 
-  const { data: items, error: itemsError } = await supabase
-    .from("sales")
-    .select("quantity, items(name, price)")
-    .eq("business_day_id", activeDayId);
+  const { data: items, error: itemsError } = await apiFetch(`/.netlify/functions/fetchSales?business_day_id=${activeDayId}`);
 
   if (itemsError) {
     showNotif("An error occured, Please refresh the page.", failedSvg);
