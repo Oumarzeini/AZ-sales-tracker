@@ -1,4 +1,4 @@
-import { supabase } from "./config.js";
+import supabase from "./config.js";
 const successSvg = `<svg
         height=""
         width="25"
@@ -26,7 +26,62 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 	<path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
 </svg>`;
 
+const overlay = document.getElementById("overlay");
+const logOutModel = document.getElementById("logOutModel");
+const cancelLogOut = document.getElementById("cancelLogOut");
+const confirmLogOut = document.getElementById("confirmLogOut");
+
 let activeDayId = null;
+//Profile icon
+const profileIcon = document.getElementById("profileIcon");
+profileIcon.onclick = () => {
+  document.getElementById("profileCard").classList.toggle("show");
+};
+
+document.getElementById("closeProfileCard").onclick = () => {
+  document.getElementById("profileCard").classList.remove("show");
+};
+
+// LOG OUT HANDLE
+const signOut = async () => {
+  const { data, error: signOutErr } = await supabase.auth.signOut();
+  if (signOutErr) {
+    console.log(`Error signing out : ${signOutErr}`);
+    showNotif(`Error signing out : ${signOutErr}`, failedSvg);
+    return;
+  }
+
+  window.location.href = "index.html";
+};
+
+document.getElementById("logOut").onclick = () => {
+  overlay.style.display = "block";
+  logOutModel.style.display = "flex";
+};
+
+cancelLogOut.onclick = () => {
+  overlay.style.display = "none";
+  logOutModel.style.display = "none";
+};
+
+confirmLogOut.onclick = async () => {
+  await signOut();
+};
+
+//Email Display
+const getUserEmail = async () => {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error) {
+    console.log("Error getting user email : ", error.message);
+    return;
+  }
+  document.getElementById("userEmail").textContent = user.email;
+};
+
+getUserEmail();
 
 const addDarkMode = () => {
   document.getElementById("dark_mode").style.display = "none";

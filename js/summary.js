@@ -1,4 +1,4 @@
-import { supabase } from "./config.js";
+import supabase from "./config.js";
 
 const successSvg = `<svg
         height=""

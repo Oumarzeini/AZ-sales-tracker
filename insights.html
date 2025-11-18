@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>insights</title>
+    <link rel="icon" href="/images/logo_outline_svg.svg" />
+    <link rel="stylesheet" href="./css/insight.css" />
+  </head>
+  <script type="module" src="./js/insights.js" defer></script>
+  <body>
+    <header>
+      <h1>Weekly Reports Insights</h1>
+
+      <svg
+        id="insightsSvg"
+        class="insightsSvg"
+        height="30"
+        width="30"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.75 3.5a.75.75 0 0 1 .75.75v15.5a.75.75 0 0 1-1.5 0V4.25a.75.75 0 0 1 .75-.75zm6.5 3.625a.75.75 0 0 1 .75.75V19.75a.75.75 0 0 1-1.5 0V7.875a.75.75 0 0 1 .75-.75zM5.25 11a.75.75 0 0 1 .75.75v8a.75.75 0 0 1-1.5 0v-8a.75.75 0 0 1 .75-.75z"
+          fill="currentColor"
+          fillRule="evenodd"
+        />
+      </svg>
+
+      <svg
+        role="button"
+        onclick="window.location.href='summary.html'"
+        class="backArrow"
+        id="backArrow"
+        height="20"
+        width="20"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="m9.55 12l7.35 7.35q.375.375.363.875t-.388.875q-.375.375-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675t-.15-.75q0-.375.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388q.375.375.375.875t-.375.875L9.55 12Z"
+          fill="currentColor"
+        />
+      </svg>
+    </header>
+
+    <main>
+      <div id="container" class="container">
+        <p style="text-align: center; font-size: 1.2rem">Loading...</p>
+      </div>
+    </main>
+  </body>
+</html>

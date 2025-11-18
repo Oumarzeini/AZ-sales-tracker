@@ -1,4 +1,4 @@
-import { supabase } from "./config.js";
+import supabase from "./config.js";
 const signingForm = document.getElementById("signingForm");
 const header = document.getElementById("header");
 const switchOption = document.getElementById("switchOption");
@@ -34,6 +34,9 @@ const signIn = async (email, password) => {
   });
 
   if (error) {
+    // if(error.message.includes("not confirmed")){
+    //   showNotif("Email not confirmed or never signed up", failedSvg);
+    // }
     showNotif(error.message, failedSvg);
   } else {
     window.location.href = "home.html";

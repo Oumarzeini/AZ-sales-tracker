@@ -1,4 +1,4 @@
-import { supabase } from "./config.js";
+import supabase from "./config.js";
 
 // GLOBAL VARIABLES
 const addSaleBtn = document.getElementById("addSaleBtn");
