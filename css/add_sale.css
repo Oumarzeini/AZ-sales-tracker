@@ -145,7 +145,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-inline: 10px;
+  padding-inline: 20px;
   margin-top: 1rem;
 }
 

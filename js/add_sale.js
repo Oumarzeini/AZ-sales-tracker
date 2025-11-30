@@ -261,10 +261,12 @@ const addSale = async () => {
   const quantity = parseInt(document.getElementById("quantity_input").value);
 
   if (!itemId || !quantity || quantity < 0) {
-    console.log("please select an item and a quantity");
     showNotif("please select an item and a quantity", infoSvg);
     return;
   }
+
+  const { data: userData, error: userErr } = await supabase.auth.getUser();
+  const userEmail = userData?.user.email;
 
   const { data: item, error: itemErr } = await supabase
     .from("items")
@@ -283,6 +285,7 @@ const addSale = async () => {
       quantity,
       total,
       business_day_id: currentBusinessDayId,
+      user_email: userEmail,
     },
   ]);
 
@@ -362,9 +365,12 @@ newItemForm.addEventListener("submit", async (e) => {
 });
 
 const insertNewItem = async (item, price) => {
+  const { data: userData, error: userErr } = await supabase.auth.getUser();
+  const userEmail = userData?.user.email;
+
   const { data: sale, error } = await supabase
     .from("items")
-    .insert([{ name: item, price: price }]);
+    .insert([{ name: item, price: price, user_email: userEmail }]);
   if (error) {
     if (error.message.includes("duplicate key")) {
       showNotif("Can't add existing items", failedSvg);
