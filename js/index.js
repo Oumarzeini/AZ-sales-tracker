@@ -2,7 +2,9 @@ import supabase from "./config.js";
 const signingForm = document.getElementById("signingForm");
 const header = document.getElementById("header");
 const switchOption = document.getElementById("switchOption");
-const failedSvg = `<svg
+
+const failedSvg = `
+ svg
           height="25"
           width="25"
           viewBox="0 0 32 32"
@@ -46,10 +48,10 @@ const signIn = async (email, password) => {
 switchOption.onclick = () => {
   if (header.textContent === "Sign Up") {
     header.textContent = "Sign In";
-    switchOption.textContent = "Sign Up ?";
+    switchOption.textContent = "Sign Up ";
   } else {
     header.textContent = "Sign Up";
-    switchOption.textContent = "Sign In ?";
+    switchOption.textContent = "Sign In ";
   }
 };
 

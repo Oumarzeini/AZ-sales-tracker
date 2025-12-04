@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --PRIMARY-COLOR: #673b20;
+  --LIGHT-PRIMARY: #673b20d9;
+  --SECONDARY-COLOR: #d09730;
+  --LIGHT-SECONDARY: #f7ae25;
+  --WHITE: white;
+  --DARK-BG: #251f35;
+  --DARK-COLOR: #b8b2c3;
+  --BORDER-COLOR: rgba(128, 128, 128, 0.209);
+  --NAVBAR-COLOR: gray;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  font-family: system-ui;
+}
+
+header h2 {
+  letter-spacing: 1px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 400px;
+  margin-top: 1rem;
+  & input {
+    height: 50px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    border: 2px solid var(--PRIMARY-COLOR);
+    width: 100%;
+  }
+
+  & button {
+    height: 40px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    background-color: var(--LIGHT-SECONDARY);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+main h4 {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.notif_container {
+  margin: auto;
+  background-color: #9eff90;
+  color: green;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  gap: 20px;
+  width: 100%;
+  min-height: 50px;
+  height: fit-content;
+  display: none;
+}
+
+.notif_text {
+    font-weight: 500;
+}
+
+.svg_container {
+  display: grid;
+  place-content: center;
+}
+
+@media (max-width: 500px) {
+    form {
+        width: 350px;
+        margin-inline: auto;
+    }
+}

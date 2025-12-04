@@ -176,7 +176,7 @@ header h2 {
 }
 
 .switch_signing {
-   color: var(--SECONDARY-COLOR);
+   color: var(--PRIMARY-COLOR);
    padding: 10px;
    border-radius: 5px;
    background-color: var(--BORDER-COLOR);
