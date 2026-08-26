@@ -4,7 +4,7 @@ const header = document.getElementById("header");
 const switchOption = document.getElementById("switchOption");
 
 const failedSvg = `
- svg
+ <svg>
           height="25"
           width="25"
           viewBox="0 0 32 32"
@@ -36,9 +36,6 @@ const signIn = async (email, password) => {
   });
 
   if (error) {
-    // if(error.message.includes("not confirmed")){
-    //   showNotif("Email not confirmed or never signed up", failedSvg);
-    // }
     showNotif(error.message, failedSvg);
   } else {
     window.location.href = "home.html";
@@ -60,9 +57,9 @@ signingForm.addEventListener("submit", (e) => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  header.textContent === "Sign Up"
-    ? signUp(email, password)
-    : signIn(email, password);
+  header.textContent === "Sign Up" ?
+    signUp(email, password)
+  : signIn(email, password);
 });
 
 const showNotif = (text, icon) => {
@@ -70,7 +67,7 @@ const showNotif = (text, icon) => {
   const progressBar = document.getElementById("progress_bar");
 
   const svgContainer = document.getElementById("svgContainer");
-  svgContainer.innerHTML = icon;
+  svgContainer.append(icon);
   const notifText = document.getElementById("notifText");
   notifText.textContent = text;
 

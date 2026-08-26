@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --PRIMARY-COLOR: #673b20;
+  --LIGHT-PRIMARY: #673b20d9;
+  --SECONDARY-COLOR: #d09730;
+  --LIGHT-SECONDARY: #f7ae25;
+  --WHITE: white;
+  --DARK-BG: #251f35;
+  --DARK-COLOR: #b8b2c3;
+  --BORDER-COLOR: rgba(128, 128, 128, 0.209);
+  --NAVBAR-COLOR: gray;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui;
+  /* background-color: #0d1335;
+  color: #535871; */
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--LIGHT-SECONDARY);
+  position: relative;
+  & h2 {
+    color: var(--PRIMARY-COLOR);
+  }
+}
+
+.backArrow {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+
+article {
+  padding: 10px;
+  line-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.appName {
+  color: var(--SECONDARY-COLOR);
+  font-weight: 600;
+}
+
+.paragraph {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  width: 90%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+@media (min-width: 770px) {
+    article {
+        width: 80%;
+        margin-inline: auto;
+    }
+
+    .firstParagraph {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 35px;
+    }
+}
