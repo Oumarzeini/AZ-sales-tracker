@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AZ sign up</title>
+    <link rel="icon" href="images/logo_outline_svg.svg" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <script type="module" src="js/auth.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h2>Welcome to AZ&mdash; Sales Tracker !</h2>
+    </header>
+    <main>
+      <div class="container">
+        <section class="logo_section">
+          <figure>
+            <img src="images/logo_outline_svg.svg" alt="Logo image" />
+            <figcaption>
+              Sign in to continue
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="none"
+                  stroke="#e6a52d"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m10 17l5-5l-5-5"
+                />
+              </svg>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="form_section">
+          <form id="signingForm">
+            <h2 id="header">Sign In</h2>
+
+            <div class="input_label_div">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                placeholder="type your Email"
+                id="email"
+                required
+              />
+            </div>
+
+            <div class="input_label_div">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                placeholder="type your Password"
+                id="password"
+                required
+              />
+            </div>
+
+            <button type="submit">Submit</button>
+
+            <p
+              onclick="window.location.href = 'recover.html'"
+              style="cursor: pointer"
+            >
+              Forgot Password?
+            </p>
+
+            <p id="switchOption" class="switch_signing">Sign Up</p>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <div id="notifContainer" class="notif_container">
+      <div id="svgContainer" class="svg_container"></div>
+
+      <p id="notifText" class="notif_text"></p>
+
+      <div id="progress_bar" class="progress"></div>
+    </div>
+  </body>
+</html>
