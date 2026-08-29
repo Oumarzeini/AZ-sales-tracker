@@ -1,4 +1,6 @@
 import supabase from "./config.js";
+import capitalize from "./utils/capitalize.js";
+
 const successSvg = `<svg
         height=""
         width="25"
@@ -162,7 +164,7 @@ const fetchSalesSummary = async () => {
       acc[name].revenue += revenue;
 
       return acc;
-    }, {})
+    }, {}),
   );
 
   const salesTable = document.getElementById("salesTable");
@@ -177,16 +179,18 @@ const fetchSalesSummary = async () => {
   }
 
   salesSummary.forEach((sale) => {
+    const captilizedName = capitalize(sale.name);
+
     const rowDiv = document.createElement("div");
     rowDiv.classList.add("table_row");
-    rowDiv.innerHTML = `<p>${sale.name}</p> <p>${sale.quantity}</p> <p style="text-align: right;">${sale.revenue}</p>`;
+    rowDiv.innerHTML = `<p>${captilizedName}</p> <p>${sale.quantity}</p> <p style="text-align: right;">${sale.revenue}</p>`;
 
     salesTable.append(rowDiv);
   });
 
   let totalDailyRevenue = salesSummary.reduce(
     (sum, item) => sum + item.revenue,
-    0
+    0,
   );
   const totalRevenueDisplay = document.getElementById("totalRevenueDisplay");
   totalRevenueDisplay.textContent = `${totalDailyRevenue} MAD`;
@@ -200,7 +204,7 @@ const subscribeToSalesUpdate = () => {
       { event: "INSERT", schema: "public", table: "sales" },
       (payload) => {
         fetchSalesSummary();
-      }
+      },
     )
     .subscribe();
 };
@@ -272,7 +276,7 @@ const checkOrCreateBusinessDay = async () => {
       console.warn("Error reactivating day", updateError.message);
       showNotif(
         "An error occurred while reopening the business day.",
-        failedSvg
+        failedSvg,
       );
       return;
     }
@@ -308,7 +312,7 @@ const closeDay = async (activeDayId) => {
   if (error) {
     console.log(
       "Error fetching today sales, Refresh to try again., Error: ",
-      error
+      error,
     );
     showNotif("An error occured, Please refresh the page.", failedSvg);
     return;
@@ -316,7 +320,7 @@ const closeDay = async (activeDayId) => {
 
   const totalRevenue = sales.reduce(
     (sum, s) => sum + s.quantity * s.items.price,
-    0
+    0,
   );
   const totalItems = sales.reduce((sum, s) => sum + s.quantity, 0);
 
@@ -334,7 +338,7 @@ const closeDay = async (activeDayId) => {
   if (saveErr) {
     console.log(
       "Error saving today sales to the summary , Please Refresh, Error:",
-      saveErr
+      saveErr,
     );
     showNotif("An error occured, Please refresh the page.", failedSvg);
     return;
@@ -363,3 +367,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   await fetchSalesSummary();
   subscribeToSalesUpdate();
 });
+
+const checkSession = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log(session);
+  if (!session) {
+    window.href.location = "auth.html";
+  }
+};
+
+checkSession();

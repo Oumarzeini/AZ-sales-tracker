@@ -82,7 +82,7 @@ const fetchSummary = async () => {
 
   const { data: sales, error: salesError } = await supabase
     .from("sales")
-    .select("quantity, items(name, price)")
+    .select("quantity, items(name, price, cost)")
     .eq("business_day_id", activeDayId);
 
   if (salesError || !sales) {
@@ -95,10 +95,13 @@ const fetchSummary = async () => {
   }
 
   if (sales.length === 0) {
-    console.log("No sales to track.");
-    document.getElementById("mostSold").textContent = ` No sales tracked`;
-    document.getElementById("leastSold").textContent = `  No sales tracked`;
-    document.getElementById("totalRevenue").textContent = `  No sales tracked`;
+    console.log("No Sales Tracked Today");
+    document.getElementById("mostSold").textContent = `No Sales Tracked Today`;
+    document.getElementById("leastSold").textContent = `No Sales Tracked Today`;
+    document.getElementById("totalRevenue").textContent =
+      `No Sales Tracked Today`;
+    document.getElementById("grossProfit").textContent =
+      "No Sales Tracked Today";
     return;
   }
 
@@ -107,35 +110,38 @@ const fetchSummary = async () => {
       sales.reduce((acc, s) => {
         const name = s.items.name;
         const revenue = s.quantity * s.items.price;
+        const cost = s.quantity * s.items.cost;
 
         if (!acc[name]) {
-          acc[name] = { name, quantity: 0, revenue: 0 };
+          acc[name] = { name, quantity: 0, revenue: 0, cost: 0 };
         }
 
         acc[name].quantity += s.quantity;
         acc[name].revenue += revenue;
+        acc[name].cost += cost;
 
         return acc;
-      }, {})
+      }, {}),
     ) || [];
 
   const mostSold = summary.reduce((max, item) =>
-    item.quantity > max.quantity ? item : max
+    item.quantity > max.quantity ? item : max,
   );
 
   const leastSold = summary.reduce((min, item) =>
-    item.quantity < min.quantity ? item : min
+    item.quantity < min.quantity ? item : min,
   );
 
-  const totalRevenue = summary.reduce((sum, i) => sum + i.revenue, 0);
+  const totalRevenue = summary.reduce((sum, item) => sum + item.revenue, 0);
+  const totalCost = summary.reduce((sum, item) => sum + item.cost, 0);
+  const grossProfit = totalRevenue - totalCost;
 
-  document.getElementById(
-    "mostSold"
-  ).textContent = ` ${mostSold.name.toUpperCase()} : ${mostSold.quantity}`;
-  document.getElementById(
-    "leastSold"
-  ).textContent = ` ${leastSold.name.toUpperCase()} : ${leastSold.quantity}`;
+  document.getElementById("mostSold").textContent =
+    ` ${mostSold.name.toUpperCase()} : ${mostSold.quantity} Item(s)`;
+  document.getElementById("leastSold").textContent =
+    ` ${leastSold.name.toUpperCase()} : ${leastSold.quantity} Item(s)`;
   document.getElementById("totalRevenue").textContent = ` ${totalRevenue} MAD`;
+  document.getElementById("grossProfit").textContent = `${grossProfit} MAD`;
 };
 
 const showNotif = (text, icon) => {
@@ -166,7 +172,7 @@ const subscribeToSalesUpdate = () => {
       { event: "INSERT", schema: "public", table: "sales" },
       (payload) => {
         fetchSummary();
-      }
+      },
     )
     .subscribe();
 };
@@ -183,3 +189,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   await fetchSummary();
   subscribeToSalesUpdate();
 });
+
+const checkSession = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log(session);
+  if (!session) {
+    window.href.location = "auth.html";
+  }
+};
+
+checkSession();

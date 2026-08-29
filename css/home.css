@@ -454,7 +454,7 @@ footer li:nth-child(2) {
   }
 }
 
-@media (min-width: 700px) and (max-width: 770px) {
+@media (min-width: 800px) and (max-width: 770px) {
   .sales_breakdown {
     width: 90%;
   }
@@ -462,5 +462,9 @@ footer li:nth-child(2) {
   .total_revenue {
     margin-top: 5rem;
     width: 90%;
+  }
+
+  nav {
+    display: none;
   }
 }

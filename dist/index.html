@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sales tracker tool for afrozone.org restaurant"
+    />
+    <title>az sales tracker</title>
+    <link rel="icon" href="/logo_outline_svg.svg" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Baumans&family=Cairo:wght@200..1000&family=Dokdo&family=Eater&family=Emblema+One&family=Ephesis&family=Fjalla+One&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Katibeh&family=Lobster&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tajawal:wght@200;300;400;500;700;800;900&family=Tangerine:wght@400;700&family=Yuji+Mai&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap");
+    </style>
+    <script type="module" crossorigin src="/assets/index-DFuMX7jA.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DMCdKrjg.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="logo-container">
+        <figure>
+          <img
+            src="/assets/logo_as_svg-DDooNflM.svg"
+            alt="logo image"
+            width="30px"
+            height="30px"
+          />
+        </figure>
+
+        <p>AZ sales tracker</p>
+      </div>
+
+      <nav>
+        <ul>
+          <li>Features</li>
+          <li>About</li>
+        </ul>
+      </nav>
+
+      <button
+        onclick="window.location.href = `auth.html`"
+        class="get-started-btn"
+      >
+        Get Started
+      </button>
+    </header>
+
+    <main>
+      <div class="grain-container">
+        <div class="grain-bg">
+          <div class="grain-overlay"></div>
+        </div>
+
+        <section class="hero">
+          <h1>Built To Master Your Store's Financial Trending</h1>
+
+          <!-- <h4>
+            The professional sales tracker designed for modern stores. To
+            monitor revenue, track products performance, and gain actionable
+            insights with a single, intuitive dashboard.
+          </h4> -->
+
+          <h4>
+            Whether you’re managing a small store or running a home business, AZ
+            Sales Tracker gives you the clarity you need , anytime, anywhere.
+            Simple. Fast. Intuitive. Everything your sales tracking should be.
+          </h4>
+
+          <button
+            onclick="window.location.href = `auth.html`"
+            style="margin-top: 2rem"
+            class="get-started-btn get-started-btn2"
+          >
+            Know Your Business Better
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-move-right-icon lucide-move-right"
+            >
+              <path d="M18 8L22 12L18 16" />
+              <path d="M2 12H22" />
+            </svg>
+          </button>
+
+          <div class="cards-container">
+            <div class="daily-revenue-card">
+              <p style="font-size: 1.2rem; color: var(--PRIMARY-COLOR)">
+                Monitor Your Business.<br />
+                Know The Next Step To Take
+              </p>
+
+              <!-- <div class="text-container">
+                <p class="number">1480 <span class="mad">MAD</span></p>
+                <p class="subtext">Generated Today</p>  -->
+            </div>
+
+            <!-- <div class="icon-container">
+                <svg
+                  height="30"
+                  width="30"
+                  viewBox="0 0 512 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M18.78 19.5v79.656c44.684 5.582 81.517 24.966 116.657 47.156l-24.75 20.063L212.47 218.28L184.53 106.5l-25.905 21c-20.225-40.01-42.778-77.73-72.75-108H18.78zm277.376 0c-15.624 28.765-29.207 58.126-41.78 88.156l-30.19-6.406l25.94 112.25l67.06-92.5l-29.592-6.28c33.29-34.747 67.597-67.793 108.062-95.22h-99.5zm197.5 93.844c-37.988 2.482-72.04 19.677-105.03 40.906l-12.47-32.53l-80.062 82.843l114.094 5.937l-13.25-34.563c32.24-.934 64.478 1.827 96.718 21.375v-83.968zm-194.03 128.03c-5.28.12-10.21 2.416-16.938 9.595l-6.563 6.968l-6.813-6.72c-7.387-7.28-13.216-9.29-19.125-9.03c-5.908.26-12.855 3.367-20.625 9.656l-6.218 5.03l-5.906-5.374c-8.9-8.052-16.485-10.438-23.75-10.063c-5.288.274-10.775 2.266-16.25 5.75l40.968 73.688c15.454 9.452 47.033 13.007 68.75 2.063l39.594-73.344c-7.51-3.062-14.26-6.202-20.094-7.406c-2.112-.437-4.072-.756-5.97-.813a20.81 20.81 0 0 0-1.06 0zm-89.97 96.19c-18.035 12.742-32.516 34.718-38.125 66.905c-5.435 31.196 3.128 52.265 18.282 66.624c15.155 14.36 37.902 21.737 61 21.437c23.1-.3 46.136-8.31 61.625-22.936c15.49-14.627 24.25-35.426 19.282-65.188c-5.137-30.757-18.4-52.148-35.19-65.094c-28.482 15.056-64.094 11.856-86.874-1.75z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+            </div> -->
+
+            <div class="most-sold-card">
+              <p class="title">Most sold</p>
+              <p id="mostSold">Your best seller : 133 Items</p>
+
+              <div class="icon-container">
+                <svg
+                  height="20"
+                  width="20"
+                  viewBox="0 0 2048 2048"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2048 384v640h-128V603l-768 768l-384-384l-675 674l-90-90l765-766l384 384l677-677h-421V384h640z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="features" id="features">
+        <div class="heading">
+          <h2 id="intersecting-effect-element">
+            Crystal Clear Operational Visibility
+          </h2>
+
+          <p id="intersecting-effect-element" class="sub-heading">
+            No guessing the margins. The platform provides a structured,
+            data-driven look into daily and weekly restaurant performance.
+          </p>
+
+          <span class="under-line"></span>
+        </div>
+
+        <div class="features-cards-container">
+          <div id="intersecting-effect-element" class="feature-card">
+            <div class="feature-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                <path d="M12 18V6" />
+              </svg>
+            </div>
+
+            <div class="feature-details-container">
+              <p class="feature-heading">Daily Sales Tracking</p>
+              <p class="feature-subheading">
+                Log every transaction with ease. Monitor real-time revenue and
+                volume as your shift progresses.
+              </p>
+            </div>
+          </div>
+
+          <div id="intersecting-effect-element" class="feature-card">
+            <div class="feature-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-package-search-icon lucide-package-search"
+              >
+                <path d="M12 22V12" />
+                <path d="M20.27 18.27 22 20" />
+                <path
+                  d="M21 10.498V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l.98-.559"
+                />
+                <path d="M3.29 7 12 12l8.71-5" />
+                <path d="m7.5 4.27 8.997 5.148" />
+                <circle cx="18.5" cy="16.5" r="2.5" />
+              </svg>
+            </div>
+
+            <div class="feature-details-container">
+              <p class="feature-heading">Products Intelligence</p>
+              <p class="feature-subheading">
+                Identify your "Best Sellers" and "Underperformers" instantly to
+                optimize your products offerings.
+              </p>
+            </div>
+          </div>
+
+          <div id="intersecting-effect-element" class="feature-card">
+            <div class="feature-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-hand-coins-icon lucide-hand-coins"
+              >
+                <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
+                <path
+                  d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
+                />
+                <path d="m2 16 6 6" />
+                <circle cx="16" cy="9" r="2.9" />
+                <circle cx="6" cy="5" r="3" />
+              </svg>
+            </div>
+
+            <div class="feature-details-container">
+              <p class="feature-heading">Revenue Summaries</p>
+              <p class="feature-subheading">
+                Get clear, concise breakdowns of daily earnings and net profit
+              </p>
+            </div>
+          </div>
+
+          <div id="intersecting-effect-element" class="feature-card">
+            <div class="feature-icon-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-chart-pie-icon lucide-chart-pie"
+              >
+                <path
+                  d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"
+                />
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+              </svg>
+            </div>
+
+            <div class="feature-details-container">
+              <p class="feature-heading">Weekly Insights</p>
+              <p class="feature-subheading">
+                Automated weekly reports that compare performance across
+                different periods.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

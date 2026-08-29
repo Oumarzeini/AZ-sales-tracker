@@ -12,6 +12,7 @@ const overlay = document.getElementById("overlay");
 const newItemBox = document.getElementById("newItemBox");
 const body = document.body;
 const newItemForm = document.getElementById("newItemForm");
+const noProductFeedbackEl = document.getElementById("no-products-feedback");
 let currentBusinessDayId = null;
 
 // SVG'S
@@ -103,10 +104,11 @@ toggleDisplay();
 // DOM AND DATA FUNCTIONS
 const choices = new Choices(selectMenu, {
   placeholder: true,
-  placeholderValue: "Select an item",
+  placeholderValue: "Click To Select",
   searchEnabled: true,
-  searchPlaceholderValue: "search items...",
-  shouldSort: false,
+  searchPlaceholderValue: "search products...",
+  shouldSort: true,
+  noChoicesText: "You haven't added any product ",
 });
 
 const fetchItems = async () => {
@@ -119,11 +121,16 @@ const fetchItems = async () => {
     return;
   }
 
+  if (!items.length) {
+    noProductFeedbackEl.style.display = "block";
+    return;
+  }
+
   choices.clearChoices();
   choices.setChoices([
     {
       value: "",
-      label: "Select an item",
+      label: "Click To Select",
       selected: true,
       disabled: true,
     },
@@ -136,7 +143,7 @@ const fetchItems = async () => {
       }),
       "value",
       "label",
-      false
+      false,
     ),
   ]);
 };
@@ -172,7 +179,7 @@ const closeDay = async (activeDayId) => {
   if (error) {
     console.log(
       "Error fetching today sales, Refresh to try again., Error: ",
-      error
+      error,
     );
     showNotif("An error occured, Please refresh the page.", failedSvg);
     return;
@@ -180,7 +187,7 @@ const closeDay = async (activeDayId) => {
 
   const totalRevenue = sales.reduce(
     (sum, s) => sum + s.quantity * s.items.price,
-    0
+    0,
   );
   const totalItems = sales.reduce((sum, s) => sum + s.quantity, 0);
 
@@ -198,7 +205,7 @@ const closeDay = async (activeDayId) => {
   if (saveErr) {
     console.log(
       "Error saving today sales to the summary , Please Refresh, Error:",
-      saveErr
+      saveErr,
     );
     showNotif("An error occured, Please refresh the page.", failedSvg);
     return;
@@ -261,7 +268,7 @@ const addSale = async () => {
   const quantity = parseInt(document.getElementById("quantity_input").value);
 
   if (!itemId || !quantity || quantity < 0) {
-    showNotif("please select an item and a quantity", infoSvg);
+    showNotif("please select a product and a quantity", infoSvg);
     return;
   }
 
@@ -340,47 +347,54 @@ newItemForm.addEventListener("submit", async (e) => {
     .value.trim()
     .toLowerCase();
   const itemPrice = document.getElementById("itemPrice").value.trim();
+  const itemCost = document.getElementById("itemCost").value.trim();
 
   if (
     !itemName ||
     !itemPrice ||
+    !itemCost ||
     document.getElementById("itemPrice").value < 1
   ) {
     showNotif(
-      "Please add item name and a price that's not lower than 1",
-      infoSvg
+      "Please add a product name and a price(more than 1 at least) and a cost ",
+      infoSvg,
     );
     document.getElementById("itemName").value = "";
     document.getElementById("itemPrice").value = "";
+    document.getElementById("itemCost").value = "";
     return;
   }
 
-  await insertNewItem(itemName, itemPrice);
+  await insertNewItem(itemName, itemPrice, itemCost);
   overlay.style.display = "none";
   newItemBox.style.display = "none";
   body.style.overflow = "auto";
+  noProductFeedbackEl.style.display = "none";
 
   document.getElementById("itemName").value = "";
   document.getElementById("itemPrice").value = "";
 });
 
-const insertNewItem = async (item, price) => {
+const insertNewItem = async (item, price, cost) => {
   const { data: userData, error: userErr } = await supabase.auth.getUser();
-  const userEmail = userData?.user.email;
+  let userEmail = null;
+  if (!userErr) {
+    userEmail = userData?.user.email;
+  }
 
-  const { data: sale, error } = await supabase
+  const { error } = await supabase
     .from("items")
-    .insert([{ name: item, price: price, user_email: userEmail }]);
+    .insert([{ name: item, price, cost, user_email: userEmail }]);
   if (error) {
     if (error.message.includes("duplicate key")) {
       showNotif("Can't add existing items", failedSvg);
       return;
     }
-    console.log("Error inserting manually ", error.message);
+    console.log("Error Adding Product ", error.message);
     showNotif("An Error occured! , Please try again.", failedSvg);
     return;
   } else {
-    showNotif("Item added Successfully!", successSvg);
+    showNotif("Product added Successfully!", successSvg);
   }
 };
 
@@ -392,7 +406,7 @@ const subscribeToItemsUpdate = () => {
       { event: "INSERT", schema: "public", table: "items" },
       (payload) => {
         fetchItems();
-      }
+      },
     )
     .subscribe();
 };
@@ -409,3 +423,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   await checkOrCreateBusinessDay();
   subscribeToItemsUpdate();
 });
+
+const checkSession = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log(session);
+  if (!session) {
+    window.href.location = "auth.html";
+  }
+};
+
+checkSession();

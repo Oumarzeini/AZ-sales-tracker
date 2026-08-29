@@ -136,6 +136,14 @@ main h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & p {
+    margin-top: 5px;
+    font-weight: 500;
+    color: var(--PRIMARY-COLOR);
+  }
+
+  margin-bottom: 1rem;
 }
 
 .historyBtn {
@@ -163,14 +171,16 @@ main h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  row-gap: 20px;
+  gap: 20px;
+
 }
 
 .box {
   min-width: 300px;
   min-height: 200px;
-  border-radius: 10px;
-  border: 1px solid var(--BORDER-COLOR);
+  border-radius: 20px;
+  box-shadow: 0 0 2px var(--SECONDARY-COLOR);
+  
   padding: 10px;
   display: flex;
   align-items: center;
@@ -179,19 +189,37 @@ main h2 {
   position: relative;
 }
 
-.title {
+.title-and-icon-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: absolute;
   top: 10px;
-  left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  left: 0;
+  padding-inline: 10px;
+
+  
   & svg {
-    margin-left: 1rem;
+    margin-right: 1rem;
+    color: var(--SECONDARY-COLOR)
   }
 }
 
-.most_sold {
+.title {
+ 
+
+ padding: 5px;
+ border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .9rem;
+  color: var(--SECONDARY-COLOR);
+  
+}
+
+/* .most_sold {
   color: #0fd822;
 }
 
@@ -205,7 +233,7 @@ main h2 {
 
 .net_profit {
   color: #8e3faf;
-}
+} */
 
 .box {
   font-size: 1.5rem;

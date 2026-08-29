@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
         <li role="button">
           <img
             role="button"
-            onclick="window.location.href='home.html'"
+            onclick="window.location.href = 'home.html'"
             src="images/logo_outline.png"
             alt="logo image"
             width="50"
@@ -27,19 +27,19 @@
         </li>
         <li
           role="button"
-          onclick="window.location.href='home.html'"
+          onclick="window.location.href = 'home.html'"
           class="home"
         >
           Home
         </li>
         <li
           role="button"
-          onclick="window.location.href='add_sale.html'"
+          onclick="window.location.href = 'add_sale.html'"
           class="add-sale"
         >
           Add Sale
         </li>
-        <li role="button" onclick="window.location.href='summary.html'">
+        <li role="button" onclick="window.location.href = 'summary.html'">
           Summary
         </li>
       </ul>
@@ -73,7 +73,7 @@
 
     <nav class="side_bar">
       <ul>
-        <li role="button" onclick="window.location.href='home.html'">
+        <li role="button" onclick="window.location.href = 'home.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -113,7 +113,7 @@
           </svg>
           Add Sale
         </li>
-        <li role="button" onclick="window.location.href='summary.html'">
+        <li role="button" onclick="window.location.href = 'summary.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -166,62 +166,71 @@
           >
             <path d="M13 4v7h7v2h-7v7h-2v-7H4v-2h7V4h2Z" fill="currentColor" />
           </svg>
-          New Item
+          New Product
         </button>
       </div>
 
       <div class="newsale_container">
-        <h2>Record New Sale</h2>
-        <p class="caption">Select an item and quantity to add a new sale.</p>
-        <p class="select_item">Select Menu Item</p>
+        <div class="left-container">
+          <h2>Record New Sale</h2>
+          <!-- <p class="caption">
+            Select a product and quantity to add a new sale.
+          </p> -->
+          <p class="select_item">Select from products list below</p>
 
-        <select name="menu" id="menuItems"></select>
-
-        <p class="quantity">Quantity</p>
-        <div class="btns_container">
-          <button id="decrement_btn" class="decrement_btn">-</button>
-          <input
-            id="quantity_input"
-            class="quantity_input"
-            type="number"
-            value="1"
-          />
-          <button id="increment_btn" class="increment_btn">+</button>
+          <select name="menu" id="menuItems"></select>
+          <p id="no-products-feedback" class="no-products-feedback">
+            You haven't added any products yet. Click the "New Product" button
+            in the top right to add your products.
+          </p>
         </div>
+        <div class="right-container">
+          <p class="quantity">Quantity</p>
+          <div class="btns_container">
+            <button id="decrement_btn" class="decrement_btn">-</button>
+            <input
+              id="quantity_input"
+              class="quantity_input"
+              type="number"
+              value="1"
+            />
+            <button id="increment_btn" class="increment_btn">+</button>
+          </div>
 
-        <button id="addSaleBtn" class="add_btn">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 256 256"
-            fill="#d09730"
-          >
-            <g
-              id="galaAdd0"
-              fill="none"
-              stroke="#d09730"
-              stroke-dasharray="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-miterlimit="4"
-              stroke-opacity="1"
-              stroke-width="20"
+          <button id="addSaleBtn" class="add_btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 256 256"
+              fill="#d09730"
             >
-              <circle id="galaAdd1" cx="128" cy="128" r="112" />
-              <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
-              <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
-            </g>
-          </svg>
-          Add Sale
-        </button>
+              <g
+                id="galaAdd0"
+                fill="none"
+                stroke="#d09730"
+                stroke-dasharray="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-miterlimit="4"
+                stroke-opacity="1"
+                stroke-width="20"
+              >
+                <circle id="galaAdd1" cx="128" cy="128" r="112" />
+                <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+                <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+              </g>
+            </svg>
+            Add Sale
+          </button>
+        </div>
       </div>
     </main>
 
     <footer>
       <ul>
-        <li>Documentation</li>
-        <li onclick="window.location.href='about.html'">About</li>
+        <li>Guide</li>
+        <li onclick="window.location.href = 'about.html'">About</li>
       </ul>
     </footer>
 
@@ -238,18 +247,28 @@
     <div id="newItemBox" class="new_item_box">
       <form id="newItemForm">
         <div class="input_label_div">
-          <label for="itemName">Item name</label>
-          <input type="text" id="itemName" placeholder="ex: rice" required />
+          <label for="itemName">Product name</label>
+          <input type="text" id="itemName" placeholder="ex: Cursor" required />
         </div>
 
         <div class="input_label_div">
-          <label for="itemPrice">Item price</label>
-          <input type="number" id="itemPrice" placeholder="ex: 30" required />
+          <label for="itemPrice">Product price</label>
+          <input type="number" id="itemPrice" placeholder="ex: 190" required />
+        </div>
+
+        <div class="input_label_div">
+          <label for="itemCost"
+            >Product Cost
+            <span style="font-size: 0.7rem; margin-left: 10px"
+              >( To calculate your Gross Profit )
+            </span>
+          </label>
+          <input type="number" id="itemCost" placeholder="ex: 60" required />
         </div>
 
         <div class="btns_div">
           <button id="cancelBtn" class="cancel_btn">Cancel</button>
-          <button class="submit_btn" type="submit">Submit</button>
+          <button class="submit_btn" type="submit">Add Product</button>
         </div>
       </form>
     </div>
