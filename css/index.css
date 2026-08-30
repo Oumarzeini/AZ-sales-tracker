@@ -121,13 +121,14 @@ header {
 }
 
 .get-started-btn2:hover svg {
-  animation: moveArrow .7s linear infinite;
+  animation: moveArrow 0.7s linear infinite;
 }
 
 @keyframes moveArrow {
   from {
     transform: translateX(0);
-  }to {
+  }
+  to {
     transform: translateX(50px);
   }
 }
@@ -173,7 +174,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  
+
     margin-top: 5rem;
     margin-inline: auto;
     opacity: 0.6;
@@ -193,7 +194,6 @@ main {
         margin: 0;
         padding: 0;
       }
-
 
       & .number {
         font-size: 2rem;
@@ -272,7 +272,7 @@ main {
   align-items: center;
   gap: 60px;
 
-  & .heading {
+  & .section-heading {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -294,19 +294,25 @@ main {
       transform: translateY(10px);
     }
 
-    & .under-line {
-      width: 100px;
-      height: 3px;
-      background-color: var(--LIGHT-PRIMARY);
-      opacity: 0;
-      transform: translateY(10px);
+   & .under-line {
+    width: 100px;
+    height: 3px;
+    background-color: var(--LIGHT-PRIMARY);
+   transform-origin: center;
+
+    &.isIntersecting {
+      animation: expandLine 0.5s ease-out forwards;
+      
     }
+  }
 
     & .isIntersecting {
-    opacity: 1;
-        transform: translateY(0);
-        transition: opacity .3s linear, transform .3s linear;
-}
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.3s linear,
+        transform 0.3s linear;
+    }
   }
 
   & .features-cards-container {
@@ -322,6 +328,7 @@ main {
       gap: 20px;
       padding: 10px;
       border: 1px solid var(--SECONDARY-COLOR);
+      border-bottom: 4px solid var(--SECONDARY-COLOR) !important;
       border-radius: 10px;
       width: 100%;
       opacity: 0;
@@ -330,13 +337,15 @@ main {
       &.isIntersecting {
         opacity: 1;
         transform: translateY(0);
-        transition: opacity .3s linear, transform .3s linear;
+        transition:
+          opacity 0.3s linear,
+          transform 0.3s linear;
       }
 
       & .feature-icon-container {
-        height: 40px;
-        width: 50px;
-        padding-inline: 5px;
+        height: fit-content;
+        width: fit-content;
+        padding: 5px;
         background-color: #e6a52d35;
         border-radius: 50%;
         display: grid;
@@ -363,7 +372,7 @@ main {
 
       & .feature-subheading {
         font-size: 0.9rem;
-        color:gray;
+        color: gray;
         font-weight: 600;
         width: 90%;
         line-height: 22px;
@@ -371,6 +380,144 @@ main {
     }
   }
 }
+
+.section-heading {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  & h2 {
+    color: var(--PRIMARY-COLOR);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  & .sub-heading {
+    text-align: center;
+    color: var(--SECONDARY-COLOR);
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  & .under-line {
+    width: 100px;
+    height: 3px;
+    background-color: var(--LIGHT-PRIMARY);
+   transform-origin: center;
+
+    &.isIntersecting {
+      animation: expandLine 0.5s ease-out forwards;
+      
+    }
+  }
+
+  & .isIntersecting {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.3s linear,
+      transform 0.3s linear;
+  }
+}
+
+@keyframes expandLine {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.demo-section {
+  padding-bottom: 20px;
+
+  & .outter-pc-frame {
+    width: 70%;
+    height: 500px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 15px solid var(--PRIMARY-COLOR);
+    border-radius: 15px;
+    border-left: 8px solid var(--PRIMARY-COLOR);
+    border-right: 8px solid var(--PRIMARY-COLOR);
+    border-bottom: 25px solid var(--PRIMARY-COLOR);
+
+    opacity: 0;
+    transform: translateY(10px);
+
+    &.isIntersecting {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.3s linear,
+        transform 0.3s linear;
+    }
+
+    & .inner-pc-frame {
+      width: 100%;
+      height: 100% !important;
+      background-color: transparent;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: fill;
+      }
+    }
+  }
+}
+
+.outter-phone-frame {
+    width: 240px;
+    height: 450px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 15px solid var(--PRIMARY-COLOR);
+    border-radius: 15px;
+    border-left: 8px solid var(--PRIMARY-COLOR);
+    border-right: 8px solid var(--PRIMARY-COLOR);
+    border-bottom: 25px solid var(--PRIMARY-COLOR);
+    transform: rotate(5deg) !important;
+    display: none !important;
+
+    opacity: 0;
+    transform: translateY(10px);
+
+    &.isIntersecting {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.3s linear,
+        transform 0.3s linear;
+    }
+
+    & .inner-phone-frame {
+      width: 100%;
+      height: 100% !important;
+      background-color: var(--BG);
+      border-radius: 10px;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: cover;
+        
+      }
+    }
+  }
 
 .grain-container {
   position: relative;
@@ -447,16 +594,21 @@ main {
   }
 
   .features {
-    & .heading {
+    & .section-heading {
       width: 100%;
       & h2 {
         font-size: 1.2rem;
-        
       }
 
       & .sub-heading {
         width: 80%;
       }
+    }
+
+    & .feature-card {
+      width: 90% !important;
+      min-height: 120px;
+      border-bottom: 4px solid var(--SECONDARY-COLOR) !important;
     }
   }
 }
@@ -482,6 +634,14 @@ main {
         }
       }
     }
+  }
+
+  .outter-pc-frame {
+    display: none !important;
+  }
+
+  .outter-phone-frame {
+    display: flex !important;
   }
 }
 
