@@ -34,7 +34,7 @@ body {
   font-size: 16px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  
   background-color: var(--BG);
   scroll-behavior: smooth;
 }
@@ -263,6 +263,31 @@ main {
   }
 }
 
+
+.grain-container {
+  position: relative;
+
+  & .grain-bg {
+    background-image: radial-gradient(
+      circle,
+      var(--PRIMARY-COLOR) 1px,
+      transparent 1px
+    );
+
+    background-size: 24px 24px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    & .grain-overlay {
+      background-size: 24px 24px;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.789);
+    }
+  }
+}
+
 .features {
   width: 100%;
   min-height: 100dvh;
@@ -294,17 +319,16 @@ main {
       transform: translateY(10px);
     }
 
-   & .under-line {
-    width: 100px;
-    height: 3px;
-    background-color: var(--LIGHT-PRIMARY);
-   transform-origin: center;
+    & .under-line {
+      width: 100px;
+      height: 3px;
+      background-color: var(--LIGHT-PRIMARY);
+      transform-origin: center;
 
-    &.isIntersecting {
-      animation: expandLine 0.5s ease-out forwards;
-      
+      &.isIntersecting {
+        animation: expandLine 0.5s ease-out forwards;
+      }
     }
-  }
 
     & .isIntersecting {
       opacity: 1;
@@ -407,11 +431,11 @@ main {
     width: 100px;
     height: 3px;
     background-color: var(--LIGHT-PRIMARY);
-   transform-origin: center;
+    transform-origin: center;
+    transform: scaleX(0);
 
     &.isIntersecting {
       animation: expandLine 0.5s ease-out forwards;
-      
     }
   }
 
@@ -477,72 +501,143 @@ main {
 }
 
 .outter-phone-frame {
-    width: 240px;
-    height: 450px;
-    margin-inline: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 15px solid var(--PRIMARY-COLOR);
-    border-radius: 15px;
-    border-left: 8px solid var(--PRIMARY-COLOR);
-    border-right: 8px solid var(--PRIMARY-COLOR);
-    border-bottom: 25px solid var(--PRIMARY-COLOR);
-    transform: rotate(5deg) !important;
-    display: none !important;
+  width: 260px;
+  height: 490px;
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 15px solid var(--PRIMARY-COLOR);
+  border-radius: 15px;
+  border-left: 10px solid var(--PRIMARY-COLOR);
+  border-right: 10px solid var(--PRIMARY-COLOR);
+  border-bottom: 30px solid var(--PRIMARY-COLOR);
+  transform: rotate(5deg) !important;
+  display: none !important;
 
-    opacity: 0;
-    transform: translateY(10px);
+  opacity: 0;
+  transform: translateY(10px);
 
-    &.isIntersecting {
-      opacity: 1;
-      transform: translateY(0);
-      transition:
-        opacity 0.3s linear,
-        transform 0.3s linear;
-    }
-
-    & .inner-phone-frame {
-      width: 100%;
-      height: 100% !important;
-      background-color: var(--BG);
-      border-radius: 10px;
-
-      & img {
-        width: 100%;
-        height: 100%;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        object-fit: cover;
-        
-      }
-    }
+  &.isIntersecting {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.3s linear,
+      transform 0.3s linear;
   }
 
-.grain-container {
-  position: relative;
-
-  & .grain-bg {
-    background-image: radial-gradient(
-      circle,
-      var(--PRIMARY-COLOR) 1px,
-      transparent 1px
-    );
-
-    background-size: 24px 24px;
+  & .inner-phone-frame {
     width: 100%;
-    height: 100%;
-    position: absolute;
+    height: 100% !important;
+    background-color: var(--BG);
+    border-radius: 10px;
+    border: px solid red;
 
-    & .grain-overlay {
-      background-size: 24px 24px;
+    & img {
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.789);
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: cover;
+      border-radius: 20px;
     }
   }
 }
 
+.bottom-section {
+  width: 100%;
+  height: 50dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 40px;
+  background-color:var(--SECONDARY-COLOR);
+
+  & div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+
+    & p:nth-child(1) {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--PRIMARY-COLOR);
+      text-align: center;
+    }
+
+    & p:nth-child(2) {
+      color: var(--BG);
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  }
+
+  & div:nth-child(2) {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+
+    & button {
+      font-size: 1.2rem;
+      border: none;
+      width: 30%;
+      padding: 10px;
+      min-height: 50px;
+    }
+
+    & button:nth-child(1) {
+      border-radius: 8px;
+      color: #f0e1c5;
+      background-color: #f0e1c546;
+    }
+
+    & button:nth-child(2) {
+      border-radius: 8px;
+      background-color: var(--PRIMARY-COLOR);
+      color: var(--SECONDARY-COLOR);
+    }
+  }
+}
+
+footer {
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .left-container {
+    width: 100%;
+    padding-inline: 10px;
+    & p {
+      font-size: .9rem;
+      line-height: 25px;
+    }
+  }
+
+  & .right-container {
+    & ul {
+      display: flex;
+      gap: 30px;
+
+      & li {
+        list-style-type: none;
+        font-size: .9rem;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+
+/* MEDIA QUERIES*/
 @media (max-width: 600px) {
   header {
     width: 90%;
@@ -642,6 +737,32 @@ main {
 
   .outter-phone-frame {
     display: flex !important;
+  }
+
+  .bottom-section {
+    & div:nth-child(2) {
+      & button {
+        width: 40%;
+      }
+    }
+  }
+
+  footer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 0;
+    padding-left: 5px;
+    gap: 20px;
+
+    & .left-container {
+      display: flex;
+       justify-content: center;
+    align-items: center;
+    }
+    & .right-container {
+      order: -1;
+    }
   }
 }
 
