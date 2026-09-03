@@ -50,6 +50,10 @@
     display: none;
  }
 
+ .success-icon, .failed-icon {
+   display: none;
+ }
+
  header{
    display: flex;
    justify-content: center;
@@ -200,7 +204,7 @@ header h2 {
    display: flex;
    align-items: center;
    padding: 10px;
-   border-radius: 15px;
+   border-radius: 10px;
    gap: 20px;
    width: 600px;
    transition: all 1s linear;

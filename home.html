@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
         <li role="button">
           <img
             role="button"
-            onclick="window.location.href='home.html'"
+            onclick="window.location.href = 'home.html'"
             src="images/logo_outline.png"
             alt="logo image"
             width="50"
@@ -22,10 +22,10 @@
           />
         </li>
         <li role="button" class="home">Home</li>
-        <li role="button" onclick="window.location.href='add_sale.html'">
+        <li role="button" onclick="window.location.href = 'add_sale.html'">
           Add Sale
         </li>
-        <li role="button" onclick="window.location.href='summary.html'">
+        <li role="button" onclick="window.location.href = 'summary.html'">
           Summary
         </li>
       </ul>
@@ -128,7 +128,7 @@
           </svg>
           Home
         </li>
-        <li role="button" onclick="window.location.href='add_sale.html'">
+        <li role="button" onclick="window.location.href = 'add_sale.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -154,7 +154,7 @@
           </svg>
           Add Sale
         </li>
-        <li role="button" onclick="window.location.href='summary.html'">
+        <li role="button" onclick="window.location.href = 'summary.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -196,10 +196,10 @@
 
     <main>
       <!-- Content -->
-      <h1 id="dateDisplay"></h1>
+      <!-- <h1 id="dateDisplay"></h1> -->
 
       <div class="sales_breakdown">
-        <div class="sales_header">Today's Sales Breakdown</div>
+        <div class="sales_header">Sales Made Today</div>
         <div class="table_header">
           <p>ITEM NAME</p>
           <p>QUANTITY</p>
@@ -219,8 +219,8 @@
 
     <footer>
       <ul>
-        <li>Documentation</li>
-        <li onclick="window.location.href='about.html'">About</li>
+        <li onclick="window.location.href = `guide.html`">Guide</li>
+        <li onclick="window.location.href = 'about.html'">About</li>
       </ul>
     </footer>
 

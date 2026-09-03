@@ -1,5 +1,5 @@
 import supabase from "./config.js";
-
+import formatDate from "./utils/formatDate.js";
 // GLOBAL VARIABLES
 const addSaleBtn = document.getElementById("addSaleBtn");
 const selectMenu = document.getElementById("menuItems");
@@ -44,8 +44,7 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 </svg>`;
 
 // DATE DISPLAY
-const date = new Date().toDateString();
-document.getElementById("dateDisplay").textContent = date;
+document.getElementById("dateDisplay").textContent = formatDate();
 
 // QUANTITY INPUT HANDLING
 decrementBtn.onclick = () => {
@@ -414,7 +413,7 @@ const subscribeToItemsUpdate = () => {
 const checkAuth = async () => {
   const { data } = await supabase.auth.getSession();
   if (!data.session) {
-    window.location.href = "index.html";
+    window.location.href = "auth.html";
   }
 };
 
@@ -423,15 +422,3 @@ document.addEventListener("DOMContentLoaded", async () => {
   await checkOrCreateBusinessDay();
   subscribeToItemsUpdate();
 });
-
-const checkSession = async () => {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  console.log(session);
-  if (!session) {
-    window.href.location = "auth.html";
-  }
-};
-
-checkSession();

@@ -1,17 +1,18 @@
 import supabase from "./config.js";
+import formatDate from "./utils/formatDate.js";
 
-const successSvg = `<svg
-        height=""
-        width="25"
-        viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M256 42.667C138.18 42.667 42.667 138.18 42.667 256S138.18 469.334 256 469.334S469.334 373.82 469.334 256S373.821 42.667 256 42.667m0 384c-94.105 0-170.666-76.561-170.666-170.667S161.894 85.334 256 85.334S426.667 161.894 426.667 256S350.106 426.667 256 426.667m80.336-246.886l30.167 30.167l-131.836 132.388l-79.083-79.083l30.166-30.167l48.917 48.917z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>`;
+// const successSvg = `<svg
+//         height=""
+//         width="25"
+//         viewBox="0 0 512 512"
+//         xmlns="http://www.w3.org/2000/svg"
+//       >
+//         <path
+//           d="M256 42.667C138.18 42.667 42.667 138.18 42.667 256S138.18 469.334 256 469.334S469.334 373.82 469.334 256S373.821 42.667 256 42.667m0 384c-94.105 0-170.666-76.561-170.666-170.667S161.894 85.334 256 85.334S426.667 161.894 426.667 256S350.106 426.667 256 426.667m80.336-246.886l30.167 30.167l-131.836 132.388l-79.083-79.083l30.166-30.167l48.917 48.917z"
+//           fill="currentColor"
+//           fillRule="evenodd"
+//         />
+//       </svg>`;
 const failedSvg = `<svg
           height="25"
           width="25"
@@ -26,6 +27,8 @@ const failedSvg = `<svg
 const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
 	<path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
 </svg>`;
+
+document.getElementById("dateDisplay").textContent = formatDate();
 
 const addDarkMode = () => {
   document.getElementById("dark_mode").style.display = "none";
@@ -61,9 +64,6 @@ const toggleDisplay = () => {
 };
 
 toggleDisplay();
-
-const date = new Date().toDateString();
-document.getElementById("dateDisplay").textContent = date;
 
 const fetchSummary = async () => {
   const { data: day, error: dayError } = await supabase
@@ -180,7 +180,7 @@ const subscribeToSalesUpdate = () => {
 const checkAuth = async () => {
   const { data } = await supabase.auth.getSession();
   if (!data.session) {
-    window.location.href = "index.html";
+    window.location.href = "auth.html";
   }
 };
 
@@ -189,15 +189,3 @@ document.addEventListener("DOMContentLoaded", async () => {
   await fetchSummary();
   subscribeToSalesUpdate();
 });
-
-const checkSession = async () => {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  console.log(session);
-  if (!session) {
-    window.href.location = "auth.html";
-  }
-};
-
-checkSession();

@@ -27,7 +27,7 @@ button:active {
 }
 
 body {
-  min-height: 100vh;
+  height: 100dvh;
   font-family:
     "SF Arabic",
     "Noto Sans Arabic",
@@ -45,7 +45,7 @@ body {
   grid-template-areas:
     "hd hd hd"
     "sb mn mn"
-    "ft ft ft";
+    "sb ft ft";
   /* background-color: var(--DARK-BG);
     color: var(--DARK-COLOR); */
 }
@@ -133,7 +133,8 @@ nav li {
 #selected_page {
   background-color: rgb(240, 238, 238);
   border-radius: 5px;
-  padding: 5px;
+  padding: 0;
+  padding-inline: 5px;
 }
 
 main {
@@ -145,24 +146,41 @@ main {
   gap: 5px;
   position: relative;
   margin: 0;
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 
 .dateHistoryDiv {
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-inline: 20px;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  .date-display-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    justify-content: center;
+    align-items: start;
+  }
+
+  & p {
+    font-weight: 500;
+    color: var(--PRIMARY-COLOR);
+  }
+
+  & h1 {
+    margin: 0 !important;
+  }
 }
 
-.new_item {
+.new-item {
   padding: 10px;
   background-color: var(--PRIMARY-COLOR);
   color: var(--LIGHT-SECONDARY);
   font-size: 1.1rem;
-  letter-spacing: 1px;
   border-radius: 8px;
   border: none;
   outline: none;
@@ -170,7 +188,7 @@ main {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 150px;
+  width: fit-content;
   white-space: nowrap;
 }
 
@@ -274,10 +292,10 @@ main h1 {
 }
 
 .newsale_container {
-  border: 2px solid var(--PRIMARY-COLOR);
+  box-shadow: 0 0 5px rgba(128, 128, 128, 0.423);
   border-radius: 10px;
   padding: 20px;
-  margin-top: 3rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-evenly;
   gap: 2rem;
@@ -326,6 +344,9 @@ main h1 {
 
 .choices {
   width: 100%;
+  --choices-font-size-md: 1rem;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .no-products-feedback {
@@ -384,7 +405,7 @@ main h1 {
 }
 
 .add_btn {
-  width: 80%;
+  width: 100%;
   margin-top: 2rem;
 
   height: 50px;
@@ -544,16 +565,41 @@ footer li:nth-child(2) {
     justify-content: center;
     align-items: center;
 
-    & 
-    .right-container {
-      width: 80%;
+    & .left-container {
+      max-width: 80%;
     }
 
     & .right-container {
       display: flex;
       justify-content: center !important;
       align-items: center !important;
-      width: 80%;
+      max-width: 80%;
+    }
+  }
+
+  .dateHistoryDiv {
+    & .date-display-container {
+      gap: 10px;
+    }
+
+    & h1 {
+      font-size: 1.2rem;
+      font-weight: 1000;
+      max-width: 100%;
+      text-align: left;
+    }
+
+    & p {
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+  }
+
+  .new-item {
+    font-size: 0.9rem;
+    & svg {
+      width: 15px;
+      height: 15px;
     }
   }
 }
@@ -576,9 +622,20 @@ footer li:nth-child(2) {
   }
 }
 
-@media (min-width: 700px) and (max-width: 770px) {
+@media (min-width: 700px) {
+  .dateHistoryDiv {
+    & h1 {
+      margin-bottom: 0 !important;
+      line-height: 1;
+    }
+
+    & p {
+      margin: 0 !important;
+    }
+  }
+
   .newsale_container {
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 
   .quantity {

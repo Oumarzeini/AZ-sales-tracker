@@ -136,14 +136,21 @@ main h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
+
+  .date-display-container {
+    display: flex;
+    flex-direction: column;
+   
+    justify-content: center;
+    align-items: start;
+  }
 
   & p {
     margin-top: 5px;
     font-weight: 500;
     color: var(--PRIMARY-COLOR);
   }
-
-  margin-bottom: 1rem;
 }
 
 .historyBtn {
@@ -163,6 +170,8 @@ main h2 {
   align-items: center;
   gap: 5px;
   width: 150px;
+  min-width: fit-content;
+  white-space: wrap;
 }
 
 .container {
@@ -172,7 +181,6 @@ main h2 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 20px;
-
 }
 
 .box {
@@ -180,7 +188,7 @@ main h2 {
   min-height: 200px;
   border-radius: 20px;
   box-shadow: 0 0 2px var(--SECONDARY-COLOR);
-  
+
   padding: 10px;
   display: flex;
   align-items: center;
@@ -199,24 +207,20 @@ main h2 {
   left: 0;
   padding-inline: 10px;
 
-  
   & svg {
     margin-right: 1rem;
-    color: var(--SECONDARY-COLOR)
+    color: var(--SECONDARY-COLOR);
   }
 }
 
 .title {
- 
-
- padding: 5px;
- border-radius: 5px;
+  padding: 5px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: var(--SECONDARY-COLOR);
-  
 }
 
 /* .most_sold {
@@ -343,10 +347,22 @@ footer li:nth-child(2) {
     padding-top: 1rem;
   }
 
+  .dateHistoryDiv {
+    & h1 {
+      font-size: 0.9rem !important;
+      font-weight: 1000;
+    }
+
+    & p {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  }
+
   .historyBtn {
     width: 100px;
     height: 35px;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   #insightsSvg {

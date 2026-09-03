@@ -20,23 +20,23 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 </svg>`;
 
 const signUp = async (email, password) => {
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
-    showNotif(error.message, failedSvg);
+    showNotif(error.message, "success-icon");
   } else {
-    showNotif("Please check your email for a verification link.", infoSvg);
+    showNotif("Please check your email for a verification link.", "success");
   }
 };
 
 const signIn = async (email, password) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    showNotif(error.message, failedSvg);
+    showNotif(error.message, "failed-icon");
   } else {
     window.location.href = "home.html";
   }
@@ -66,10 +66,16 @@ const showNotif = (text, icon) => {
   const notifContainer = document.getElementById("notifContainer");
   const progressBar = document.getElementById("progress_bar");
 
-  const svgContainer = document.getElementById("svgContainer");
-  svgContainer.append(icon);
   const notifText = document.getElementById("notifText");
   notifText.textContent = text;
+  icon === "failed-icon" ?
+    (document.querySelector(".failed-icon").style.display = "block")
+  : (document.querySelector(".success-icon").style.display = "block");
+
+  console.log(
+    document.querySelector(".failed-icon"),
+    document.querySelector(".success-icon"),
+  );
 
   notifContainer.classList.add("show_notif");
   setTimeout(() => {
@@ -79,5 +85,12 @@ const showNotif = (text, icon) => {
   setTimeout(() => {
     notifContainer.classList.remove("show_notif");
     progressBar.classList.remove("move");
-  }, 3300);
+    document.querySelector(".failed-icon").style.display = "none";
+    document.querySelector(".success-icon").style.display = "none";
+  }, 5000);
 };
+
+console.log(
+  document.querySelector(".failed-icon").style,
+  document.querySelector(".success-icon").style,
+);
