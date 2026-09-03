@@ -121,10 +121,11 @@ body {
 
 .logout_model {
   position: fixed;
-  top: 30%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: var(--WHITE);
-  width: fit-content;
+  min-width: 300px;
   height: auto;
   border: 1px solid var(--BORDER-COLOR);
   padding: 20px;
@@ -138,14 +139,19 @@ body {
 .btns_div {
   width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
   margin-top: 10px;
+
+  & p {
+    font-size: 1rem;
+  }
 
   & button {
     padding: 5px 8px;
     letter-spacing: 1px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     border-radius: 5px;
   }
 }
@@ -259,17 +265,20 @@ main h1 {
 
 .sales_breakdown {
   width: 80%;
+  min-height: 380px;
   max-height: 380px;
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid var(--BORDER-COLOR);
+  border: 1px solid var(--PRIMARY-COLOR);
   border-radius: 8px;
 }
 
 .sales_breakdown::-webkit-scrollbar {
   width: 2px;
+  overflow-y: auto;
+  display: none;
 }
 
 .sales_breakdown::-webkit-scrollbar-thumb {
@@ -294,7 +303,14 @@ main h1 {
   flex-direction: column;
   width: 100%;
   padding: 10px;
+  
+  scroll-behavior: smooth;
 }
+
+.sales_table::-webkit-scrollbar {
+  display: none !important;
+}
+
 
 .table_header {
   width: 100%;
@@ -317,8 +333,9 @@ main h1 {
   width: 100%;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  border-top: 1px solid var(--BORDER-COLOR);
+  border-top: 1px solid #673b204c;
   padding: 10px;
+  padding-block: 15px;
   font-family: "system-ui";
   font-weight: 700;
   letter-spacing: 1px;
@@ -419,10 +436,7 @@ footer li:nth-child(2) {
     font-weight: 500;
   }
 
-  .logout_model {
-    top: 45%;
-    left: 25%;
-  }
+  
 
   nav {
     display: none;

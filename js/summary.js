@@ -189,3 +189,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   await fetchSummary();
   subscribeToSalesUpdate();
 });
+
+checkAuth();

@@ -50,6 +50,10 @@ main {
   padding-top: 20px;
   padding-bottom: 30px;
   padding-inline: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -92,11 +96,13 @@ table {
 }
 
 td {
-  border: 2px solid var(--BORDER-COLOR);
+  border: 2px solid var(--PRIMARY-COLOR);
   border-collapse: collapse;
   text-align: center;
   padding: 10px;
   font-weight: 500;
+  font-size: .9rem;
+  line-height: 25px;
 }
 
 thead {
@@ -106,6 +112,7 @@ thead {
 
   & td {
     font-weight: 700;
+    font-size: .9rem;
   }
 }
 
@@ -134,6 +141,16 @@ thead {
     }
 
   main {
+    width: 90%;
+  }
+}
+
+
+@media (min-width: 800px) {
+  main {
+    width: 60%;
+  }
+  .container {
     width: 100%;
   }
 }

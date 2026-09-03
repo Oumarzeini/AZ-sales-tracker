@@ -42,11 +42,21 @@
           <form id="signingForm">
             <h2 id="header">Sign In</h2>
 
+            <div class="input_label_div name-container">
+              <label for="name">Business Name</label>
+              <input
+                type="text"
+                placeholder="type your Business name..."
+                id="name"
+                required
+              />
+            </div>
+
             <div class="input_label_div">
               <label for="email">Email</label>
               <input
                 type="email"
-                placeholder="type your Email"
+                placeholder="type your Email..."
                 id="email"
                 required
               />
@@ -56,13 +66,13 @@
               <label for="password">Password</label>
               <input
                 type="password"
-                placeholder="type your Password"
+                placeholder="type your Password..."
                 id="password"
                 required
               />
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit">Let's Go</button>
 
             <p
               onclick="window.location.href = 'recover.html'"

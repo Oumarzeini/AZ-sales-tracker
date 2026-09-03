@@ -19,7 +19,40 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
     <path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
 </svg>`;
 
-const signUp = async (email, password) => {
+const checkEmailExistance = async (email) => {
+  const { data: existingEmail, error } = await supabase
+    .from("businesses")
+    .select("email")
+    .eq("email", email)
+    .single();
+  if (error) {
+    console.log("error fetching");
+    showNotif("An Error Occured, Please Try Again", failedSvg);
+  }
+
+  return existingEmail;
+};
+
+const signUp = async (email, password, name) => {
+  // const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  //   try {
+  //     if (email === "" || password === "" || !regex.test(email)) {
+  //       setError("Please fill Name, Email and Password fields and");
+  //       return;
+  //     }
+
+  const exists = await checkEmailExistance(email);
+
+  if (exists) {
+    showNotif(
+      "This email is already signed up, please try signing in.",
+      "failed-icon",
+    );
+
+    return;
+  }
+
   const { error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
@@ -45,9 +78,11 @@ const signIn = async (email, password) => {
 switchOption.onclick = () => {
   if (header.textContent === "Sign Up") {
     header.textContent = "Sign In";
+    document.querySelector(".name-container").style.display = "none";
     switchOption.textContent = "Sign Up ";
   } else {
     header.textContent = "Sign Up";
+    document.querySelector(".name-container").style.display = "inline-flex";
     switchOption.textContent = "Sign In ";
   }
 };
@@ -72,11 +107,6 @@ const showNotif = (text, icon) => {
     (document.querySelector(".failed-icon").style.display = "block")
   : (document.querySelector(".success-icon").style.display = "block");
 
-  console.log(
-    document.querySelector(".failed-icon"),
-    document.querySelector(".success-icon"),
-  );
-
   notifContainer.classList.add("show_notif");
   setTimeout(() => {
     progressBar.classList.add("move");
@@ -89,8 +119,3 @@ const showNotif = (text, icon) => {
     document.querySelector(".success-icon").style.display = "none";
   }, 5000);
 };
-
-console.log(
-  document.querySelector(".failed-icon").style,
-  document.querySelector(".success-icon").style,
-);

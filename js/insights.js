@@ -2,11 +2,11 @@ import supabase from "./config.js";
 
 // GETTING THE STARTING DAY
 const getWeekStart = (date) => {
-  const d = new Date(date);
-  const day = d.getDay();
+  const currentDate = new Date(date);
+  const day = currentDate.getDay();
   const convertSunday = day === 0 ? 7 : day;
-  d.setDate(d.getDate() - convertSunday + 1);
-  return d;
+  currentDate.setDate(currentDate.getDate() - convertSunday + 1);
+  return currentDate;
 };
 
 // GROUPPING BY WEEK
@@ -20,12 +20,14 @@ const groupByWeek = (sales) => {
       weeks[weekStart] = {
         items: 0,
         revenue: 0,
+        cost: 0,
         itemsMap: {},
       };
     }
 
     weeks[weekStart].items += s.quantity;
     weeks[weekStart].revenue += s.total;
+    weeks[weekStart].cost += s.items.cost * s.quantity;
 
     const itemName = s.items.name;
 
@@ -39,7 +41,6 @@ const groupByWeek = (sales) => {
   return weeks;
 };
 
-// FINDING MOST AND LEAST SOLD ITEMS
 const findMostAndLeast = (itemsMap) => {
   const entries = Object.entries(itemsMap);
 
@@ -50,7 +51,6 @@ const findMostAndLeast = (itemsMap) => {
   };
 };
 
-// FORMAT DATE HELPER FUNC
 const formatDate = (d) => {
   const date = new Date(d);
   return date.toLocaleDateString("en-GB");
@@ -64,11 +64,15 @@ const renderInsightsTable = (weeks) => {
   container.innerHTML = "";
 
   for (const start in weeks) {
-    const w = weeks[start];
-    const { most, least } = findMostAndLeast(w.itemsMap);
+    const week = weeks[start];
+    const { most, least } = findMostAndLeast(week.itemsMap);
 
     const endDate = new Date(start);
     endDate.setDate(endDate.getDate() + 6);
+
+    const grossProfit = week.revenue - week.cost;
+    //console.log(week.revenue, week.cost, grossProfit);
+    //console.log(week);
 
     const tableCard = `
 
@@ -82,14 +86,16 @@ const renderInsightsTable = (weeks) => {
               <td>TOTAL REVENUE</td>
               <td>MOST SOLD</td>
               <td>LEAST SOLD</td>
+              <td>GROSS PROFIT</td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>${w.items}</td>
-              <td>${w.revenue} MAD</td>
+              <td>${week.items}</td>
+              <td>${week.revenue} MAD</td>
               <td>${most[0]} (${most[1]})</td>
               <td>${least[0]} (${least[1]})</td>
+              <td>${grossProfit} MAD</td>
             </tr>
           </tbody>
         </table>
@@ -104,18 +110,26 @@ const loadInsights = async () => {
 
   if (userErr) {
     console.log(`Error getting user : ${userErr.message}`);
+    return;
   }
 
   const user = userData.user;
 
   const { data: sales, error } = await supabase
     .from("sales")
-    .select("item_id, quantity, total, created_at, items(name)")
+    .select("item_id, quantity, total, created_at, items(name, cost)")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
   if (error) {
     console.log(`Error getting sales : ${error.message}`);
+    return;
+  }
+
+  if (!sales.length) {
+    document.querySelector(".container").innerHTML =
+      `<p style="text-align: center;" >No sales tracked this week yet. </p>`;
+    return;
   }
 
   const weeks = groupByWeek(sales);

@@ -179,6 +179,10 @@ header h2 {
    }
 }
 
+.name-container {
+   display: none;
+}
+
 .switch_signing {
    color: var(--PRIMARY-COLOR);
    padding: 10px;
