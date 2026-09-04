@@ -14,6 +14,7 @@ const body = document.body;
 const newItemForm = document.getElementById("newItemForm");
 const noProductFeedbackEl = document.getElementById("no-products-feedback");
 let currentBusinessDayId = null;
+const businessName = document.getElementById("business-name");
 
 // SVG'S
 const successSvg = `<svg
@@ -411,10 +412,19 @@ const subscribeToItemsUpdate = () => {
 };
 
 const checkAuth = async () => {
-  const { data } = await supabase.auth.getSession();
-  if (!data.session) {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) {
     window.location.href = "auth.html";
   }
+
+  const { data } = await supabase
+    .from("businesses")
+    .select("name")
+    .eq("owner_id", session.user.id);
+
+  businessName.innerHTML = `Welcome Back <span class="business-name"> ${data[0].name}</span>`;
 };
 
 document.addEventListener("DOMContentLoaded", async () => {

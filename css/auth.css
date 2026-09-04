@@ -50,7 +50,7 @@
     display: none;
  }
 
- .success-icon, .failed-icon {
+ #success-icon, #failed-icon {
    display: none;
  }
 
@@ -180,6 +180,17 @@ header h2 {
 }
 
 .name-container {
+   display: none;
+}
+
+.form-feedback-container {
+   width: 100%;
+   padding: 10px;
+   border-radius: 5px;
+   background-color: #caffc4;
+   color: #076d08;
+   background-color: #ffdddd;
+   color: #920a0a;
    display: none;
 }
 

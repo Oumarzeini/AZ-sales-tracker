@@ -2,67 +2,94 @@ import supabase from "./config.js";
 const signingForm = document.getElementById("signingForm");
 const header = document.getElementById("header");
 const switchOption = document.getElementById("switchOption");
+const formFeedbackContainer = document.getElementById(
+  "form-feedback-container",
+);
+const text = document.getElementById("form-feedback-text");
 
-const failedSvg = `
- <svg>
-          height="25"
-          width="25"
-          viewBox="0 0 32 32"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M26.41 25L30 21.41L28.59 20L25 23.59L21.41 20L20 21.41L23.59 25L20 28.59L21.41 30L25 26.41L28.59 30L30 28.59L26.41 25zM18 2A12.035 12.035 0 0 0 6 14v6.2l-3.6-3.6L1 18l6 6l6-6l-1.4-1.4L8 20.2V14a10 10 0 0 1 20 0v3h2v-3A12.035 12.035 0 0 0 18 2z"
-            fill="currentColor"
-          />
-        </svg>`;
-const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-    <path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
-</svg>`;
+const successBG = "#caffc4";
+const successColor = "#076d08";
+const errorBG = "#ffdddd";
+const errorColor = "#920a0a";
 
-const checkEmailExistance = async (email) => {
-  const { data: existingEmail, error } = await supabase
-    .from("businesses")
-    .select("email")
-    .eq("email", email)
-    .single();
-  if (error) {
-    console.log("error fetching");
-    showNotif("An Error Occured, Please Try Again", failedSvg);
-  }
-
-  return existingEmail;
+const showFormFeedback = (bg, color, message) => {
+  formFeedbackContainer.style.display = "flex";
+  formFeedbackContainer.style.backgroundColor = bg;
+  formFeedbackContainer.style.color = color;
+  text.textContent = message;
 };
 
+const fomrInputs = document.querySelectorAll(".form-input");
+
+fomrInputs.forEach((input) =>
+  input.addEventListener("input", () => {
+    formFeedbackContainer.style.display = "none";
+    formFeedbackContainer.style.backgroundColor = "";
+    formFeedbackContainer.style.color = "";
+    text.textContent = "";
+  }),
+);
+
 const signUp = async (email, password, name) => {
-  // const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  //   try {
-  //     if (email === "" || password === "" || !regex.test(email)) {
-  //       setError("Please fill Name, Email and Password fields and");
-  //       return;
-  //     }
-
-  const exists = await checkEmailExistance(email);
-
-  if (exists) {
+  if (email === "" || password === "" || name === "" || !regex.test(email)) {
     showNotif(
-      "This email is already signed up, please try signing in.",
+      "Please enter a Name, a valid Email, and a Password",
       "failed-icon",
     );
-
+    showFormFeedback(
+      errorBG,
+      errorColor,
+      "Please enter a Name, a valid Email, and a Password",
+    );
     return;
   }
 
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        business_name: name,
+      },
+    },
+  });
 
   if (error) {
-    showNotif(error.message, "success-icon");
+    showNotif(error, "failed-icon");
+    showFormFeedback(errorBG, errorColor, error.message);
+    console.log(error);
+    return;
   } else {
-    showNotif("Please check your email for a verification link.", "success");
+    showNotif(
+      "Almost done. Please check your email inbox for a verification link.",
+      "success",
+    );
+    showFormFeedback(
+      successBG,
+      successColor,
+      "Almost done. Please check your email inbox for a verification link.",
+    );
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("name").value = "";
   }
 };
 
 const signIn = async (email, password) => {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (email === "" || password === "" || !regex.test(email)) {
+    showNotif("Please enter a valid Email and a Password", "failed-icon");
+    showFormFeedback(
+      errorBG,
+      errorColor,
+      "Please enter a valid Email and a Password",
+    );
+    return;
+  }
+
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -70,6 +97,8 @@ const signIn = async (email, password) => {
 
   if (error) {
     showNotif(error.message, "failed-icon");
+    showFormFeedback(errorBG, errorColor, error.message);
+    return;
   } else {
     window.location.href = "home.html";
   }
@@ -91,9 +120,10 @@ signingForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
+  const name = document.getElementById("name").value.trim();
 
   header.textContent === "Sign Up" ?
-    signUp(email, password)
+    signUp(email, password, name)
   : signIn(email, password);
 });
 
@@ -103,9 +133,16 @@ const showNotif = (text, icon) => {
 
   const notifText = document.getElementById("notifText");
   notifText.textContent = text;
-  icon === "failed-icon" ?
-    (document.querySelector(".failed-icon").style.display = "block")
-  : (document.querySelector(".success-icon").style.display = "block");
+
+  if (icon === "failed-icon") {
+    document.querySelector(".failed-icon").style.display = "block";
+
+    document.querySelector(".success-icon").style.display = "none";
+  } else {
+    document.querySelector(".success-icon").style.display = "block";
+
+    document.querySelector(".failed-icon").style.display = "none";
+  }
 
   notifContainer.classList.add("show_notif");
   setTimeout(() => {

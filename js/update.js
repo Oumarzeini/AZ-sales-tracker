@@ -23,7 +23,7 @@ const successSvg = `<svg
         />
       </svg>`;
 
-const submitBtn = document.getElementById("submitBtn");
+//const submitBtn = document.getElementById("submitBtn");
 
 const updatePassword = async (email, password) => {
   try {
