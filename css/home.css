@@ -270,8 +270,9 @@ main h1 {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  border: 1px solid var(--PRIMARY-COLOR);
+ 
+  box-shadow:  0 0  4px #0000003d;
+  /* box-shadow: 0 4px 20px rgba(67,36,6,0.08); */
   border-radius: 8px;
 }
 
@@ -302,7 +303,7 @@ main h1 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 10px;
+
   
   scroll-behavior: smooth;
 }
@@ -318,8 +319,10 @@ main h1 {
   justify-content: space-between;
   align-items: center;
   color: var(--PRIMARY-COLOR);
-  padding-inline: 15px;
-  font-weight: 500;
+  background-color: #673b2012;
+  padding: 15px;
+  font-weight: 700;
+  font-size: .8rem;
 }
 
 .noItemsFeedback {
@@ -332,13 +335,46 @@ main h1 {
 .table_row {
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  border-top: 1px solid #673b204c;
-  padding: 10px;
+  grid-template-columns: 1.9fr 1fr 1fr;
+  border-top: 1px solid #673b2016;
+  padding: 15px;
   padding-block: 15px;
   font-family: "system-ui";
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 600;
+  
+  font-size: .9rem;
+  color: var(--PRIMARY-COLOR)
+}
+
+.item-name-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+
+  & .item-bullet {
+    width: 7px;
+    height: 7px;
+    background-color: var(--PRIMARY-COLOR);
+    border-radius: 50%;
+  }
+}
+
+
+.quantity {
+  background-color : rgba(128, 128, 128, 0.090);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 4px;
+  padding-inline: 15px;
+  border-radius: 8px;
+}
+
+.MAD {
+  font-size: .7rem;
 }
 
 .total_revenue {
@@ -417,7 +453,7 @@ footer li:nth-child(2) {
   transition: width 3s linear;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   body {
     min-height: 100vh;
     font-family: system-ui;
@@ -457,6 +493,10 @@ footer li:nth-child(2) {
   .sales_breakdown {
     width: 100%;
     max-height: 400px;
+  }
+
+  .table_row {
+    grid-template-columns: 1.7fr 1fr 1fr;
   }
 
   .total_revenue {

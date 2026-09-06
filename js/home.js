@@ -182,7 +182,7 @@ const fetchSalesSummary = async () => {
 
     const rowDiv = document.createElement("div");
     rowDiv.classList.add("table_row");
-    rowDiv.innerHTML = `<p>${captilizedName}</p> <p>${sale.quantity}</p> <p style="text-align: right;">${sale.revenue}</p>`;
+    rowDiv.innerHTML = `<div class="item-name-container"> <span class="item-bullet"></span> <p class="item-name">${captilizedName}</p> </div> <p class="quantity">${sale.quantity}</p> <p style="text-align: right;">${sale.revenue} <span class="MAD"> MAD</span></p>`;
 
     salesTable.append(rowDiv);
   });

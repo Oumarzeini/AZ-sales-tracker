@@ -153,7 +153,7 @@ main h2 {
   }
 }
 
-.historyBtn {
+.weekly-insights-btn {
   /* position: absolute;
     top: 10px;
     right: 10px; */
@@ -181,14 +181,15 @@ main h2 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 20px;
+  row-gap: 25px;
 }
 
 .box {
   min-width: 300px;
   min-height: 200px;
   border-radius: 20px;
+  /* box-shadow: 0 2px 10px #d098304b; */
   box-shadow: 0 0 2px var(--SECONDARY-COLOR);
-
   padding: 10px;
   display: flex;
   align-items: center;
@@ -359,15 +360,17 @@ footer li:nth-child(2) {
     }
   }
 
-  .historyBtn {
+  .weekly-insights-btn {
     width: 100px;
     height: 35px;
     font-size: 0.8rem;
+
+  
   }
 
   #insightsSvg {
-    width: 30px !important;
-    height: 30px;
+    width: 20px ;
+    height: 20px;
   }
 
   .container {
