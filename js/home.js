@@ -359,7 +359,9 @@ const createSaleRow = (sale) => {
   const revenue = sale.quantity * sale.items.price;
 
   row.innerHTML = `
-    <td>${itemName}</td>
+    <td > 
+  <span class="bullet"></span> ${itemName}
+    </td>
 
     <td class="align-center quantity">
       <span class="quantity-badge">

@@ -437,9 +437,9 @@ main h1 {
   }
 
   & td .currency {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
-  
+
   & td .quantity-badge {
     background-color: rgba(128, 128, 128, 0.09);
     width: fit-content;
@@ -451,6 +451,17 @@ main h1 {
 
   & td.center-content {
     text-align: center;
+  }
+
+ 
+
+  & .bullet {
+    display: inline-flex;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--PRIMARY-COLOR);
+    margin-right: 4px;
   }
 
   & .delete-row-btn {
@@ -470,7 +481,22 @@ main h1 {
   & .delete-row-btn:hover {
     background-color: rgba(255, 0, 0, 0.157);
     color: rgb(136, 2, 2);
-    
+  }
+}
+
+.loader {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 4px solid;
+  border-color: var(--PRIMARY-COLOR) transparent;
+  animation: spin 1s infinite;
+  margin: 2rem auto 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(0.5turn);
   }
 }
 

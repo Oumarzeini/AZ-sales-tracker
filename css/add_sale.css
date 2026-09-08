@@ -309,19 +309,27 @@ main h1 {
   min-height: 400px;
   position: relative;
 
-  & .right-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-  }
-
   & .left-container {
     max-width: 50%;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
     align-items: start;
+
+    & p {
+      color: var(--PRIMARY-COLOR);
+    }
+  }
+
+  & .right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    & p {
+      color: var(--PRIMARY-COLOR);
+    }
   }
 
   & h2 {
