@@ -275,20 +275,21 @@ const addSale = async () => {
   const { data: userData, error: userErr } = await supabase.auth.getUser();
   const userEmail = userData?.user.email;
 
-  const { data: item, error: itemErr } = await supabase
+  const { data: itemObj, error: itemErr } = await supabase
     .from("items")
-    .select("price")
+    .select("price, name")
     .eq("id", itemId)
     .single();
 
   if (itemErr) {
     showNotif("An error occured, Please refresh the page.", failedSvg);
   }
-  const total = item.price * quantity;
+  const total = itemObj.price * quantity;
 
-  const { data, error } = await supabase.from("sales").insert([
+  const { error } = await supabase.from("sales").insert([
     {
       item_id: itemId,
+      item_name: itemObj.name,
       quantity,
       total,
       business_day_id: currentBusinessDayId,

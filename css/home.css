@@ -270,8 +270,8 @@ main h1 {
   overflow: auto;
   display: flex;
   flex-direction: column;
- 
-  box-shadow:  0 0  4px #0000003d;
+
+  box-shadow: 0 0 4px #0000003d;
   /* box-shadow: 0 4px 20px rgba(67,36,6,0.08); */
   border-radius: 8px;
 }
@@ -304,14 +304,12 @@ main h1 {
   flex-direction: column;
   width: 100%;
 
-  
   scroll-behavior: smooth;
 }
 
 .sales_table::-webkit-scrollbar {
   display: none !important;
 }
-
 
 .table_header {
   width: 100%;
@@ -322,7 +320,7 @@ main h1 {
   background-color: #673b2012;
   padding: 15px;
   font-weight: 700;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .noItemsFeedback {
@@ -335,15 +333,15 @@ main h1 {
 .table_row {
   width: 100%;
   display: grid;
-  grid-template-columns: 1.9fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   border-top: 1px solid #673b2016;
   padding: 15px;
   padding-block: 15px;
   font-family: "system-ui";
   font-weight: 600;
-  
-  font-size: .9rem;
-  color: var(--PRIMARY-COLOR)
+
+  font-size: 0.9rem;
+  color: var(--PRIMARY-COLOR);
 }
 
 .item-name-container {
@@ -360,9 +358,8 @@ main h1 {
   }
 }
 
-
-.quantity {
-  background-color : rgba(128, 128, 128, 0.090);
+/* .quantity {
+  background-color: rgba(128, 128, 128, 0.09);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -371,10 +368,10 @@ main h1 {
   padding: 4px;
   padding-inline: 15px;
   border-radius: 8px;
-}
+} */
 
 .MAD {
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 .total_revenue {
@@ -388,6 +385,93 @@ main h1 {
   font-size: 2rem;
   color: green;
   font-weight: 600;
+}
+
+.sales-table {
+  /* background-color: red; */
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  & thead {
+    width: 100%;
+    text-align: left;
+    color: var(--PRIMARY-COLOR);
+    background-color: #673b2012;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.9px;
+
+    & th {
+      padding: 15px;
+    }
+  }
+
+  & tbody tr {
+    text-align: left;
+    border-bottom: 1px solid #673b2016;
+
+    font-family: "system-ui";
+    font-weight: 600;
+
+    font-size: 0.9rem;
+    color: var(--PRIMARY-COLOR);
+  }
+
+  & td {
+    padding: 10px;
+  }
+
+  & td.align-center,
+  th.align-center {
+    text-align: center;
+  }
+
+  & td.align-right,
+  th.align-right {
+    text-align: right;
+  }
+
+  & td .revenue-number {
+    font-weight: 800;
+  }
+
+  & td .currency {
+    font-size: .7rem;
+  }
+  
+  & td .quantity-badge {
+    background-color: rgba(128, 128, 128, 0.09);
+    width: fit-content;
+    height: fit-content;
+    padding: 4px;
+    padding-inline: 15px;
+    border-radius: 8px;
+  }
+
+  & td.center-content {
+    text-align: center;
+  }
+
+  & .delete-row-btn {
+    display: inline-flex;
+    justify-content: content;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: var(--PRIMARY-COLOR);
+    cursor: pointer;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px;
+    transition: background 0.2s linear;
+  }
+
+  & .delete-row-btn:hover {
+    background-color: rgba(255, 0, 0, 0.157);
+    color: rgb(136, 2, 2);
+    
+  }
 }
 
 footer {
@@ -471,8 +555,6 @@ footer li:nth-child(2) {
     width: 100%;
     font-weight: 500;
   }
-
-  
 
   nav {
     display: none;

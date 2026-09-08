@@ -195,18 +195,26 @@
     </nav>
 
     <main>
-      <!-- Content -->
-      <!-- <h1 id="dateDisplay"></h1> -->
-
       <div class="sales_breakdown">
         <div class="sales_header">Sales Made Today</div>
-        <div class="table_header">
-          <p>ITEM NAME</p>
-          <p>QUANTITY</p>
-          <p>REVENUE</p>
-        </div>
+
+        <table class="sales-table">
+          <thead>
+            <tr>
+              <th>ITEM NAME</th>
+              <th class="align-center">QUANTITY</th>
+              <th class="align-right">REVENUE</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="table-body"></tbody>
+        </table>
+
         <div id="salesTable" class="sales_table">
-          <p style="text-align: center; font-size: 1rem">Loading...</p>
+          <p style="text-align: center; font-size: 1rem; margin-top: 1rem">
+            Loading...
+          </p>
         </div>
       </div>
 
