@@ -18,8 +18,8 @@ button:active {
   --SECONDARY-COLOR: #d09730;
   --LIGHT-SECONDARY: #f7ae25;
   --WHITE: white;
-  --DARK-BG: #251f35;
-  --DARK-COLOR: #b8b2c3;
+  --DARK-BG: #050505;
+  --DARK-COLOR: var(--SECONDARY-COLOR);
   --BORDER-COLOR: rgba(128, 128, 128, 0.209);
   --NAVBAR-COLOR: gray;
 }

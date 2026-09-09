@@ -20,8 +20,8 @@ button:active {
   --SECONDARY-COLOR: #d09730;
   --LIGHT-SECONDARY: #f7ae25;
   --WHITE: white;
-  --DARK-BG: #251f35;
-  --DARK-COLOR: #b8b2c3;
+  --DARK-BG: #050505;
+  --DARK-COLOR: var(--SECONDARY-COLOR);
   --BORDER-COLOR: rgba(128, 128, 128, 0.209);
   --NAVBAR-COLOR: gray;
 }
@@ -362,6 +362,10 @@ main h1 {
   font-weight: 500;
 }
 
+.choices__inner {
+  background-color: red;
+}
+
 .no-products-feedback {
   color: rgb(186, 58, 58);
   display: none;
@@ -381,6 +385,11 @@ main h1 {
 
 .choices__list {
   font-size: 1.1rem;
+  
+}
+
+body.dark_mode .choices__list--dropdown {
+  background-color: var(--DARK-BG);
 }
 
 .quantity {

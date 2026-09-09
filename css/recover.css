@@ -60,6 +60,11 @@ main h4 {
 
 }
 
+#send-button:disabled {
+   opacity: .5;
+   cursor: not-allowed;
+}
+
 .notif_container {
   margin: auto;
   background-color: #9eff90;

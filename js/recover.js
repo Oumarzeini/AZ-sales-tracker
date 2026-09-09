@@ -1,6 +1,7 @@
 import supabase from "./config.js";
+const sendButton = document.getElementById("send-button");
 
-const notifContainer = document.getElementById("notifContainer");
+//const notifContainer = document.getElementById("notifContainer");
 const failedSvg = `<svg
           height="25"
           width="25"
@@ -27,8 +28,12 @@ const successSvg = `<svg
 
 const sendMail = async (email) => {
   try {
-    const { data } = supabase.auth.resetPasswordForEmail(email);
+    const { error } = supabase.auth.resetPasswordForEmail(email);
+    if (error) {
+      throw error;
+    }
     showSuccessNotif("Check your email box for a reset link", successSvg);
+    sendButton.disabled = true;
   } catch (err) {
     console.log(err.message);
     showErrorNotif(`${err.message}`, failedSvg);
@@ -44,7 +49,7 @@ const emailForm = document.getElementById("emailForm");
 
 emailForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const email = emailForm.email;
+  const email = document.getElementById("email-input");
   const userEmail = email.value.trim();
   if (isValidEmail(userEmail)) {
     sendMail(userEmail);
@@ -82,7 +87,9 @@ const showErrorNotif = (text, icon) => {
   notifContainer.style.display = "inline-flex";
 };
 
-const emailInput = document.getElementById("email");
-emailInput.addEventListener("focus", () => {
+const emailInput = document.getElementById("email-input");
+
+emailInput.onfocus = () => {
   document.getElementById("notifContainer").style.display = "none";
-});
+  sendButton.disabled = false;
+};

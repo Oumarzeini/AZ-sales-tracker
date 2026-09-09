@@ -10,8 +10,8 @@
   --SECONDARY-COLOR: #d09730;
   --LIGHT-SECONDARY: #f7ae25;
   --WHITE: white;
-  --DARK-BG: #251f35;
-  --DARK-COLOR: #b8b2c3;
+  --DARK-BG: #050505;
+  --DARK-COLOR: var(--SECONDARY-COLOR);
   --BORDER-COLOR: rgba(128, 128, 128, 0.209);
   --NAVBAR-COLOR: gray;
 }
@@ -274,6 +274,15 @@ main h1 {
   box-shadow: 0 0 4px #0000003d;
   /* box-shadow: 0 4px 20px rgba(67,36,6,0.08); */
   border-radius: 8px;
+}
+
+body.dark_mode .sales_breakdown {
+  box-shadow: 0 0 4px #e7e3e33d;
+}
+
+body.dark_mode table tr {
+  color: var(--SECONDARY-COLOR) !important;
+  border-bottom-color:#d0983039;
 }
 
 .sales_breakdown::-webkit-scrollbar {
