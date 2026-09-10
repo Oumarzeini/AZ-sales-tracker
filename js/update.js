@@ -27,10 +27,16 @@ const successSvg = `<svg
 
 const updatePassword = async (email, password) => {
   try {
-    const { data, error } = await supabase.auth.updateUser({
-      email: email,
+    const { error } = await supabase.auth.updateUser({
       password: password,
     });
+
+    if (error) {
+      console.log("Error updating password", error.message);
+      showErrorNotif("Something went wrong. Please try again", failedSvg);
+      return;
+    }
+
     showSuccessNotif("Credentials updated succussfully", successSvg);
     setTimeout(() => {
       window.location.href = "home.html";
@@ -41,21 +47,21 @@ const updatePassword = async (email, password) => {
   }
 };
 
-const isValidEmail = (email) => {
-  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return regex.test(email);
-};
+// const isValidEmail = (email) => {
+//   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+//   return regex.test(email);
+// };
 
 const updateForm = document.getElementById("updateForm");
 
 updateForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const email = updateForm.email.value.trim();
+
   const password = updateForm.password.value.trim();
-  if (isValidEmail(email)) {
-    updatePassword(email, password);
+  if (password.length < 6) {
+    showErrorNotif("Minimum Password length is 6 characters", failedSvg);
   } else {
-    showErrorNotif("Please enter a valid email", failedSvg);
+    updatePassword(email, password);
   }
 });
 
@@ -91,4 +97,27 @@ const showErrorNotif = (text, icon) => {
 const emailInput = document.getElementById("email");
 emailInput.addEventListener("focus", () => {
   document.getElementById("notifContainer").style.display = "none";
+});
+
+const checkAuth = async () => {
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+
+  if (error) {
+    console.error("Error checking session:", error);
+    return false;
+  }
+
+  if (!session) {
+    window.location.href = "auth.html";
+    return false;
+  }
+
+  return true;
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await checkAuth();
 });

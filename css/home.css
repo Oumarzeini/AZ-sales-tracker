@@ -64,11 +64,12 @@ body {
   top: 50px;
   right: 10px;
   min-width: 200px;
-  height: fit-content;
+  height: 0;
+  overflow: hidden;
   background-color: white;
   border: 1px solid var(--BORDER-COLOR);
-  padding: 10px;
-  padding-top: 15px;
+  padding: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -77,6 +78,13 @@ body {
   border-radius: 10px;
   opacity: 0;
   transition: opacity 0.2s linear;
+
+  &.show {
+    padding-top: 15px;
+    padding: 10px;
+    height: 110px;
+    opacity: 1;
+  }
 
   & .close_profile_card {
     position: absolute;
@@ -172,11 +180,6 @@ body {
   cursor: pointer;
 }
 
-.show {
-  opacity: 1;
-  transition: opacity 0.2s linear;
-}
-
 .toggle_display {
   position: absolute;
   top: 13px;
@@ -197,7 +200,7 @@ li {
 header {
   grid-area: hd;
   display: flex;
-  padding: 10px;
+padding: 10px 10px 5px;
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
@@ -270,7 +273,7 @@ main h1 {
   overflow: auto;
   display: flex;
   flex-direction: column;
-
+  
   box-shadow: 0 0 4px #0000003d;
   /* box-shadow: 0 4px 20px rgba(67,36,6,0.08); */
   border-radius: 8px;
@@ -282,7 +285,7 @@ body.dark_mode .sales_breakdown {
 
 body.dark_mode table tr {
   color: var(--SECONDARY-COLOR) !important;
-  border-bottom-color:#d0983039;
+  border-bottom-color: #d0983039;
 }
 
 .sales_breakdown::-webkit-scrollbar {
@@ -295,6 +298,8 @@ body.dark_mode table tr {
   background-color: var(--SECONDARY-COLOR);
   border-radius: 15px;
 }
+
+
 
 .sales_header {
   width: 100%;
@@ -462,8 +467,6 @@ body.dark_mode table tr {
     text-align: center;
   }
 
- 
-
   & .bullet {
     display: inline-flex;
     width: 8px;
@@ -586,6 +589,7 @@ footer li:nth-child(2) {
       "ft ft ft";
   }
 
+ 
   header ul {
     width: 100%;
     font-weight: 500;

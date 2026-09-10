@@ -93,7 +93,7 @@ const showNotif = (text, icon) => {
   }, 3300);
 };
 
-//AUTH
+//check if user is authenticated
 
 const checkAuth = async () => {
   const {

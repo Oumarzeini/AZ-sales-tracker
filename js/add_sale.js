@@ -2,7 +2,7 @@ import supabase from "./config.js";
 import formatDate from "./utils/formatDate.js";
 // GLOBAL VARIABLES
 const addSaleBtn = document.getElementById("addSaleBtn");
-const selectMenu = document.getElementById("menuItems");
+const selectList = document.getElementById("products-list");
 const incrementBtn = document.getElementById("increment_btn");
 const decrementBtn = document.getElementById("decrement_btn");
 let quantityInput = document.getElementById("quantity_input");
@@ -102,7 +102,7 @@ const toggleDisplay = () => {
 toggleDisplay();
 
 // DOM AND DATA FUNCTIONS
-const choices = new Choices(selectMenu, {
+const choices = new Choices(selectList, {
   placeholder: true,
   placeholderValue: "Click To Select",
   searchEnabled: true,
@@ -115,6 +115,7 @@ const fetchItems = async () => {
   const { data: items, error } = await supabase
     .from("items")
     .select("id, name");
+
   if (error) {
     console.log(error);
     showNotif("Error fetching data, please refresh the page.", failedSvg);
@@ -135,23 +136,28 @@ const fetchItems = async () => {
       disabled: true,
     },
 
-    ...items.map(
-      (item) => ({
-        value: item.id,
-        label: item.name,
-        selected: false,
-      }),
-      "value",
-      "label",
-      false,
-    ),
+    ...items.map((item) => ({
+      value: item.id,
+      label: item.name,
+      selected: false,
+    })),
   ]);
 };
 
 fetchItems();
 
-addSaleBtn.onclick = () => {
-  addSale();
+addSaleBtn.onclick = async () => {
+  try {
+    addSaleBtn.disabled = true;
+    addSaleBtn.textContent = "Adding new sale...";
+    await addSale();
+  } catch (err) {
+    console.log("Error proceeding to add sale", err);
+    showNotif("Error proceeding to add sale. Please try again", failedSvg);
+  } finally {
+    addSaleBtn.disabled = false;
+    addSaleBtn.textContent = "Add Sale";
+  }
 };
 
 const startNewDay = async (today) => {
@@ -245,7 +251,6 @@ const checkOrCreateBusinessDay = async () => {
   const dayDate = day.date_label;
 
   if (dayDate === today && day.is_active) {
-    console.log("using current day !");
     currentBusinessDayId = day.id;
     return currentBusinessDayId;
   }
@@ -264,7 +269,7 @@ const checkOrCreateBusinessDay = async () => {
 };
 
 const addSale = async () => {
-  const itemId = selectMenu.value;
+  const itemId = selectList.value;
   const quantity = parseInt(document.getElementById("quantity_input").value);
 
   if (!itemId || !quantity || quantity < 0) {

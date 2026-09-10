@@ -11,7 +11,7 @@ button {
 }
 
 button:active {
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
 :root {
@@ -84,7 +84,7 @@ li {
 header {
   grid-area: hd;
   display: flex;
-  padding: 10px;
+  padding: 10px 10px 0;
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
@@ -240,13 +240,14 @@ main h1 {
 .new_item_box form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .input_label_div {
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 5px;
 
   /* LABELS */
   & label {
@@ -442,6 +443,11 @@ body.dark_mode .choices__list--dropdown {
   gap: 10px;
 }
 
+.add_btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
 footer {
   grid-area: ft;
   border: 1px solid var(--BORDER-COLOR);
@@ -581,6 +587,8 @@ footer li:nth-child(2) {
 }
 
 @media (max-width: 700px) {
+
+  
   .newsale_container {
     flex-direction: column;
     padding-top: 80px;

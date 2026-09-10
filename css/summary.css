@@ -64,7 +64,7 @@ li {
 header {
   grid-area: hd;
   display: flex;
-  padding: 10px;
+  padding: 10px 10px 0;
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
@@ -313,7 +313,7 @@ footer li:nth-child(2) {
   transition: width 3s linear;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   body {
     min-height: 100vh;
     font-family: system-ui;
@@ -326,6 +326,7 @@ footer li:nth-child(2) {
       "mn mn mn"
       "ft ft ft";
   }
+  
 
   header ul {
     width: 100%;
