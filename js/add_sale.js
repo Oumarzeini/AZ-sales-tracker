@@ -430,7 +430,7 @@ const checkAuth = async () => {
     .select("name")
     .eq("owner_id", session.user.id);
 
-  businessName.innerHTML = `Welcome Back <span class="business-name"> ${data[0].name}</span>`;
+  businessName.innerHTML = `Welcome, <span class="business-name"> ${data[0].name}</span>`;
 };
 
 document.addEventListener("DOMContentLoaded", async () => {

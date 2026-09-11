@@ -61,7 +61,7 @@ updateForm.addEventListener("submit", (e) => {
   if (password.length < 6) {
     showErrorNotif("Minimum Password length is 6 characters", failedSvg);
   } else {
-    updatePassword(email, password);
+    updatePassword(password);
   }
 });
 
@@ -94,8 +94,8 @@ const showErrorNotif = (text, icon) => {
   notifContainer.style.display = "inline-flex";
 };
 
-const emailInput = document.getElementById("email");
-emailInput.addEventListener("focus", () => {
+const passwordField = document.getElementById("password");
+passwordField.addEventListener("focus", () => {
   document.getElementById("notifContainer").style.display = "none";
 });
 

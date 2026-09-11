@@ -54,9 +54,12 @@ const elements = {
   confirmLogOut: document.getElementById("confirmLogOut"),
 
   profileIcon: document.getElementById("profileIcon"),
+  bottomProfileIcon: document.getElementById("bottom-profile-icon"),
   profileCard: document.getElementById("profileCard"),
   closeProfileCard: document.getElementById("closeProfileCard"),
 
+  displayName: document.getElementById("business-name"),
+  productsCount: document.getElementById("products-count"),
   userEmail: document.getElementById("userEmail"),
 
   darkModeButton: document.getElementById("dark_mode"),
@@ -515,6 +518,48 @@ const subscribeToSalesUpdates = () => {
     )
     .subscribe();
 };
+
+const shortName = (name) => {
+  const arr = name.split(" ");
+  if (arr.length > 1) {
+    return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
+  } else {
+    return arr[0].split("")[0].toUpperCase();
+  }
+};
+
+const getBusinessName = async () => {
+  try {
+    const user = await getUser();
+
+    if (!user) return;
+
+    const { data: name, error } = await supabase
+      .from("businesses")
+      .select("name")
+      .eq("owner_id", user.id);
+
+    const { data: products, error: productsErr } = await supabase
+      .from("items")
+      .select("id")
+      .eq("user_id", user.id);
+
+    if (error || productsErr) {
+      throw error || productsErr;
+    }
+
+    elements.productsCount.textContent = `Total Products : ${products.length}`;
+    const businessName = shortName(name[0].name);
+    elements.displayName.textContent = name[0].name;
+    document.querySelector(".business-name").textContent = name[0].name;
+    elements.profileIcon.innerHTML = `<span>${businessName}</span>`;
+    elements.bottomProfileIcon.innerHTML = `<span>${businessName}</span>`;
+  } catch (err) {
+    console.log("Error getting user", err);
+  }
+};
+
+getBusinessName();
 
 const initializeProfileEvents = () => {
   elements.profileIcon.addEventListener("click", () => {
