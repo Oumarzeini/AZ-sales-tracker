@@ -11,7 +11,7 @@
   --LIGHT-SECONDARY: #f7ae25;
   --WHITE: white;
   --DARK-BG: #050505;
-  --DARK-COLOR: var(--SECONDARY-COLOR);
+  --DARK-COLOR:#d098309b;
   --BORDER-COLOR: rgba(128, 128, 128, 0.209);
   --NAVBAR-COLOR: gray;
 }
@@ -103,10 +103,14 @@ body {
     width: 100%;
     gap: 10px;
 
+    & li:nth-child(1) {
+      cursor: text;
+    }
+
     & li {
       width: 100%;
       font-size: 0.9rem;
-      cursor: text;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -139,6 +143,14 @@ body {
       font-size: .8rem;
       letter-spacing: .01rem;
     }
+  }
+}
+
+body.dark_mode .profile_card {
+  background-color: black;
+
+  & .line {
+    background-color: gray;
   }
 }
 
@@ -228,6 +240,8 @@ header {
   }
 }
 
+
+
 header ul {
   display: flex;
   justify-content: flex-start;
@@ -239,6 +253,21 @@ header ul {
 
 .home {
   color: var(--SECONDARY-COLOR);
+}
+
+.total-sales-btn {
+  font-size: .85rem;
+  background-color: #d0983069;
+  color: var(--PRIMARY-COLOR);
+  padding: 5px;
+  padding-inline: 15px;
+  border-radius: 5px;
+  border: 1px solid var(--PRIMARY-COLOR);
+ font-weight: 500;
+}
+body.dark_mode .total-sales-btn {
+   color: var(--SECONDARY-COLOR);
+   border-color: var(--SECONDARY-COLOR);
 }
 
 header img {
@@ -280,10 +309,29 @@ aside li {
 }
 
 #selected_page {
-  background-color: rgb(240, 238, 238);
-  border-radius: 5px;
+  /* border-radius: 5px;
   padding: 5px;
-  padding-left: 10px;
+  padding-left: 10px; */
+
+   color: var(--PRIMARY-COLOR);
+      background-color: #d0983030;
+      padding: 8px;
+      padding-left: 10px;
+      border-radius: 20px;
+      corner-shape: squircle;
+
+      & svg {
+        color: var(--PRIMARY-COLOR) !important;
+      }
+}
+
+body.dark_mode #selected_page {
+  color: var(--SECONDARY-COLOR);
+  background-color: #d0983030 !important;
+
+  & svg {
+    color: var(--SECONDARY-COLOR) !important;
+  }
 }
 
 .bottom-profile-card {
@@ -470,6 +518,9 @@ body.dark_mode table tr {
   border-left: 4px solid green;
   padding-left: 10px;
   margin-top: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.142);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .total_revenue_number {
@@ -608,6 +659,63 @@ footer li:nth-child(2) {
   margin-left: 1rem;
 }
 
+footer .phone-navigation {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.178);
+
+  & li {
+    list-style-type: none;
+    margin: 0;
+    font-size: .8rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+     padding: 8px;
+      padding-inline: 15px;
+
+    &.current  {
+      color: var(--PRIMARY-COLOR);
+      background-color: #d0983030;
+      width: fit-content;
+      height: fit-content;
+      padding: 8px;
+      padding-inline: 15px;
+      border-radius: 20px;
+      corner-shape: squircle;
+    }
+  }
+}
+
+body.dark_mode .phone-navigation {
+  background-color: var(--DARK-BG);
+  box-shadow: 0 8px 20px #d098308c;
+
+  & li {
+     color: var(--PRIMARY-COLOR) ;
+     
+
+  &.current {
+    color: var(--SECONDARY-COLOR) ;
+  }
+  }
+}
+
+
+
 .notif_container {
   position: fixed;
   bottom: 5%;
@@ -667,8 +775,12 @@ footer li:nth-child(2) {
   }
 
   header ul {
-    width: 100%;
+  
     font-weight: 500;
+  }
+
+  .total-sales-btn {
+    padding-top: 7px;
   }
 
   #logOut {
@@ -698,38 +810,47 @@ footer li:nth-child(2) {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 30px;
+    
   }
 
   .sales_breakdown {
     width: 100%;
-    max-height: 400px;
+    min-height: 450px;
+  }
+
+  .total_revenue {
+    margin: 0;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.142);
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  aside {
+    display: none;
   }
 
   .table_row {
     grid-template-columns: 1.7fr 1fr 1fr;
   }
 
-  .total_revenue {
-    margin-top: 3rem;
-  }
-
   .notif_container {
     top: 10%;
   }
+
+  footer .phone-navigation {
+    display: flex;
+  }
+
+  footer .larg-screen-footer-links {
+    display: none;
+  }
+
 }
 
-@media (min-width: 800px) and (max-width: 770px) {
-  .sales_breakdown {
-    width: 90%;
-  }
-
-  .total_revenue {
-    margin-top: 5rem;
-    width: 90%;
-  }
-
-  aside {
+@media (min-width: 600px) {
+  footer .phone-navigation {
     display: none;
   }
 }

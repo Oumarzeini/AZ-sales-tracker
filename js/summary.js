@@ -1,5 +1,6 @@
 import supabase from "./config.js";
 import formatDate from "./utils/formatDate.js";
+import getUser from "./utils/getUser.js";
 
 // const successSvg = `<svg
 //         height=""
@@ -28,22 +29,49 @@ const infoSvg = `<svg height="20" width="20" viewBox="0 0 1024 1024" xmlns="http
 	<path d="m576 736l-32-.001v-286c0-.336-.096-.656-.096-1.008s.096-.655.096-.991c0-17.664-14.336-32-32-32h-64c-17.664 0-32 14.336-32 32s14.336 32 32 32h32v256h-32c-17.664 0-32 14.336-32 32s14.336 32 32 32h128c17.664 0 32-14.336 32-32s-14.336-32-32-32zm-64-384.001c35.344 0 64-28.656 64-64s-28.656-64-64-64s-64 28.656-64 64s28.656 64 64 64zm0-352c-282.768 0-512 229.232-512 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512c0-282.768-229.216-512-512-512zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01z" fill="currentColor"/>
 </svg>`;
 
+const elements = {
+  overlay: document.getElementById("overlay"),
+  logOutModal: document.getElementById("logOutModel"),
+  cancelLogOut: document.getElementById("cancelLogOut"),
+  confirmLogOut: document.getElementById("confirmLogOut"),
+
+  profileIcon: document.getElementById("profileIcon"),
+  bottomProfileIcon: document.getElementById("bottom-profile-icon"),
+  profileCard: document.getElementById("profileCard"),
+  closeProfileCard: document.getElementById("closeProfileCard"),
+
+  displayName: document.getElementById("business-name"),
+  productsCount: document.getElementById("products-count"),
+  displayedEmail: document.getElementById("userEmail"),
+
+  darkModeButton: document.getElementById("dark_mode"),
+  lightModeButton: document.getElementById("light_mode"),
+  selectedPage: document.getElementById("selected_page"),
+
+  salesTable: document.getElementById("salesTable"),
+  tableBody: document.getElementById("table-body"),
+  totalRevenueDisplay: document.getElementById("totalRevenueDisplay"),
+
+  notifContainer: document.getElementById("notifContainer"),
+  progressBar: document.getElementById("progress_bar"),
+  svgContainer: document.getElementById("svgContainer"),
+  notifText: document.getElementById("notifText"),
+
+  logOutButton: document.getElementById("logOut"),
+};
+
 document.getElementById("dateDisplay").textContent = formatDate();
 
 const addDarkMode = () => {
   document.getElementById("dark_mode").style.display = "none";
   document.getElementById("light_mode").style.display = "block";
   document.body.classList.add("dark_mode");
-  document.getElementById("selected_page").style.backgroundColor =
-    "rgb(76, 75, 75)";
 };
 
 const addLightMode = () => {
   document.getElementById("light_mode").style.display = "none";
   document.getElementById("dark_mode").style.display = "block";
   document.body.classList.remove("dark_mode");
-  document.getElementById("selected_page").style.backgroundColor =
-    "rgb(240, 238, 238)";
 };
 
 if (localStorage.getItem("theme") === "dark") {
@@ -93,6 +121,8 @@ const fetchSummary = async () => {
     document.getElementById("totalRevenue").textContent = `  No sales tracked`;
     return;
   }
+
+  document.getElementById("total-sales-btn").textContent = ` ${sales.length}`;
 
   if (sales.length === 0) {
     console.log("No Sales Tracked Today");
@@ -144,6 +174,79 @@ const fetchSummary = async () => {
   document.getElementById("grossProfit").textContent = `${grossProfit} MAD`;
 };
 
+const shortName = (name) => {
+  const arr = name.split(" ");
+  if (arr.length > 1) {
+    return arr[0][0].toUpperCase() + arr[1][0].toUpperCase();
+  } else {
+    return arr[0].split("")[0].toUpperCase();
+  }
+};
+
+const getBusinessName = async () => {
+  try {
+    const user = await getUser();
+
+    if (!user) return;
+
+    const { data: name, error } = await supabase
+      .from("businesses")
+      .select("name")
+      .eq("owner_id", user.id);
+
+    const { data: products, error: productsErr } = await supabase
+      .from("items")
+      .select("id")
+      .eq("user_id", user.id);
+
+    if (error || productsErr) {
+      throw error || productsErr;
+    }
+
+    elements.productsCount.textContent = `Total Products : ${products.length}`;
+    const businessName = shortName(name[0].name);
+    elements.displayName.textContent = name[0].name;
+    document.querySelector(".business-name").textContent = name[0].name;
+    elements.profileIcon.innerHTML = `<span>${businessName}</span>`;
+    elements.bottomProfileIcon.innerHTML = `<span>${businessName}</span>`;
+  } catch (err) {
+    if (err.message?.toLowerCase().includes("expired")) {
+      showNotif("Session expired. Please sign in again.", infoSvg);
+
+      setTimeout(() => {
+        window.location.href = "auth.html";
+      }, 2000);
+    }
+    showNotif("Something went wrong, try refreshing the page.", failedSvg);
+  }
+};
+
+getBusinessName();
+
+const initializeProfileEvents = () => {
+  elements.profileIcon.addEventListener("click", () => {
+    elements.profileCard.classList.toggle("show");
+  });
+
+  elements.closeProfileCard.addEventListener("click", () => {
+    elements.profileCard.classList.remove("show");
+  });
+};
+
+const initializeLogoutEvents = () => {
+  elements.logOutButton.addEventListener("click", () => {
+    elements.overlay.style.display = "block";
+    elements.logOutModal.style.display = "flex";
+  });
+
+  elements.cancelLogOut.addEventListener("click", () => {
+    elements.overlay.style.display = "none";
+    elements.logOutModal.style.display = "none";
+  });
+
+  elements.confirmLogOut.addEventListener("click", signOut);
+};
+
 const showNotif = (text, icon) => {
   const notifContainer = document.getElementById("notifContainer");
   const progressBar = document.getElementById("progress_bar");
@@ -177,6 +280,31 @@ const subscribeToSalesUpdate = () => {
     .subscribe();
 };
 
+const displayUserEmail = async () => {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error("Error getting user:", error);
+
+    if (error.message?.toLowerCase().includes("expired")) {
+      showNotif("Session expired. Please sign in again.", infoSvg);
+
+      setTimeout(() => {
+        window.location.href = "auth.html";
+      }, 2000);
+    }
+
+    return;
+  }
+
+  if (user) {
+    elements.displayedEmail.textContent = user.email;
+  }
+};
+
 const checkAuth = async () => {
   const { data } = await supabase.auth.getSession();
   if (!data.session) {
@@ -184,10 +312,25 @@ const checkAuth = async () => {
   }
 };
 
+const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error("Error signing out:", error);
+    showNotif(`Error signing out: ${error.message}`, failedSvg);
+    return;
+  }
+
+  window.location.href = "auth.html";
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   await checkAuth();
   await fetchSummary();
+  await displayUserEmail();
   subscribeToSalesUpdate();
+  initializeLogoutEvents();
+  initializeProfileEvents();
 });
 
 checkAuth();

@@ -25,51 +25,94 @@
             height="50"
           />
         </li>
-        <li
-          role="button"
-          onclick="window.location.href = 'home.html'"
-          class="home"
-        >
-          Home
-        </li>
-        <li
-          role="button"
-          onclick="window.location.href = 'add_sale.html'"
-          class="add-sale"
-        >
-          Add Sale
-        </li>
-        <li role="button" onclick="window.location.href = 'summary.html'">
-          Summary
-        </li>
       </ul>
-      <svg
-        id="dark_mode"
-        class="toggle_display"
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="#000000"
-          d="M12.058 20q-3.334 0-5.667-2.333Q4.058 15.333 4.058 12q0-3.038 1.98-5.27Q8.02 4.5 10.942 4.097q.081 0 .159.006t.153.017q-.506.706-.801 1.57q-.295.865-.295 1.811q0 2.667 1.866 4.533q1.867 1.867 4.534 1.867q.952 0 1.813-.295q.862-.295 1.548-.801q.012.075.018.153q.005.078.005.158q-.384 2.923-2.615 4.904T12.057 20Zm0-1q2.2 0 3.95-1.213t2.55-3.162q-.5.125-1 .2t-1 .075q-3.075 0-5.238-2.163T9.158 7.5q0-.5.075-1t.2-1q-1.95.8-3.163 2.55T5.058 12q0 2.9 2.05 4.95t4.95 2.05Zm-.25-6.75Z"
-        />
-      </svg>
-      <svg
-        id="light_mode"
-        class="toggle_display"
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="gray"
-          d="M12 17q-2.075 0-3.538-1.463T7 12q0-2.075 1.463-3.538T12 7q2.075 0 3.538 1.463T17 12q0 2.075-1.463 3.538T12 17ZM2 13q-.425 0-.713-.288T1 12q0-.425.288-.713T2 11h2q.425 0 .713.288T5 12q0 .425-.288.713T4 13H2Zm18 0q-.425 0-.713-.288T19 12q0-.425.288-.713T20 11h2q.425 0 .713.288T23 12q0 .425-.288.713T22 13h-2Zm-8-8q-.425 0-.713-.288T11 4V2q0-.425.288-.713T12 1q.425 0 .713.288T13 2v2q0 .425-.288.713T12 5Zm0 18q-.425 0-.713-.288T11 22v-2q0-.425.288-.713T12 19q.425 0 .713.288T13 20v2q0 .425-.288.713T12 23ZM5.65 7.05L4.575 6q-.3-.275-.288-.7t.288-.725q.3-.3.725-.3t.7.3L7.05 5.65q.275.3.275.7t-.275.7q-.275.3-.687.288T5.65 7.05ZM18 19.425l-1.05-1.075q-.275-.3-.275-.713t.275-.687q.275-.3.688-.287t.712.287L19.425 18q.3.275.288.7t-.288.725q-.3.3-.725.3t-.7-.3ZM16.95 7.05q-.3-.275-.288-.687t.288-.713L18 4.575q.275-.3.7-.288t.725.288q.3.3.3.725t-.3.7L18.35 7.05q-.3.275-.7.275t-.7-.275ZM4.575 19.425q-.3-.3-.3-.725t.3-.7l1.075-1.05q.3-.275.712-.275t.688.275q.3.275.288.688t-.288.712L6 19.425q-.275.3-.7.288t-.725-.288Z"
-        />
-      </svg>
+
+      <button class="total-sales-btn">
+        Total Sales Today : <span id="total-sales-btn">--</span>
+      </button>
+
+      <div class="right-container">
+        <div class="theme-icons-container">
+          <svg
+            id="dark_mode"
+            class="toggle_display"
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#000000"
+              d="M12.058 20q-3.334 0-5.667-2.333Q4.058 15.333 4.058 12q0-3.038 1.98-5.27Q8.02 4.5 10.942 4.097q.081 0 .159.006t.153.017q-.506.706-.801 1.57q-.295.865-.295 1.811q0 2.667 1.866 4.533q1.867 1.867 4.534 1.867q.952 0 1.813-.295q.862-.295 1.548-.801q.012.075.018.153q.005.078.005.158q-.384 2.923-2.615 4.904T12.057 20Zm0-1q2.2 0 3.95-1.213t2.55-3.162q-.5.125-1 .2t-1 .075q-3.075 0-5.238-2.163T9.158 7.5q0-.5.075-1t.2-1q-1.95.8-3.163 2.55T5.058 12q0 2.9 2.05 4.95t4.95 2.05Zm-.25-6.75Z"
+            />
+          </svg>
+          <svg
+            id="light_mode"
+            class="toggle_display"
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="gray"
+              d="M12 17q-2.075 0-3.538-1.463T7 12q0-2.075 1.463-3.538T12 7q2.075 0 3.538 1.463T17 12q0 2.075-1.463 3.538T12 17ZM2 13q-.425 0-.713-.288T1 12q0-.425.288-.713T2 11h2q.425 0 .713.288T5 12q0 .425-.288.713T4 13H2Zm18 0q-.425 0-.713-.288T19 12q0-.425.288-.713T20 11h2q.425 0 .713.288T23 12q0 .425-.288.713T22 13h-2Zm-8-8q-.425 0-.713-.288T11 4V2q0-.425.288-.713T12 1q.425 0 .713.288T13 2v2q0 .425-.288.713T12 5Zm0 18q-.425 0-.713-.288T11 22v-2q0-.425.288-.713T12 19q.425 0 .713.288T13 20v2q0 .425-.288.713T12 23ZM5.65 7.05L4.575 6q-.3-.275-.288-.7t.288-.725q.3-.3.725-.3t.7.3L7.05 5.65q.275.3.275.7t-.275.7q-.275.3-.687.288T5.65 7.05ZM18 19.425l-1.05-1.075q-.275-.3-.275-.713t.275-.687q.275-.3.688-.287t.712.287L19.425 18q.3.275.288.7t-.288.725q-.3.3-.725.3t-.7-.3ZM16.95 7.05q-.3-.275-.288-.687t.288-.713L18 4.575q.275-.3.7-.288t.725.288q.3.3.3.725t-.3.7L18.35 7.05q-.3.275-.7.275t-.7-.275ZM4.575 19.425q-.3-.3-.3-.725t.3-.7l1.075-1.05q.3-.275.712-.275t.688.275q.3.275.288.688t-.288.712L6 19.425q-.275.3-.7.288t-.725-.288Z"
+            />
+          </svg>
+        </div>
+
+        <div id="profileIcon" class="profile_icon"></div>
+
+        <div id="profileCard" class="profile_card">
+          <svg
+            role="button"
+            id="closeProfileCard"
+            class="close_profile_card"
+            height="200"
+            width="200"
+            viewBox="0 0 21 21"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m7.5 7.5l6 6m0-6l-6 6"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <ul>
+            <li>
+              <p class="business-name"></p>
+              <p id="userEmail">...</p>
+            </li>
+            <div class="line"></div>
+            <li role="button" onclick="window.location.href = `guide.html`">
+              Guide
+            </li>
+            <div class="line"></div>
+            <li
+              role="button"
+              onclick="window.location.href = 'about-page.html'"
+            >
+              About
+            </li>
+            <div class="line"></div>
+            <li id="logOut" role="button">Sign Out</li>
+          </ul>
+        </div>
+      </div>
     </header>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div id="logOutModel" class="logout_model">
+      <p>Sign Out of this account ?</p>
+      <div class="btns_div">
+        <button id="cancelLogOut">Cancel</button>
+        <button id="confirmLogOut">Sign Out</button>
+      </div>
+    </div>
 
     <aside class="side_bar">
       <ul>
@@ -150,13 +193,20 @@
           Summary
         </li>
       </ul>
-      <!-- Settings -->
+
+      <div class="bottom-profile-card">
+        <div id="bottom-profile-icon" class="bottom_profile_icon">?</div>
+        <div class="right-container">
+          <p id="business-name" class="business-name">...</p>
+          <p id="products-count" class="products-count"></p>
+        </div>
+      </div>
     </aside>
 
     <main>
       <div class="dateHistoryDiv">
         <div class="date-display-container">
-          <h1 id="business-name"></h1>
+          <h1 id="top-business-name"></h1>
           <p id="dateDisplay"></p>
         </div>
 
@@ -177,11 +227,8 @@
         <div class="left-container">
           <h2>Record New Sale</h2>
 
-          <p class="select_item" style="font-weight: 600">
-            What are we selling ? <br />
-            <span style="color: gray; font-weight: normal">
-              Select from products list below ↓
-            </span>
+          <p class="select_item" style="font-weight: 600; text-align: center">
+            What are we selling ?
           </p>
 
           <select name="list" id="products-list"></select>
@@ -234,7 +281,100 @@
     </main>
 
     <footer>
-      <ul>
+      <ul class="phone-navigation">
+        <li role="button" onclick="window.location.href = `home.html`">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 1024 1024"
+          >
+            <path
+              fill="currentColor"
+              d="M1016.7 513.36L536.331 10.192a31.924 31.924 0 0 0-23.088-9.84a32.038 32.038 0 0 0-23.088 9.84L7.307 513.344c-12.24 12.752-11.808 32.992.944 45.248c12.752 12.224 32.992 11.872 45.248-.944l43.007-44.832v478.832c0 17.68 14.336 32 32 32h223.552c17.632 0 31.936-14.256 32-31.905l1.008-319.664h254.992v319.568c0 17.68 14.32 32 32 32H895.53c17.68 0 32-14.32 32-32V512.655l42.992 45.04a31.997 31.997 0 0 0 23.09 9.84c7.967 0 15.967-2.944 22.16-8.944c12.736-12.224 13.152-32.48.928-45.232zm-153.165-58.544v504.831H704.063V640.095c0-17.68-14.32-32-32-32h-318.88c-17.632 0-31.936 14.256-32 31.904l-1.008 319.664H160.511V454.815c0-2.64-.416-5.168-1.008-7.632L513.263 78.56l351.424 368.208c-.688 2.592-1.152 5.264-1.152 8.048z"
+            />
+          </svg>
+          <span>Home</span>
+        </li>
+        <li role="button" class="current">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 256 256"
+            fill="gray"
+          >
+            <g
+              id="galaAdd0"
+              fill="none"
+              stroke="currentColor"
+              stroke-dasharray="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-miterlimit="4"
+              stroke-opacity="1"
+              stroke-width="16"
+            >
+              <circle id="galaAdd1" cx="128" cy="128" r="112" />
+              <path id="galaAdd2" d="M 79.999992,128 H 176.0001" />
+              <path id="galaAdd3" d="m 128.00004,79.99995 v 96.0001" />
+            </g>
+          </svg>
+          <span> Add Sale</span>
+        </li>
+        <li role="button" onclick="window.location.href = 'summary.html'">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 36 36"
+          >
+            <path
+              fill="currentColor"
+              d="M15 32h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1Zm-3-2h2v-2h-2Z"
+              class="clr-i-outline clr-i-outline-path-1"
+            />
+            <path
+              fill="currentColor"
+              d="M15 16h-4a1 1 0 0 0-1 1v1.2H5.8V12H7a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h1.2v17.8h6.36a.8.8 0 0 0 0-1.6H5.8v-8.4H10V21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1ZM4 8h2v2H4Zm10 12h-2v-2h2Z"
+              class="clr-i-outline clr-i-outline-path-2"
+            />
+            <path
+              fill="currentColor"
+              d="M34 9a1 1 0 0 0-1-1H10v2h23a1 1 0 0 0 1-1Z"
+              class="clr-i-outline clr-i-outline-path-3"
+            />
+            <path
+              fill="currentColor"
+              d="M33 18H18v2h15a1 1 0 0 0 0-2Z"
+              class="clr-i-outline clr-i-outline-path-4"
+            />
+            <path
+              fill="currentColor"
+              d="M33 28H18v2h15a1 1 0 0 0 0-2Z"
+              class="clr-i-outline clr-i-outline-path-5"
+            />
+            <path fill="none" d="M0 0h36v36H0z" />
+          </svg>
+          <span>Summary</span>
+        </li>
+        <li>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 2048 2048"
+          >
+            <path
+              fill="currentColor"
+              d="m960 120l832 416v1040l-832 415l-832-415V536l832-416zm625 456L960 264L719 384l621 314l245-122zM960 888l238-118l-622-314l-241 120l625 312zM256 680v816l640 320v-816L256 680zm768 1136l640-320V680l-640 320v816z"
+            />
+          </svg>
+          <span>Products</span>
+        </li>
+      </ul>
+
+      <ul class="larg-screen-footer-links">
         <li onclick="window.location.href = `guide.html`">Guide</li>
         <li onclick="window.location.href = 'about-page.html'">About</li>
       </ul>

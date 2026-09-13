@@ -131,7 +131,7 @@ const displayUserEmail = async () => {
 
       setTimeout(() => {
         window.location.href = "auth.html";
-      }, 3000);
+      }, 2000);
     }
 
     return;
@@ -162,9 +162,6 @@ const applyTheme = (theme) => {
 
   elements.darkModeButton.style.display = isDark ? "none" : "block";
   elements.lightModeButton.style.display = isDark ? "block" : "none";
-
-  elements.selectedPage.style.backgroundColor =
-    isDark ? "rgb(76, 75, 75)" : "rgb(240, 238, 238)";
 };
 
 const initializeTheme = () => {
@@ -452,6 +449,7 @@ const fetchSalesSummary = async () => {
     const sales = await fetchSales();
 
     renderSales(sales);
+    document.getElementById("total-sales-btn").textContent = ` ${sales.length}`;
   } catch (error) {
     console.error("Error loading sales summary:", error);
 
