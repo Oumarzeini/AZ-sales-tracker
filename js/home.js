@@ -629,7 +629,7 @@ const initializeApp = async () => {
   } catch (error) {
     console.error("Application initialization failed:", error);
 
-    showNotif("Something went wrong while loading the dashboard.", failedSvg);
+    showNotif("Something went wrong while loading the page.", failedSvg);
   }
 };
 

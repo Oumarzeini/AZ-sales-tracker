@@ -262,7 +262,7 @@ const setTotalSalesCount = async (activeDayId) => {
   try {
     const { data: sales, error } = await supabase
       .from("sales")
-      .select("id, items(price)")
+      .select("id")
       .eq("business_day_id", activeDayId);
 
     if (error) {

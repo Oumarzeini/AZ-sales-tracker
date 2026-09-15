@@ -11,7 +11,7 @@
   --LIGHT-SECONDARY: #f7ae25;
   --WHITE: white;
   --DARK-BG: #050505;
-  --DARK-COLOR:#d098309b;
+  --DARK-COLOR: #d098309b;
   --BORDER-COLOR: rgba(128, 128, 128, 0.209);
   --NAVBAR-COLOR: gray;
 }
@@ -81,7 +81,7 @@ body {
   transition: opacity 0.2s linear;
 
   &.show {
-     padding: 10px;
+    padding: 10px;
     padding-top: 30px;
     height: fit-content;
     opacity: 1;
@@ -118,14 +118,14 @@ body {
     }
 
     & #userEmail {
-      font-size: .7rem;
+      font-size: 0.7rem;
     }
 
     & .line {
       width: 100%;
       background-color: var(--BORDER-COLOR);
       height: 1px;
-      margin-block: .5rem;
+      margin-block: 0.5rem;
     }
 
     & #logOut {
@@ -140,8 +140,8 @@ body {
       width: 80%;
       display: grid;
       place-content: center;
-      font-size: .8rem;
-      letter-spacing: .01rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.01rem;
     }
   }
 }
@@ -170,7 +170,7 @@ body.dark_mode .profile_card {
   gap: 20px;
   display: none;
 
-    & p {
+  & p {
     font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
@@ -240,8 +240,6 @@ header {
   }
 }
 
-
-
 header ul {
   display: flex;
   justify-content: flex-start;
@@ -256,18 +254,18 @@ header ul {
 }
 
 .total-sales-btn {
-  font-size: .85rem;
+  font-size: 0.85rem;
   background-color: #d0983069;
   color: var(--PRIMARY-COLOR);
   padding: 5px;
   padding-inline: 15px;
   border-radius: 5px;
   border: 1px solid var(--PRIMARY-COLOR);
- font-weight: 500;
+  font-weight: 500;
 }
 body.dark_mode .total-sales-btn {
-   color: var(--SECONDARY-COLOR);
-   border-color: var(--SECONDARY-COLOR);
+  color: var(--SECONDARY-COLOR);
+  border-color: var(--SECONDARY-COLOR);
 }
 
 header img {
@@ -298,13 +296,26 @@ aside li {
   gap: 10px;
   font-weight: 500;
   color: var(--NAVBAR-COLOR);
-  padding: 5px;
-  padding-left: 10px;
+  white-space: nowrap;
+
   font-size: 0.9rem;
+  padding: 8px;
+  padding-left: 10px;
 
   & svg {
     width: 15px;
     height: 15px;
+  }
+}
+
+aside li:hover {
+  background-color: #d0983030;
+  border-radius: 20px;
+  corner-shape: squircle;
+  color: var(--PRIMARY-COLOR);
+
+  & svg {
+    color: var(--PRIMARY-COLOR);
   }
 }
 
@@ -313,16 +324,17 @@ aside li {
   padding: 5px;
   padding-left: 10px; */
 
-   color: var(--PRIMARY-COLOR);
-      background-color: #d0983030;
-      padding: 8px;
-      padding-left: 10px;
-      border-radius: 20px;
-      corner-shape: squircle;
+  color: var(--PRIMARY-COLOR);
+  background-color: #d0983030;
+  padding: 8px;
+  padding-left: 10px;
+  border-radius: 20px;
+  corner-shape: squircle;
 
-      & svg {
-        color: var(--PRIMARY-COLOR) !important;
-      }
+  & svg {
+    color: var(--PRIMARY-COLOR) !important;
+    fill: var(--PRIMARY-COLOR);
+  }
 }
 
 body.dark_mode #selected_page {
@@ -346,7 +358,7 @@ body.dark_mode #selected_page {
     width: 30px;
     height: 30px;
     border-radius: 20px;
-   corner-shape: squircle;
+    corner-shape: squircle;
     border: 1px solid var(--LIGHT-PRIMARY);
     display: flex;
     justify-content: center;
@@ -360,7 +372,6 @@ body.dark_mode #selected_page {
   & .right-container {
     display: flex;
     flex-direction: column;
-    
 
     font-size: 0.9rem;
 
@@ -373,7 +384,7 @@ body.dark_mode #selected_page {
       font-size: 0.7rem;
       white-space: nowrap;
       font-weight: 500;
-      letter-spacing: .02rem;
+      letter-spacing: 0.02rem;
       color: gray;
     }
   }
@@ -519,8 +530,8 @@ body.dark_mode table tr {
   padding-left: 10px;
   margin-top: auto;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.142);
-    padding: 10px;
-    border-radius: 10px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .total_revenue_number {
@@ -677,17 +688,18 @@ footer .phone-navigation {
   & li {
     list-style-type: none;
     margin: 0;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-weight: 600;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+   white-space: nowrap;
     gap: 5px;
-     padding: 8px;
-      padding-inline: 15px;
+    padding: 8px;
+    padding-inline: 15px;
 
-    &.current  {
+    &.current {
       color: var(--PRIMARY-COLOR);
       background-color: #d0983030;
       width: fit-content;
@@ -705,16 +717,13 @@ body.dark_mode .phone-navigation {
   box-shadow: 0 8px 20px #d098308c;
 
   & li {
-     color: var(--PRIMARY-COLOR) ;
-     
+    color: var(--PRIMARY-COLOR);
 
-  &.current {
-    color: var(--SECONDARY-COLOR) ;
-  }
+    &.current {
+      color: var(--SECONDARY-COLOR);
+    }
   }
 }
-
-
 
 .notif_container {
   position: fixed;
@@ -775,7 +784,6 @@ body.dark_mode .phone-navigation {
   }
 
   header ul {
-  
     font-weight: 500;
   }
 
@@ -784,7 +792,7 @@ body.dark_mode .phone-navigation {
   }
 
   #logOut {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .profile_card {
@@ -793,7 +801,7 @@ body.dark_mode .phone-navigation {
     }
 
     & #userEmail {
-      font-size: .8rem;
+      font-size: 0.8rem;
     }
   }
 
@@ -811,7 +819,6 @@ body.dark_mode .phone-navigation {
     flex-direction: column;
     justify-content: flex-start;
     gap: 30px;
-    
   }
 
   .sales_breakdown {
@@ -846,7 +853,6 @@ body.dark_mode .phone-navigation {
   footer .larg-screen-footer-links {
     display: none;
   }
-
 }
 
 @media (min-width: 600px) {
