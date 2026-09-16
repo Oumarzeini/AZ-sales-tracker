@@ -137,6 +137,7 @@ const displayUserEmail = async () => {
 
   if (user) {
     elements.userEmail.textContent = user.email;
+    document.querySelector(".business-email").textContent = user.email;
   }
 };
 
@@ -207,9 +208,16 @@ const getBusinessName = async () => {
     }
 
     elements.productsCount.textContent = `Total Products : ${products.length}`;
-    const businessName = shortName(name[0].name);
+
+    const abbr = shortName(name[0].name);
+    const businessName = abbr;
+
+    document.getElementById("business-default-avatar").textContent = abbr;
+
     elements.displayName.textContent = name[0].name;
-    document.querySelector(".business-name").textContent = name[0].name;
+    document
+      .querySelectorAll(".business-name")
+      .forEach((el) => (el.textContent = name[0].name));
     elements.profileIcon.innerHTML = `<span>${businessName}</span>`;
     elements.bottomProfileIcon.innerHTML = `<span>${businessName}</span>`;
   } catch (err) {
@@ -305,19 +313,88 @@ const checkOrCreateBusinessDay = async () => {
   }
 };
 
-const renderProducts = () => {
-  try {
-    const productContainer = document.createElement("div");
-    productContainer.className = "product-container";
+const renderProducts = (query = "") => {
+  document.getElementById("products-wrapper").innerHTML = "";
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase()),
+  );
 
-    products.map((product) => {
+  try {
+    filteredProducts.map((product) => {
       const productContainer = document.createElement("div");
       productContainer.className = "product-container";
 
-      document.getElementById("products-wrapper").append(productContainer);
+      productContainer.innerHTML = `
+      <p class="product-name"> <span>${product.name}</span>  </p>
+      <p class="product-price">Price : ${product.price} <span class="price-mad">MAD</span> </p>
+        <p class="product-cost">Cost : ${product.cost} <span class="cost-mad">MAD</span> </p>
+      `;
+
+      const actionsContainer = document.createElement("div");
+      actionsContainer.className = "actions-container";
+
+      actionsContainer.innerHTML = `
+      <button><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-square-pen"
+                >
+                  <path
+                    d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path
+                    d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"
+                  /></svg> </button>
+         
+ <button> <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+          <path d="M3 6h18" />
+          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+        </svg> </button>
+                 
+      `;
+
+      productContainer.append(actionsContainer);
+      document.getElementById("products-wrapper").prepend(productContainer);
     });
-  } catch (err) {}
+  } catch (err) {
+    console.log("Error rendering products", err);
+  }
 };
+
+renderProducts();
+
+const handleSearch = () => {
+  const searchForm = document.getElementById("search-products-form");
+  const searchInput = document.getElementById("search-input");
+
+  searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    renderProducts(searchInput.value);
+  });
+};
+
+handleSearch();
 
 const initializeApp = async () => {
   try {

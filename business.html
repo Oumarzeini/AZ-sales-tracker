@@ -79,7 +79,7 @@
           </svg>
           <ul>
             <li>
-              <p class="business-name">Email</p>
+              <p class="business-name">...</p>
               <p id="userEmail">...</p>
             </li>
             <div class="line"></div>
@@ -217,11 +217,11 @@
       <div class="upper-container">
         <div class="business-profile-container">
           <div id="business-default-avatar" class="business-default-avatar">
-            TS
+            ...
           </div>
           <div class="right-container">
-            <p id="business-name" class="business-name">
-              Tech Stuff
+            <p>
+              <span class="business-name"></span>
               <span
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -243,9 +243,7 @@
                   /></svg
               ></span>
             </p>
-            <p id="products-count" class="products-count">
-              techstuff@gmail.com
-            </p>
+            <p class="products-count business-email"></p>
           </div>
         </div>
         <div class="new-product-container">
@@ -266,12 +264,48 @@
         </div>
       </div>
 
-      <div class="manage-products-container">
-        <p>Manage Your Products</p>
-        <p>
-          Edit Your products names, prices or costs, Or delete unwanted ones
-        </p>
-      </div>
+      <section class="products-section" id="products-section">
+        <div class="fixed-products-header">
+          <div class="manage-products-container">
+            <p>Manage Your Products</p>
+            <p>
+              Edit Your products names, prices or costs, Or delete unwanted ones
+            </p>
+          </div>
+
+          <form id="search-products-form" class="search-products-form">
+            <input
+              type="text"
+              name="search-input"
+              id="search-input"
+              class="search-input"
+              placeholder="search products..."
+              autocomplete="off"
+            />
+
+            <button type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-search"
+                id="search-icon"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <div id="products-wrapper" class="products-wrapper"></div>
+      </section>
 
       <button class="add-new-product-small-screen">
         <svg
@@ -283,37 +317,6 @@
           <path d="M13 4v7h7v2h-7v7h-2v-7H4v-2h7V4h2Z" fill="currentColor" />
         </svg>
       </button>
-
-      <form class="search-products-form">
-        <input
-          type="text"
-          name="search-input"
-          id="search-input"
-          class="search-input"
-          placeholder="search products..."
-        />
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-search"
-        >
-          <path d="m21 21-4.34-4.34" />
-          <circle cx="11" cy="11" r="8" />
-        </svg>
-      </form>
-
-      <div id="products-wrapper" class="products-wrapper">
-        <div class="product-container"></div>
-        <div class="product-container"></div>
-      </div>
     </main>
 
     <footer>
