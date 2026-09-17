@@ -3,6 +3,7 @@ import supabase from "./config.js";
 import products from "./sample-products.js";
 
 let currentBusinessDayId;
+let currentUserEmail;
 
 const successSvg = `
   <svg
@@ -74,6 +75,15 @@ const elements = {
   notifText: document.getElementById("notifText"),
 
   logOutButton: document.getElementById("logOut"),
+
+  changeNameButton: document.getElementById("change-name-btn change-name-btn"),
+  updateProductButton: document.getElementById("update-product-btn"),
+  addNewProductButtonLarge: document.getElementById(
+    "add-new-product-btn-large",
+  ),
+  addNewProductButtonSmall: document.getElementById(
+    "add-new-product-btn-small",
+  ),
 };
 
 const showNotif = (text, icon) => {
@@ -94,7 +104,7 @@ const showNotif = (text, icon) => {
   }, 3300);
 };
 
-//check if user is authenticated
+//auth
 
 const checkAuth = async () => {
   const {
@@ -137,8 +147,9 @@ const displayUserEmail = async () => {
 
   if (user) {
     elements.userEmail.textContent = user.email;
-    document.querySelector(".business-email").textContent = user.email;
+    currentUserEmail = user.email;
   }
+  return user.email;
 };
 
 const signOut = async () => {
@@ -151,6 +162,47 @@ const signOut = async () => {
   }
 
   window.location.href = "auth.html";
+};
+
+const changeBusinessName = async (name) => {
+  const saveBtn = document.getElementById("save-business-name-btn");
+  try {
+    saveBtn.textContent = "Saving...";
+    saveBtn.disabled = true;
+    saveBtn.style.opacity = "0.5";
+
+    const user = await getUser();
+
+    if (!user) throw new Error("Couldn't Get User!");
+
+    const { error } = await supabase
+      .from("businesses")
+      .update({ name })
+      .eq("owner_id", user.id);
+
+    if (error) {
+      throw error;
+    }
+
+    saveBtn.textContent = "Save";
+    saveBtn.disabled = false;
+    saveBtn.style.opacity = "1";
+    document.getElementById("change-name-model").style.display = "none";
+    elements.overlay.style.display = "none";
+    getBusinessName();
+    showNotif("Business Name Changed", successSvg);
+  } catch (err) {
+    console.lo("Error changing business name: ", err.message || err);
+
+    showNotif(
+      `Error changing business name : ${err.message || err} `,
+      failedSvg,
+    );
+
+    saveBtn.textContent = "Save";
+    saveBtn.disabled = false;
+    saveBtn.style.opacity = "1";
+  }
 };
 
 //THEME
@@ -218,14 +270,150 @@ const getBusinessName = async () => {
     document
       .querySelectorAll(".business-name")
       .forEach((el) => (el.textContent = name[0].name));
+
     elements.profileIcon.innerHTML = `<span>${businessName}</span>`;
     elements.bottomProfileIcon.innerHTML = `<span>${businessName}</span>`;
+
+    currentUserEmail = await displayUserEmail();
+
+    document.getElementById("profile-right-container").innerHTML = `
+       <p>
+                  <span class="business-name">${name[0].name} </span>
+                  <span id="change-name-btn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-square-pen"
+                    >
+                      <path
+                        d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                      />
+                      <path
+                        d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"
+                      />
+                    </svg>
+                  </span>
+                </p>
+                <p class="products-count business-email">${currentUserEmail}</p>
+    `;
   } catch (err) {
     console.log("Error getting user", err);
   }
 };
 
 getBusinessName();
+
+const addNewProduct = async (name, price, cost) => {
+  const addBtn = document.getElementById("add-new-product-btn");
+  try {
+    addBtn.textContent = "Adding...";
+    addBtn.disabled = true;
+    addBtn.style.opacity = "0.5";
+
+    const user = await getUser();
+
+    if (!user) {
+      throw new Error("Couldn't get user");
+    }
+
+    const { error } = await supabase
+      .from("items")
+      .insert([{ name, price, cost, user_email: user.email }])
+      .eq("user_id", user.id);
+
+    if (error) {
+      if (error.message.includes("duplicate key")) {
+        throw new Error("This product exists already.");
+      }
+
+      throw error;
+    }
+
+    showNotif("Product Added.", successSvg);
+    addBtn.textContent = "Add Product";
+    addBtn.disabled = false;
+    addBtn.style.opacity = "1";
+  } catch (err) {
+    console.log("Error Adding new Product: ", err.message || err);
+    showNotif(`Error Adding New Product: ${err.message || err} `, failedSvg);
+    addBtn.textContent = "Add Product";
+    addBtn.disabled = false;
+    addBtn.style.opacity = "1";
+  }
+};
+
+const handleModels = async () => {
+  const changeNameModel = document.getElementById("change-name-model");
+  const updateProductModel = document.getElementById("update-product-model");
+  const deleteProductPopup = document.getElementById("delete-popup");
+  const newProductModel = document.getElementById("new-product-model");
+
+  //Name change logic
+  await getBusinessName();
+  document.getElementById("change-name-btn").onclick = () => {
+    elements.overlay.style.display = "block";
+    changeNameModel.style.display = "flex";
+  };
+
+  changeNameModel.querySelector(".cancel-btn").onclick = () => {
+    elements.overlay.style.display = "none";
+    changeNameModel.style.display = "none";
+  };
+
+  changeNameModel.querySelector(".change-name-form").onsubmit = async (e) => {
+    e.preventDefault();
+
+    const name = changeNameModel
+      .querySelector("#new-business-name")
+      .value.trim();
+
+    await changeBusinessName(name);
+  };
+
+  //update product logic
+
+  //add new product logic
+  document.querySelectorAll(".add-new-product").forEach(
+    (el) =>
+      (el.onclick = () => {
+        overlay.style.display = "flex";
+        newProductModel.style.display = "flex";
+      }),
+  );
+
+  newProductModel.querySelector(".cancel_btn").onclick = () => {
+    elements.overlay.style.display = "none";
+    newProductModel.style.display = "none";
+  };
+
+  newProductModel.querySelector("#new-product-form").onsubmit = async (e) => {
+    e.preventDefault();
+
+    const name = newProductModel.querySelector("#product-name").value.trim();
+    const price = newProductModel.querySelector("#product-price").value.trim();
+    const cost = newProductModel.querySelector("#product-cost").value.trim();
+
+    if (!name || !price || !cost) return;
+
+    await addNewProduct(name, price, cost);
+
+    newProductModel.querySelector("#product-name").value = "";
+    newProductModel.querySelector("#product-price").value = "";
+    newProductModel.querySelector("#product-cost").value = "";
+
+    elements.overlay.style.display = "none";
+    newProductModel.style.display = "none";
+  };
+};
+
+handleModels();
 
 const initializeProfileEvents = () => {
   elements.profileIcon.addEventListener("click", () => {
@@ -313,11 +501,22 @@ const checkOrCreateBusinessDay = async () => {
   }
 };
 
-const renderProducts = (query = "") => {
+const renderProducts = async (query = "") => {
   document.getElementById("products-wrapper").innerHTML = "";
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(query.toLowerCase()),
   );
+
+  // const user = await getUser();
+
+  // if (!user) return;
+
+  // const { data: userProducts, error } = await supabase
+  //   .from("items")
+  //   .select("item_id, name, price, cost")
+  //   .eq("user_id", user.id);
+
+  // console.log(userProducts);
 
   try {
     filteredProducts.map((product) => {
