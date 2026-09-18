@@ -763,6 +763,7 @@ const initializeApp = async () => {
     await setTotalSalesCount(currentBusinessDayId);
     await displayUserEmail();
     handleProductActions();
+    handleModels();
   } catch (error) {
     console.error("Application initialization failed:", error);
 

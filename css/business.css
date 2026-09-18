@@ -680,6 +680,10 @@ body.dark_mode .search-input {
     min-height: fit-content;
     box-shadow: 0 0 4px rgba(128, 128, 128, 0.504);
 
+    &:hover {
+         box-shadow: 0 0 4px #673b20b5;
+    }
+
     & svg {
       color: var(--PRIMARY-COLOR);
     }
@@ -850,13 +854,14 @@ body.dark_mode .phone-navigation {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    gap: 5px;
+    gap: 10px;
     width: 100%;
 
     /* LABELS */
     & label {
       font-weight: 500;
       color: var(--PRIMARY-COLOR);
+      font-size: 1rem;
     }
 
     /* INPUTS */
@@ -967,7 +972,7 @@ body.dark_mode .change-name-model {
       letter-spacing: 1px;
       font-size: 1rem;
       border-radius: 5px;
-      width: 100px;
+      width: fit-content;
       cursor: pointer;
     }
 
@@ -1114,6 +1119,11 @@ body.dark_mode .new-product-model {
   flex-direction: column;
   display: none;
   z-index: 102;
+
+  & h3 {
+    color: var(--SECONDARY-COLOR);
+    margin-bottom: 1rem;
+  }
 
   & form {
     display: flex;

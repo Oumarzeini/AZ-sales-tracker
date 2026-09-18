@@ -727,6 +727,61 @@ body.dark_mode .phone-navigation {
   }
 }
 
+.delete-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--WHITE);
+  width: fit-content;
+  min-width: 350px;
+  height: auto;
+  border: 1px solid var(--BORDER-COLOR);
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  display: none;
+  z-index: 102;
+
+  & p {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--PRIMARY-COLOR);
+  }
+
+  & .btns-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+
+    & button {
+      padding: 8px 10px;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      border-radius: 5px;
+      width: fit-content;
+      cursor: pointer;
+    }
+
+    & button:nth-child(1) {
+      background-color: transparent;
+      border: 1px solid var(--PRIMARY-COLOR);
+      color: var(--PRIMARY-COLOR);
+    }
+
+    & button:nth-child(2) {
+      background-color: var(--PRIMARY-COLOR);
+      border: 1px solid var(--PRIMARY-COLOR);
+      color: var(--SECONDARY-COLOR);
+    }
+  }
+}
+
 .notif_container {
   position: fixed;
   bottom: 5%;

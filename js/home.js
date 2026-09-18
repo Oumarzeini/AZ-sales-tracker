@@ -461,41 +461,64 @@ const fetchSalesSummary = async () => {
 };
 
 const deleteSale = async (saleId) => {
-  try {
-    const user = await getUser();
+  const popup = document.getElementById("delete-popup");
+  const cancelButton = popup.querySelector(".cancel-btn");
+  const deleteButton = popup.querySelector(".delete-btn");
 
-    if (!user) {
-      throw new Error("Could not find the current user.");
+  elements.overlay.style.display = "block";
+  popup.style.display = "flex";
+
+  cancelButton.onclick = () => {
+    elements.overlay.style.display = "none";
+    popup.style.display = "none";
+    return;
+  };
+
+  deleteButton.onclick = async () => {
+    deleteButton.disabled = true;
+    deleteButton.style.opacity = "0.5";
+    deleteButton.textContent = "Removing...";
+
+    try {
+      const user = await getUser();
+
+      if (!user) {
+        throw new Error("Could not find the current user.");
+      }
+
+      if (!activeDayId) {
+        activeDayId = await checkOrCreateBusinessDay();
+      }
+
+      const { data, error } = await supabase
+        .from("sales")
+        .delete()
+        .eq("id", saleId)
+        .select("id");
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data?.length) {
+        throw new Error(
+          "No matching sale was deleted. Check the sale ID or database permissions.",
+        );
+      }
+
+      showNotif("Sale Removed", successSvg);
+      await fetchSalesSummary();
+      elements.overlay.style.display = "none";
+      popup.style.display = "none";
+    } catch (error) {
+      console.error("Error deleting sale:", error);
+      showNotif(`Error deleting sale: ${error.message}`, failedSvg);
+    } finally {
+      deleteButton.disabled = false;
+      deleteButton.style.opacity = "1";
+      deleteButton.textContent = "Remove";
     }
-
-    if (!activeDayId) {
-      activeDayId = await checkOrCreateBusinessDay();
-    }
-
-    const { data, error } = await supabase
-      .from("sales")
-      .delete()
-      .eq("id", saleId)
-      .select("id");
-
-    if (error) {
-      throw error;
-    }
-
-    if (!data?.length) {
-      throw new Error(
-        "No matching sale was deleted. Check the sale ID or database permissions.",
-      );
-    }
-
-    showNotif("Sale deleted", successSvg);
-
-    await fetchSalesSummary();
-  } catch (error) {
-    console.error("Error deleting sale:", error);
-
-    showNotif(`Error deleting sale: ${error.message}`, failedSvg);
-  }
+  };
 };
 
 const subscribeToSalesUpdates = () => {
