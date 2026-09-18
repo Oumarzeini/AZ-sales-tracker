@@ -433,6 +433,7 @@
             type="text"
             id="new-business-name"
             placeholder="My business name"
+            required
           />
         </div>
 
@@ -446,12 +447,12 @@
     </div>
 
     <!-- Delete Popup -->
-    <div class="delete-popup">
+    <div id="delete-popup" class="delete-popup">
       <p>Delete Prodcut ?</p>
 
       <div class="btns-container">
-        <button>Cancel</button>
-        <button>Delete</button>
+        <button class="cancel-btn">Cancel</button>
+        <button class="delete-btn">Delete</button>
       </div>
     </div>
 
@@ -492,23 +493,25 @@
     <div id="update-product-model" class="update-product-model">
       <form id="update-product-form">
         <div class="input_label_div">
-          <label for="itemName">Product name</label>
-          <input type="text" id="itemName" required />
+          <label for="updated-product-name">Product name</label>
+          <input type="text" id="updated-product-name" required />
         </div>
 
         <div class="input_label_div">
-          <label for="itemPrice">Product price</label>
-          <input type="number" id="itemPrice" required />
+          <label for="updated-price">Product price</label>
+          <input type="number" id="updated-price" required />
         </div>
 
         <div class="input_label_div">
-          <label for="itemCost">Product Cost </label>
-          <input type="number" id="itemCost" required />
+          <label for="updated-cost">Product Cost </label>
+          <input type="number" id="updated-cost" required />
         </div>
 
         <div class="btns_div">
-          <button id="cancelBtn" class="cancel_btn">Cancel</button>
-          <button class="submit_btn" type="submit">Update Product</button>
+          <button type="reset" class="cancel_btn cancel-btn">Cancel</button>
+          <button class="submit_btn save-btn" type="submit">
+            Save Updates
+          </button>
         </div>
       </form>
     </div>

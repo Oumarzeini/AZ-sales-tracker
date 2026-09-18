@@ -599,7 +599,6 @@ const initializeSalesEvents = () => {
     }
 
     deleteButton.disabled = true;
-    console.log(saleId);
     await deleteSale(saleId);
 
     deleteButton.disabled = false;

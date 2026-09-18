@@ -165,6 +165,7 @@ const signOut = async () => {
 };
 
 const changeBusinessName = async (name) => {
+  if (!name || name === "") return;
   const saveBtn = document.getElementById("save-business-name-btn");
   try {
     saveBtn.textContent = "Saving...";
@@ -304,11 +305,100 @@ const getBusinessName = async () => {
                 <p class="products-count business-email">${currentUserEmail}</p>
     `;
   } catch (err) {
-    console.log("Error getting user", err);
+    console.log("Error getting business name : ", err);
   }
 };
 
 getBusinessName();
+
+const renderProducts = async (query = "") => {
+  document.getElementById("products-wrapper").innerHTML = "";
+
+  try {
+    const user = await getUser();
+
+    if (!user) {
+      throw new Error("User not found!");
+    }
+
+    const { data: userProducts, error: productsError } = await supabase
+      .from("items")
+      .select("id, name, price, cost")
+      .eq("user_id", user.id);
+
+    if (productsError) {
+      throw productsError;
+    }
+
+    const filtered = userProducts.filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase()),
+    );
+
+    //console.log(userProducts);
+
+    filtered.map((product) => {
+      const productContainer = document.createElement("div");
+      productContainer.className = "product-container";
+
+      productContainer.innerHTML = `
+      <p class="product-name"> <span>${product.name}</span>  </p>
+      <p class="product-price">Price : ${product.price} <span class="price-mad">MAD</span> </p>
+        <p class="product-cost">Cost : ${product.cost} <span class="cost-mad">MAD</span> </p>
+      `;
+
+      const actionsContainer = document.createElement("div");
+      actionsContainer.className = "actions-container";
+
+      actionsContainer.innerHTML = `
+      <button data-name="${product.name}" data-price="${product.price}" data-cost="${product.cost}"  class="edit-btn" data-id="${product.id}" ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-square-pen"
+                >
+                  <path
+                    d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path
+                    d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"
+                  /></svg> </button>
+         
+ <button class="delete-btn" data-id=${product.id}> <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M10 11v6" />
+          <path d="M14 11v6" />
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+          <path d="M3 6h18" />
+          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+        </svg> </button>
+                 
+      `;
+
+      productContainer.append(actionsContainer);
+      document.getElementById("products-wrapper").prepend(productContainer);
+    });
+  } catch (err) {
+    console.log("Error rendering products", err);
+  }
+};
+
+renderProducts();
 
 const addNewProduct = async (name, price, cost) => {
   const addBtn = document.getElementById("add-new-product-btn");
@@ -340,6 +430,8 @@ const addNewProduct = async (name, price, cost) => {
     addBtn.textContent = "Add Product";
     addBtn.disabled = false;
     addBtn.style.opacity = "1";
+    await renderProducts();
+    await getBusinessName();
   } catch (err) {
     console.log("Error Adding new Product: ", err.message || err);
     showNotif(`Error Adding New Product: ${err.message || err} `, failedSvg);
@@ -351,8 +443,6 @@ const addNewProduct = async (name, price, cost) => {
 
 const handleModels = async () => {
   const changeNameModel = document.getElementById("change-name-model");
-  const updateProductModel = document.getElementById("update-product-model");
-  const deleteProductPopup = document.getElementById("delete-popup");
   const newProductModel = document.getElementById("new-product-model");
 
   //Name change logic
@@ -376,8 +466,6 @@ const handleModels = async () => {
 
     await changeBusinessName(name);
   };
-
-  //update product logic
 
   //add new product logic
   document.querySelectorAll(".add-new-product").forEach(
@@ -501,87 +589,152 @@ const checkOrCreateBusinessDay = async () => {
   }
 };
 
-const renderProducts = async (query = "") => {
-  document.getElementById("products-wrapper").innerHTML = "";
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(query.toLowerCase()),
-  );
+const handleProductActions = async () => {
+  document
+    .getElementById("products-wrapper")
+    .addEventListener("click", async (e) => {
+      const editButton = e.target.closest(".edit-btn");
+      const deleteButton = e.target.closest(".delete-btn");
 
-  // const user = await getUser();
+      if (editButton) {
+        const productId = editButton.dataset.id;
+        const productName = editButton.dataset.name;
+        const productPrice = editButton.dataset.price;
+        const productCost = editButton.dataset.cost;
+        await editProduct(productId, productName, productPrice, productCost);
+      }
 
-  // if (!user) return;
-
-  // const { data: userProducts, error } = await supabase
-  //   .from("items")
-  //   .select("item_id, name, price, cost")
-  //   .eq("user_id", user.id);
-
-  // console.log(userProducts);
-
-  try {
-    filteredProducts.map((product) => {
-      const productContainer = document.createElement("div");
-      productContainer.className = "product-container";
-
-      productContainer.innerHTML = `
-      <p class="product-name"> <span>${product.name}</span>  </p>
-      <p class="product-price">Price : ${product.price} <span class="price-mad">MAD</span> </p>
-        <p class="product-cost">Cost : ${product.cost} <span class="cost-mad">MAD</span> </p>
-      `;
-
-      const actionsContainer = document.createElement("div");
-      actionsContainer.className = "actions-container";
-
-      actionsContainer.innerHTML = `
-      <button><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-square-pen"
-                >
-                  <path
-                    d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                  />
-                  <path
-                    d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"
-                  /></svg> </button>
-         
- <button> <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M10 11v6" />
-          <path d="M14 11v6" />
-          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-          <path d="M3 6h18" />
-          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-        </svg> </button>
-                 
-      `;
-
-      productContainer.append(actionsContainer);
-      document.getElementById("products-wrapper").prepend(productContainer);
+      if (deleteButton) {
+        const productId = deleteButton.dataset.id;
+        await deleteProduct(productId);
+      }
     });
-  } catch (err) {
-    console.log("Error rendering products", err);
-  }
 };
 
-renderProducts();
+const editProduct = async (productId, name, price, cost) => {
+  const editProductModel = document.getElementById("update-product-model");
+
+  //buttons and inputs
+  const saveButton = editProductModel.querySelector(".save-btn");
+  const cancelButton = editProductModel.querySelector(".cancel-btn");
+  const updatedName = editProductModel.querySelector("#updated-product-name");
+  const updatedPrice = editProductModel.querySelector("#updated-price");
+  const updatedCost = editProductModel.querySelector("#updated-cost");
+
+  elements.overlay.style.display = "block";
+  editProductModel.style.display = "flex";
+
+  //display current product values
+  updatedName.value = name;
+  updatedPrice.value = price;
+  updatedCost.value = cost;
+
+  //actions
+  cancelButton.onclick = () => {
+    editProductModel.style.display = "none";
+    elements.overlay.style.display = "none";
+    return;
+  };
+
+  saveButton.onclick = async (e) => {
+    e.preventDefault();
+
+    if (!updatedName.value || !updatedPrice.value || !updatedCost.value) {
+      console.warn(
+        "no input values: ",
+        updatedName.value,
+        updatedPrice.value,
+        updatedCost.value,
+      );
+      return;
+    }
+
+    const trimmedValues = {
+      name: updatedName.value.trim(),
+      price: updatedPrice.value.trim(),
+      cost: updatedCost.value.trim(),
+    };
+
+    if (
+      trimmedValues.name === name &&
+      trimmedValues.price === price &&
+      trimmedValues.cost === cost
+    ) {
+      showNotif("No Changes Spotted", infoSvg);
+      return;
+    }
+
+    saveButton.disabled = true;
+    saveButton.style.opacity = "0.5";
+    saveButton.textContent = "Saving Updates...";
+    try {
+      const { error } = await supabase
+        .from("items")
+        .update({
+          name: trimmedValues.name,
+          price: trimmedValues.price,
+          cost: trimmedValues.cost,
+        })
+        .eq("id", productId);
+      if (error) throw error;
+
+      renderProducts();
+      showNotif("Product Updated successfully", successSvg);
+      editProductModel.style.display = "none";
+      elements.overlay.style.display = "none";
+      console.log("product updated successfully");
+    } catch (err) {
+      console.log("Error updating Product: ", err.message || err);
+      showNotif(`Error updating Product: ${err.message || err}`, failedSvg);
+    } finally {
+      saveButton.disabled = false;
+      saveButton.style.opacity = "1";
+      saveButton.textContent = "Save Updates";
+    }
+  };
+};
+
+const deleteProduct = async (productId) => {
+  const deleteProductPopup = document.getElementById("delete-popup");
+  const cancelButton = deleteProductPopup.querySelector(".cancel-btn");
+  const deleteButton = deleteProductPopup.querySelector(".delete-btn");
+
+  deleteProductPopup.style.display = "flex";
+  elements.overlay.style.display = "block";
+
+  cancelButton.onclick = () => {
+    deleteProductPopup.style.display = "none";
+    elements.overlay.style.display = "none";
+    return;
+  };
+
+  deleteButton.onclick = async () => {
+    try {
+      deleteButton.disabled = true;
+      deleteButton.style.opacity = "0.5";
+      deleteButton.textContent = "Deleting...";
+
+      const { error } = await supabase
+        .from("items")
+        .delete()
+        .eq("id", productId);
+
+      if (error) throw error;
+      showNotif("Product Deleted", successSvg);
+      deleteProductPopup.style.display = "none";
+      elements.overlay.style.display = "none";
+      await renderProducts();
+      await getBusinessName();
+    } catch (err) {
+      console.log("Error deleting product: ", err.message || err);
+      showNotif(`Error deleting Product: ${err.message || err} `, failedSvg);
+    } finally {
+      deleteButton.disabled = false;
+      deleteButton.style.opacity = "1";
+      deleteButton.textContent = "Delete";
+    }
+  };
+};
 
 const handleSearch = () => {
   const searchForm = document.getElementById("search-products-form");
@@ -609,6 +762,7 @@ const initializeApp = async () => {
     await checkOrCreateBusinessDay();
     await setTotalSalesCount(currentBusinessDayId);
     await displayUserEmail();
+    handleProductActions();
   } catch (error) {
     console.error("Application initialization failed:", error);
 
